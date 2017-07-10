@@ -1,7 +1,6 @@
-package nz.co.canadia.horseplays.screens;
+package nz.co.canadia.horseplays;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -9,30 +8,28 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import nz.co.canadia.horseplays.HorsePlays;
-import nz.co.canadia.horseplays.TheatreScreen;
 import nz.co.canadia.horseplays.util.Constants;
 
 /**
- * Title screen to show on launch
+ * The stage screen where the game is played.
  */
 
-public class TitleScreen implements Screen {
+public class TheatreScreen implements Screen {
     private final HorsePlays game;
     private BitmapFont font;
     private OrthographicCamera camera;
     private Viewport viewport;
 
-    public TitleScreen (final HorsePlays game) {
-        this.game = game;
+    private Theatre theatre;
 
-        font = new BitmapFont(Gdx.files.internal("fonts/TlwgMonoBold64.fnt"));
+    public TheatreScreen(final HorsePlays game) {
+        this.game = game;
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Constants.APP_WIDTH, Constants.APP_HEIGHT);
-        viewport = new FitViewport(Constants.APP_WIDTH, Constants.APP_HEIGHT,
-                camera);
+        viewport = new FitViewport(Constants.APP_WIDTH, Constants.APP_HEIGHT, camera);
 
+        theatre = new Theatre();
     }
 
     @Override
@@ -41,31 +38,16 @@ public class TitleScreen implements Screen {
     }
 
     @Override
-    public void render (float delta) {
-        Gdx.gl.glClearColor(168/255f, 16/255f, 6/255f, 1);
+    public void render(float delta) {
+        Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
-        font.setColor(Constants.FONT_COLOR);
-        font.draw(game.batch, "HORSE PLAYS", 100, 100);
-
+        theatre.draw(game.batch);
         game.batch.end();
-
-        // ESC or BACK quits the game
-        Gdx.input.setCatchBackKey(true);
-        if (Gdx.input.isKeyPressed(Input.Keys.BACK)
-                || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            Gdx.app.exit();
-        }
-
-        // any other input means start the game
-        if (Gdx.input.isTouched() || Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)) {
-            game.setScreen(new TheatreScreen(game));
-            dispose();
-        }
     }
 
     @Override
@@ -90,6 +72,7 @@ public class TitleScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        theatre.dispose();
+        font.dispose();
     }
 }
