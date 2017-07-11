@@ -45,6 +45,8 @@ public class TheatreScreen implements Screen {
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
 
+        theatre.update();
+
         game.batch.begin();
         theatre.draw(game.batch);
         game.batch.end();

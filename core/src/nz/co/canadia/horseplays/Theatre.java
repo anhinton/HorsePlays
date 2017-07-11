@@ -1,6 +1,7 @@
 package nz.co.canadia.horseplays;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -22,6 +23,8 @@ class Theatre {
     private Horse horse02;
     private Curtains curtains;
 
+    private boolean showActive;
+
     Theatre() {
         stage = new TheatreStage(0, 0);
         backdrop = new Backdrop(Constants.APP_WIDTH / 2, stage.getHeight());
@@ -34,10 +37,30 @@ class Theatre {
                 Constants.APP_HEIGHT * 8 / 9,
                 true);
         horseTexture01 = new Texture(Gdx.files.internal("graphics/horse01.png"));
-        horse01 = new Horse(horseTexture01, Constants.APP_WIDTH / 4, stage.getHeight(), true);
+        horse01 = new Horse(horseTexture01, stage.getHeight(), true,
+                Constants.Side.LEFT);
         horseTexture02 = new Texture(Gdx.files.internal("graphics/horse02.png"));
-        horse02 = new Horse(horseTexture02, Constants.APP_WIDTH * 3 / 4, stage.getHeight(), true);
+        horse02 = new Horse(horseTexture02, stage.getHeight(), true,
+                Constants.Side.RIGHT);
         curtains = new Curtains();
+
+        showActive = false;
+    }
+
+    void update() {
+        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
+            if (!showActive) {
+                startShow();
+            }
+            if (showActive) {
+               // endShow();
+            }
+
+        }
+
+        curtains.update();
+        horse01.update();
+        horse02.update();
     }
 
     void draw (SpriteBatch batch) {
@@ -58,5 +81,17 @@ class Theatre {
         spotlight01.dispose();
         spotlight02.dispose();
         stage.dispose();
+    }
+
+    void startShow() {
+        showActive = true;
+        curtains.open();
+        horse01.enter();
+        horse02.enter();
+    }
+
+    void endShow() {
+        showActive = false;
+        curtains.close();
     }
 }

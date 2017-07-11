@@ -15,4 +15,6 @@ public class Constants {
             6/255f, 1);
     public static final Color FONT_COLOR = new Color(1, 1, 1, 1);
 
+    public static final float CURTAIN_SPEED = 200;
+    public enum Side { LEFT, RIGHT }
 }
