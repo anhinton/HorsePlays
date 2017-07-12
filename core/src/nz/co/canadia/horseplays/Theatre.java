@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Timer;
 
 import nz.co.canadia.horseplays.util.Constants;
 
@@ -86,7 +87,12 @@ class Theatre {
     void startShow() {
         showActive = true;
         curtains.open();
-        horse01.enter();
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                horse01.enter();
+            }
+        }, 2);
         horse02.enter();
     }
 
