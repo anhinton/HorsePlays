@@ -12,13 +12,13 @@ import nz.co.canadia.horseplays.util.Constants;
  * Why it's a course, definitely
  */
 
-public class Horse {
+class Horse {
     private Sprite sprite;
 
     private Constants.Side side;
-    private boolean entering;
+    private boolean moving;
 
-    private float target;
+    private float targetX;
     private float changeX;
 
     Horse (Texture texture, float y, boolean flip, Constants.Side side) {
@@ -28,20 +28,18 @@ public class Horse {
                 texture.getHeight());
         sprite = new Sprite(region);
         sprite.flip(flip, false);
-
         switch (side) {
             case LEFT:
-                sprite.setPosition(0 - sprite.getWidth(), y);
-                target = Constants.APP_WIDTH / 4;
+                sprite.setPosition(-sprite.getWidth(), y);
                 break;
             case RIGHT:
                 sprite.setPosition(Constants.APP_WIDTH, y);
-                target = Constants.APP_WIDTH * 3 / 4;
                 break;
         }
 
         this.side = side;
-        entering = false;
+        targetX = 0;
+        moving = false;
         changeX = 0;
     }
 
@@ -53,26 +51,28 @@ public class Horse {
     }
 
     void update() {
-        if (entering) {
-            if (Math.abs(sprite.getX() + sprite.getWidth() / 2 - target) < 5) {
-                entering = false;
-                changeX = 0;
+        if (moving) {
+            if (Math.abs(sprite.getX() - targetX) < 5) {
+                moving = false;
+                sprite.setX(targetX);
             } else {
-                switch (side) {
-                    case LEFT:
-                        changeX = Constants.CURTAIN_SPEED;
-                        break;
-                    case RIGHT:
-                        changeX = -Constants.CURTAIN_SPEED;
-                        break;
-                }
-                sprite.setX(sprite.getX() + changeX * Gdx.graphics.getDeltaTime());
+                sprite.setX(sprite.getX() + changeX);
             }
         }
     }
 
     void enter() {
-        entering = true;
+        moving = true;
+        switch (side) {
+            case LEFT:
+                changeX = Constants.HORSE_SPEED * Gdx.graphics.getDeltaTime();
+                targetX = Constants.HORSE_MARK - sprite.getWidth() / 2;
+                break;
+            case RIGHT:
+                changeX = -Constants.HORSE_SPEED * Gdx.graphics.getDeltaTime();
+                targetX = Constants.APP_WIDTH - Constants.HORSE_MARK - sprite.getWidth() / 2;
+                break;
+        }
     }
 
 }
