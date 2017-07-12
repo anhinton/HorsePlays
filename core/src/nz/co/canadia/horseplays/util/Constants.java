@@ -16,5 +16,6 @@ public class Constants {
     public static final Color FONT_COLOR = new Color(1, 1, 1, 1);
 
     public static final float CURTAIN_SPEED = 200;
+    public static final float OPEN_CURTAIN_WIDTH = APP_WIDTH / 16;
     public enum Side { LEFT, RIGHT }
 }

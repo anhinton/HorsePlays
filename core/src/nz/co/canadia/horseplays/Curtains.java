@@ -17,10 +17,12 @@ class Curtains {
     private Sprite leftSprite;
     private Sprite rightSprite;
 
-    boolean open;
-    boolean opening;
-    boolean closed;
-    boolean closing;
+    private boolean leftMoving;
+    private boolean rightMoving;
+    private float leftTargetX;
+    private float leftChangeX;
+    private float rightTargetX;
+    private float rightChangeX;
 
     Curtains() {
         texture = new Texture(Gdx.files.internal("graphics/curtain.png"));
@@ -34,41 +36,31 @@ class Curtains {
         rightSprite = new Sprite(region);
         rightSprite.setPosition(Constants.APP_WIDTH / 2, 0);
 
-        open = false;
-        opening = false;
-        closed = true;
-        closing = false;
+        leftMoving = false;
+        rightMoving = false;
+        leftTargetX = Constants.APP_WIDTH / 2;
+        rightTargetX = Constants.APP_WIDTH / 2;
+        leftChangeX = 0;
+        rightChangeX = 0;
     }
 
     void update() {
-        if (opening & !open) {
+        if (leftMoving) {
             // open left curtain
-            if (Math.abs(leftSprite.getX() + leftSprite.getWidth() * 7 / 8) < 2) {
-                opening = false;
-                open = true;
+            if (Math.abs(leftSprite.getX() - leftTargetX) < 2) {
+                leftMoving = false;
+                leftSprite.setX(leftTargetX);
             } else {
-                leftSprite.setX(leftSprite.getX() - Constants.CURTAIN_SPEED * Gdx.graphics.getDeltaTime());
-            }
-            // open right curtain
-            if (Math.abs(rightSprite.getX() + rightSprite.getWidth() / 8) < 2) {
-                opening = false;
-            } else {
-                rightSprite.setX(rightSprite.getX() + Constants.CURTAIN_SPEED * Gdx.graphics.getDeltaTime());
+                leftSprite.setX(leftSprite.getX() + leftChangeX);
             }
         }
-        if (closing & !closed) {
-            // close left curtain
-            if (Math.abs(leftSprite.getX() + leftSprite.getWidth()) < 2) {
-                closing = false;
-                closed = true;
+        if (rightMoving) {
+            // open right curtain
+            if (Math.abs(rightSprite.getX() - rightTargetX) < 2) {
+                rightMoving = false;
+                rightSprite.setX(rightSprite.getX() + rightChangeX);
             } else {
-                leftSprite.setX(leftSprite.getX() + Constants.CURTAIN_SPEED * Gdx.graphics.getDeltaTime());
-            }
-            // close right curtain
-            if (Math.abs(rightSprite.getX() + rightSprite.getWidth()) < 2) {
-                closing = false;
-            } else {
-                rightSprite.setX(rightSprite.getX() - Constants.CURTAIN_SPEED * Gdx.graphics.getDeltaTime());
+                rightSprite.setX(rightSprite.getX() + rightChangeX);
             }
         }
     }
@@ -83,14 +75,15 @@ class Curtains {
     }
 
     void open () {
-        closing = false;
-        closed = false;
-        opening = true;
+        leftMoving = true;
+        leftTargetX = Constants.OPEN_CURTAIN_WIDTH - leftSprite.getWidth();
+        leftChangeX = -Constants.CURTAIN_SPEED * Gdx.graphics.getDeltaTime();
+        rightMoving = true;
+        rightTargetX = Constants.APP_WIDTH - Constants.OPEN_CURTAIN_WIDTH;
+        rightChangeX = Constants.CURTAIN_SPEED * Gdx.graphics.getDeltaTime();
     }
 
     void close () {
-        open = false;
-        opening = false;
-        closing = true;
+
     }
 }
