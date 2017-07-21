@@ -24,7 +24,8 @@ class Theatre {
     private Horse horse02;
     private Curtains curtains;
 
-    private boolean showActive;
+    private Constants.TheatreScene currentTheatreScene;
+    private boolean animating;
 
     Theatre() {
         stage = new TheatreStage(0, 0);
@@ -45,20 +46,46 @@ class Theatre {
                 Constants.Side.RIGHT);
         curtains = new Curtains();
 
-        showActive = false;
+        currentTheatreScene = Constants.TheatreScene.START;
+        animating = false;
     }
 
     void update() {
         if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
-            if (!showActive) {
-                startShow();
+            switch (currentTheatreScene) {
+                case START:
+                    startShow();
+                    break;
+                case OPENING:
+                    break;
+                case PERFORMING:
+                    endShow();
+                    break;
+                case CLOSING:
+                    break;
+                case FINISHED:
+                    break;
             }
-            if (showActive) {
-               // endShow();
-            }
-
         }
 
+        // check animation state
+        animating = curtains.isMoving();
+
+        // advance to next theatre scene
+        switch (currentTheatreScene) {
+            case OPENING:
+                if (!animating) {
+                    currentTheatreScene = Constants.TheatreScene.PERFORMING;
+                }
+                break;
+            case CLOSING:
+                if (!animating) {
+                    currentTheatreScene = Constants.TheatreScene.FINISHED;
+                }
+                break;
+        }
+
+        // update objects
         curtains.update();
         horse01.update();
         horse02.update();
@@ -84,20 +111,27 @@ class Theatre {
         stage.dispose();
     }
 
-    void startShow() {
-        showActive = true;
+    private void startShow() {
         curtains.open();
         Timer.schedule(new Timer.Task() {
             @Override
             public void run() {
                 horse01.enter();
+                horse02.enter();
             }
         }, 2);
-        horse02.enter();
+        currentTheatreScene = Constants.TheatreScene.OPENING;
     }
 
-    void endShow() {
-        showActive = false;
-        curtains.close();
+    private void endShow() {
+        horse01.exit();
+        horse02.exit();
+        Timer.schedule(new Timer.Task() {
+            @Override
+            public void run() {
+                curtains.close();
+            }
+        }, 2);
+        currentTheatreScene = Constants.TheatreScene.CLOSING;
     }
 }

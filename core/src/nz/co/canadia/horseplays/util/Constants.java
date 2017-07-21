@@ -21,4 +21,9 @@ public class Constants {
 
     public static final float HORSE_SPEED = CURTAIN_SPEED;
     public static final float HORSE_MARK = APP_WIDTH / 4;
+
+    // a scene is used to work out what part of the game we are up to
+    public enum TheatreScene {
+        START, OPENING, PERFORMING, CLOSING, FINISHED
+    }
 }

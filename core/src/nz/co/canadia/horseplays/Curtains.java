@@ -44,6 +44,10 @@ class Curtains {
         rightChangeX = 0;
     }
 
+    boolean isMoving () {
+        return leftMoving | rightMoving;
+    }
+
     void update() {
         if (leftMoving) {
             // open left curtain
@@ -84,6 +88,11 @@ class Curtains {
     }
 
     void close () {
-
+        leftMoving = true;
+        leftTargetX = 0;
+        leftChangeX = Constants.CURTAIN_SPEED * Gdx.graphics.getDeltaTime();
+        rightMoving = true;
+        rightTargetX = Constants.APP_WIDTH / 2;
+        rightChangeX = -Constants.CURTAIN_SPEED * Gdx.graphics.getDeltaTime();
     }
 }

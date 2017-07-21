@@ -75,4 +75,18 @@ class Horse {
         }
     }
 
+    void exit() {
+        moving = true;
+        switch (side) {
+            case LEFT:
+                changeX = -Constants.HORSE_SPEED * Gdx.graphics.getDeltaTime();
+                targetX = Constants.APP_WIDTH - sprite.getWidth() / 2;
+                break;
+            case RIGHT:
+                changeX = Constants.HORSE_SPEED * Gdx.graphics.getDeltaTime();
+                targetX = Constants.APP_WIDTH;
+                break;
+        }
+    }
+
 }
