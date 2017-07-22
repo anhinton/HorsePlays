@@ -69,7 +69,7 @@ class Theatre {
         }
 
         // check animation state
-        animating = curtains.isMoving();
+        animating = curtains.isMoving() | horse01.isMoving() | horse02.isMoving();
 
         // advance to next theatre scene
         switch (currentTheatreScene) {
@@ -80,7 +80,7 @@ class Theatre {
                 break;
             case CLOSING:
                 if (!animating) {
-                    currentTheatreScene = Constants.TheatreScene.FINISHED;
+                    currentTheatreScene = Constants.TheatreScene.START;
                 }
                 break;
         }

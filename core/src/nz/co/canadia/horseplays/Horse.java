@@ -47,6 +47,10 @@ class Horse {
         totalChange = 0;
     }
 
+    boolean isMoving() {
+        return moving;
+    }
+
     void draw (SpriteBatch batch) {
         sprite.draw(batch);
     }
@@ -87,7 +91,7 @@ class Horse {
         switch (side) {
             case LEFT:
                 changeX = -Constants.HORSE_SPEED * Gdx.graphics.getDeltaTime();
-                targetX = Constants.APP_WIDTH - sprite.getWidth() / 2;
+                targetX = -sprite.getWidth();
                 break;
             case RIGHT:
                 changeX = Constants.HORSE_SPEED * Gdx.graphics.getDeltaTime();
