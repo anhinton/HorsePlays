@@ -22,8 +22,16 @@ public class Constants {
     public static final float HORSE_SPEED = CURTAIN_SPEED;
     public static final float HORSE_MARK = APP_WIDTH / 4;
 
+    public static final float SPOTLIGHT_OFFSET_X = Constants.APP_WIDTH / 11;
+    public static final float SPOTLIGHT_OFFSET_Y = Constants.APP_HEIGHT * 8 / 9;
+
     // a scene is used to work out what part of the game we are up to
     public enum TheatreScene {
         START, OPENING, PERFORMING, CLOSING, FINISHED
+    }
+
+    // xoomLevel determines whether we are looking at the whole stage, or just one horse
+    public enum ZoomLevel {
+        WIDE, CLOSE
     }
 }

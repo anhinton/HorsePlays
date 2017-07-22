@@ -14,6 +14,7 @@ import nz.co.canadia.horseplays.util.Constants;
 
 class Horse {
     private Sprite sprite;
+    private Sprite spriteClose;
 
     private Constants.Side side;
     private boolean moving;
@@ -23,19 +24,30 @@ class Horse {
     private float distanceMoved;
     private float totalChange;
 
-    Horse (Texture texture, float y, boolean flip, Constants.Side side) {
-        sprite = new Sprite(texture, 0, 0, texture.getWidth(), texture.getHeight());
+    Horse (Texture texture, Texture textureClose, float y, boolean flip, Constants.Side side) {
+        // wide shot sprite
+//        sprite = new Sprite(texture, 0, 0, texture.getWidth(), texture.getHeight());
         texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         TextureRegion region = new TextureRegion(texture, 0, 0, texture.getWidth(),
                 texture.getHeight());
         sprite = new Sprite(region);
         sprite.flip(flip, false);
+
+        // close-up sprite
+//        spriteClose = new Sprite(texture, 0, 0, texture.getWidth(), texture.getHeight());
+        texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        TextureRegion regionClose = new TextureRegion(textureClose, 0, 0, textureClose.getWidth(),
+                textureClose.getHeight());
+        spriteClose = new Sprite(regionClose);
+        spriteClose.flip(flip, false);
         switch (side) {
             case LEFT:
                 sprite.setPosition(-sprite.getWidth(), y);
+                spriteClose.setPosition(0, 0);
                 break;
             case RIGHT:
                 sprite.setPosition(Constants.APP_WIDTH, y);
+                spriteClose.setPosition(Constants.APP_WIDTH - spriteClose.getWidth(), 0);
                 break;
         }
 
@@ -51,8 +63,15 @@ class Horse {
         return moving;
     }
 
-    void draw (SpriteBatch batch) {
-        sprite.draw(batch);
+    void draw (SpriteBatch batch, Constants.ZoomLevel currentZoomLevel) {
+        switch (currentZoomLevel) {
+            case WIDE:
+                sprite.draw(batch);
+                break;
+            case CLOSE:
+                spriteClose.draw(batch);
+                break;
+        }
     }
 
     void dispose () {

@@ -30,7 +30,7 @@ class Curtains {
 
     Curtains() {
         texture = new Texture(Gdx.files.internal("graphics/curtain.png"));
-        leftSprite = new Sprite(texture, 0, 0, texture.getWidth(), texture.getHeight());
+//        leftSprite = new Sprite(texture, 0, 0, texture.getWidth(), texture.getHeight());
         texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         TextureRegion region = new TextureRegion(texture, 0, 0, texture.getWidth(),
                 texture.getHeight());
