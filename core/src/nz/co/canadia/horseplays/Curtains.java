@@ -18,11 +18,15 @@ class Curtains {
     private Sprite rightSprite;
 
     private boolean leftMoving;
-    private boolean rightMoving;
     private float leftTargetX;
     private float leftChangeX;
+    private float leftDistanceMoved;
+    private float leftTotalDistance;
+    private boolean rightMoving;
     private float rightTargetX;
     private float rightChangeX;
+    private float rightDistanceMoved;
+    private float rightTotalDistance;
 
     Curtains() {
         texture = new Texture(Gdx.files.internal("graphics/curtain.png"));
@@ -37,10 +41,10 @@ class Curtains {
         rightSprite.setPosition(Constants.APP_WIDTH / 2, 0);
 
         leftMoving = false;
-        rightMoving = false;
         leftTargetX = Constants.APP_WIDTH / 2;
-        rightTargetX = Constants.APP_WIDTH / 2;
         leftChangeX = 0;
+        rightMoving = false;
+        rightTargetX = Constants.APP_WIDTH / 2;
         rightChangeX = 0;
     }
 
@@ -51,19 +55,21 @@ class Curtains {
     void update() {
         if (leftMoving) {
             // open left curtain
-            if (Math.abs(leftSprite.getX() - leftTargetX) < 2) {
+            if (leftDistanceMoved >= leftTotalDistance) {
                 leftMoving = false;
                 leftSprite.setX(leftTargetX);
             } else {
+                leftDistanceMoved += Math.abs(leftChangeX);
                 leftSprite.setX(leftSprite.getX() + leftChangeX);
             }
         }
         if (rightMoving) {
             // open right curtain
-            if (Math.abs(rightSprite.getX() - rightTargetX) < 2) {
+            if (rightDistanceMoved >= rightTotalDistance) {
                 rightMoving = false;
-                rightSprite.setX(rightSprite.getX() + rightChangeX);
+                rightSprite.setX(rightTargetX);
             } else {
+                rightDistanceMoved += Math.abs(rightChangeX);
                 rightSprite.setX(rightSprite.getX() + rightChangeX);
             }
         }
@@ -82,17 +88,25 @@ class Curtains {
         leftMoving = true;
         leftTargetX = Constants.OPEN_CURTAIN_WIDTH - leftSprite.getWidth();
         leftChangeX = -Constants.CURTAIN_SPEED * Gdx.graphics.getDeltaTime();
+        leftDistanceMoved = 0;
+        leftTotalDistance = Math.abs(leftSprite.getX() - leftTargetX);
         rightMoving = true;
         rightTargetX = Constants.APP_WIDTH - Constants.OPEN_CURTAIN_WIDTH;
         rightChangeX = Constants.CURTAIN_SPEED * Gdx.graphics.getDeltaTime();
+        rightDistanceMoved = 0;
+        rightTotalDistance = Math.abs(rightSprite.getX() - rightTargetX);
     }
 
     void close () {
         leftMoving = true;
         leftTargetX = 0;
         leftChangeX = Constants.CURTAIN_SPEED * Gdx.graphics.getDeltaTime();
+        leftDistanceMoved = 0;
+        leftTotalDistance = Math.abs(leftSprite.getX() - leftTargetX);
         rightMoving = true;
         rightTargetX = Constants.APP_WIDTH / 2;
         rightChangeX = -Constants.CURTAIN_SPEED * Gdx.graphics.getDeltaTime();
+        rightDistanceMoved = 0;
+        rightTotalDistance = Math.abs(rightSprite.getX() - rightTargetX);
     }
 }

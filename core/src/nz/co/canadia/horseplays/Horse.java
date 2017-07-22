@@ -20,6 +20,8 @@ class Horse {
 
     private float targetX;
     private float changeX;
+    private float distanceMoved;
+    private float totalChange;
 
     Horse (Texture texture, float y, boolean flip, Constants.Side side) {
         sprite = new Sprite(texture, 0, 0, texture.getWidth(), texture.getHeight());
@@ -41,6 +43,8 @@ class Horse {
         targetX = 0;
         moving = false;
         changeX = 0;
+        distanceMoved = 0;
+        totalChange = 0;
     }
 
     void draw (SpriteBatch batch) {
@@ -52,10 +56,11 @@ class Horse {
 
     void update() {
         if (moving) {
-            if (Math.abs(sprite.getX() - targetX) < 5) {
+            if (distanceMoved >= totalChange) {
                 moving = false;
                 sprite.setX(targetX);
             } else {
+                distanceMoved += Math.abs(changeX);
                 sprite.setX(sprite.getX() + changeX);
             }
         }
@@ -73,6 +78,8 @@ class Horse {
                 targetX = Constants.APP_WIDTH - Constants.HORSE_MARK - sprite.getWidth() / 2;
                 break;
         }
+        distanceMoved = 0;
+        totalChange = Math.abs(sprite.getX() - targetX);
     }
 
     void exit() {
@@ -87,6 +94,8 @@ class Horse {
                 targetX = Constants.APP_WIDTH;
                 break;
         }
+        distanceMoved = 0;
+        totalChange = Math.abs(sprite.getX() - targetX);
     }
 
 }
