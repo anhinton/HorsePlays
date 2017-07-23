@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 import nz.co.canadia.horseplays.util.Constants;
 
@@ -24,7 +25,11 @@ class Horse {
     private float distanceMoved;
     private float totalChange;
 
-    Horse (Texture texture, Texture textureClose, float y, boolean flip, Constants.Side side) {
+    private SpeechUI speechUI;
+
+    Horse (Texture texture, Texture textureClose, float y, boolean flip, Constants.Side side,
+           SpeechUI speechUI) {
+        this.speechUI = speechUI;
         // wide shot sprite
 //        sprite = new Sprite(texture, 0, 0, texture.getWidth(), texture.getHeight());
         texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -119,6 +124,10 @@ class Horse {
         }
         distanceMoved = 0;
         totalChange = Math.abs(sprite.getX() - targetX);
+    }
+
+    void speak (boolean speak) {
+        speechUI.speak("help me, Ronda");
     }
 
 }

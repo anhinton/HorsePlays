@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -23,6 +24,7 @@ public class TheatreScreen implements Screen, InputProcessor {
     private OrthographicCamera camera;
     private Viewport viewport;
     private Stage stage;
+    private Table table;
 
     private Theatre theatre;
 
@@ -33,12 +35,15 @@ public class TheatreScreen implements Screen, InputProcessor {
         camera.setToOrtho(false, Constants.APP_WIDTH, Constants.APP_HEIGHT);
         viewport = new FitViewport(Constants.APP_WIDTH, Constants.APP_HEIGHT, camera);
         stage = new Stage(viewport);
+        table = new Table();
+        table.setFillParent(true);
+        stage.addActor(table);
         InputMultiplexer multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(stage);
         multiplexer.addProcessor(this);
         Gdx.input.setInputProcessor(multiplexer);
 
-        theatre = new Theatre();
+        theatre = new Theatre(table);
     }
 
     @Override
@@ -59,12 +64,14 @@ public class TheatreScreen implements Screen, InputProcessor {
         game.batch.begin();
         theatre.draw(game.batch);
         game.batch.end();
+
+        stage.draw();
     }
 
     @Override
     public void resize(int width, int height) {
 //        viewport.update(width, height);
-        stage.getViewport().update(width, height);
+        stage.getViewport().update(width, height, true);
     }
 
     @Override
@@ -84,6 +91,7 @@ public class TheatreScreen implements Screen, InputProcessor {
 
     @Override
     public void dispose() {
+        stage.dispose();
         theatre.dispose();
         font.dispose();
     }
