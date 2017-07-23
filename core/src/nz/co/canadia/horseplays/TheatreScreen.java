@@ -1,10 +1,13 @@
 package nz.co.canadia.horseplays;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -14,11 +17,12 @@ import nz.co.canadia.horseplays.util.Constants;
  * The stage screen where the game is played.
  */
 
-public class TheatreScreen implements Screen {
+public class TheatreScreen implements Screen, InputProcessor {
     private final HorsePlays game;
     private BitmapFont font;
     private OrthographicCamera camera;
     private Viewport viewport;
+    private Stage stage;
 
     private Theatre theatre;
 
@@ -28,6 +32,11 @@ public class TheatreScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Constants.APP_WIDTH, Constants.APP_HEIGHT);
         viewport = new FitViewport(Constants.APP_WIDTH, Constants.APP_HEIGHT, camera);
+        stage = new Stage(viewport);
+        InputMultiplexer multiplexer = new InputMultiplexer();
+        multiplexer.addProcessor(stage);
+        multiplexer.addProcessor(this);
+        Gdx.input.setInputProcessor(multiplexer);
 
         theatre = new Theatre();
     }
@@ -54,7 +63,8 @@ public class TheatreScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height);
+//        viewport.update(width, height);
+        stage.getViewport().update(width, height);
     }
 
     @Override
@@ -76,5 +86,47 @@ public class TheatreScreen implements Screen {
     public void dispose() {
         theatre.dispose();
         font.dispose();
+    }
+
+    @Override
+    public boolean keyDown(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        theatre.setTouchDown(true);
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        theatre.setTouchDown(false);
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        return false;
     }
 }
