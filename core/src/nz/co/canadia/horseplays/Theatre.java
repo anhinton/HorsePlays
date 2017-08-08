@@ -1,15 +1,11 @@
 package nz.co.canadia.horseplays;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 import nz.co.canadia.horseplays.util.Constants;
 
@@ -17,7 +13,7 @@ import nz.co.canadia.horseplays.util.Constants;
  * The theatre in which we theatreStage our play
  */
 
-class Theatre {
+public class Theatre {
     private Table table;
     private SpeechUI speechUI;
 
@@ -41,7 +37,7 @@ class Theatre {
     private boolean prevTouchDown;
     private boolean touchDown;
 
-    Theatre (Table table) {
+    public Theatre(Table table) {
         this.table = table;
         speechUI = new SpeechUI(table);
         theatreStage = new TheatreStage(0, 0);
@@ -74,7 +70,7 @@ class Theatre {
         touchDown = false;
     }
 
-    void update() {
+    public void update() {
         // handle input
         if (touchDown & !prevTouchDown) {
             prevTouchDown = true;
@@ -139,7 +135,7 @@ class Theatre {
         }
     }
 
-    void draw (SpriteBatch batch) {
+    public void draw(SpriteBatch batch) {
         switch (currentZoomLevel) {
             case WIDE:
                 currentHorse.speak(false);
@@ -158,7 +154,7 @@ class Theatre {
         }
     }
 
-    void dispose() {
+    public void dispose() {
         backdrop.dispose();
         curtains.dispose();
         horseTexture01.dispose();
@@ -174,7 +170,7 @@ class Theatre {
         return touchDown;
     }
 
-    void setTouchDown(boolean touchDown) {
+    public void setTouchDown(boolean touchDown) {
         this.touchDown = touchDown;
     }
 

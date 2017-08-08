@@ -10,7 +10,6 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import nz.co.canadia.horseplays.HorsePlays;
-import nz.co.canadia.horseplays.TheatreScreen;
 import nz.co.canadia.horseplays.util.Constants;
 
 /**

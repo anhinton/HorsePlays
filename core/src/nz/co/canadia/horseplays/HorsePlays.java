@@ -14,7 +14,7 @@ public class HorsePlays extends Game {
 		shapeRenderer = new ShapeRenderer();
 
 		// show the intro screen
-		this.setScreen(new TheatreScreen(this));
+		this.setScreen(new nz.co.canadia.horseplays.screens.TheatreScreen(this));
 	}
 
 	@Override

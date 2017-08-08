@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<script>
+
+  <knot id = "intro" divert = "veryWell">  
+    <line actor = "1">help me to the loo"</line>
+    <line actor = "2">which loo, love?"</line>
+    <choices actor = "1">
+      <choice>the good one</choice>
+      <choice>the bad one</choice>
+      <choice>the other one</choice>
+    </choices>
+  </knot>
+  
+  <knot id = "veryWell">
+    <line actor = "2">very well</line>
+    <choices actor = "1">
+      <choice divert = "bloodyWell">it bloody well better be!</choice>
+      <choice divert = "allWorms">the best of all worms</choice>
+    </choices>    
+  </knot>
+
+  <knot id = "bloodyWell">
+    <line actor = "2">I'm bleeding</line>
+  </knot>
+
+  <knot id = "allWorms">
+    <line actor = "2">bloody worms</line>
+  </knot>
+
+</script>
