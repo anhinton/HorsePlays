@@ -16,7 +16,7 @@
     <choices actor = "1">
       <choice divert = "bloodyWell">it bloody well better be!</choice>
       <choice divert = "allWorms">the best of all worms</choice>
-    </choices>    
+    </choices>
   </knot>
 
   <knot id = "bloodyWell">

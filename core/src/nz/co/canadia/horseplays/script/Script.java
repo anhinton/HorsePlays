@@ -2,6 +2,7 @@ package nz.co.canadia.horseplays.script;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.OrderedMap;
 import com.badlogic.gdx.utils.XmlReader;
 
 import java.io.IOException;
@@ -11,17 +12,52 @@ import java.io.IOException;
  */
 
 public class Script {
-    Array<ScriptKnot> scriptKnots;
+    OrderedMap<String, ScriptKnot> scriptKnots;
     ScriptKnot currentKnot;
 
     public Script() {
 
+        scriptKnots = new OrderedMap<String, ScriptKnot>();
+
         XmlReader xmlReader = new XmlReader();
-        XmlReader.Element root;
-        Array<XmlReader.Element> knots;
+        XmlReader.Element rootElement;
+        Array<XmlReader.Element> knotElements;
+
         try {
-            root = xmlReader.parse(Gdx.files.internal("scripts/script.xml"));
-            knots = root.getChildrenByName("knot");
+            // get root element
+            rootElement = xmlReader.parse(Gdx.files.internal("scripts/script.xml"));
+
+            // get knot elements
+            knotElements = rootElement.getChildrenByName("knot");
+
+            for (XmlReader.Element knot : knotElements) {
+
+                // get knot id
+                String id = knot.getAttribute("id");
+                // get knot divert
+                String divert = knot.getAttribute("divert", "DONE");
+
+                // get line elements and create array of ScriptLines
+                Array<XmlReader.Element> lineElements = knot.getChildrenByName("line");
+                Array<ScriptLine> scriptLines = new Array<ScriptLine>();
+                for (XmlReader.Element line : lineElements) {
+                    scriptLines.add(new ScriptLine(line.getAttribute("actor"), line.getText()));
+                }
+
+                // get scriptChoices and create array of ScriptChoices
+                XmlReader.Element choicesElement = knot.getChildByName("choices");
+                String choiceActor = choicesElement.getAttribute("actor");
+
+                Array<XmlReader.Element> choiceElements = choicesElement.getChildrenByName("choice");
+                Array<ScriptChoice> scriptChoices = new Array<ScriptChoice>();
+                for (XmlReader.Element choice : choiceElements) {
+                    scriptChoices.add(new ScriptChoice(choiceActor, choice.getText(),
+                            choice.getAttribute("divert", divert)));
+                }
+
+                scriptKnots.put(id, new ScriptKnot(scriptLines, scriptChoices, id, divert));
+
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }

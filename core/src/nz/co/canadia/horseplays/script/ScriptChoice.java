@@ -1,17 +1,17 @@
 package nz.co.canadia.horseplays.script;
 
-import com.badlogic.gdx.utils.Array;
-
 /**
  * A dialog choice from a Script
  */
 
 public class ScriptChoice {
     String actor;
-    Array<String> choices;
+    String text;
+    String divert;
 
-    ScriptChoice (String actor, Array<String> choices) {
+    public ScriptChoice(String actor, String text, String divert) {
         this.actor = actor;
-        this.choices = choices;
+        this.text = text;
+        this.divert = divert;
     }
 }
