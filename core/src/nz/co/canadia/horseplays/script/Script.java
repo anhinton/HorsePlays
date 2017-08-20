@@ -12,7 +12,7 @@ import java.io.IOException;
  */
 
 public class Script {
-    OrderedMap<String, ScriptKnot> scriptKnots;
+    private OrderedMap<String, ScriptKnot> scriptKnots;
     ScriptKnot currentKnot;
 
     public Script() {
@@ -45,14 +45,16 @@ public class Script {
                 }
 
                 // get scriptChoices and create array of ScriptChoices
-                XmlReader.Element choicesElement = knot.getChildByName("choices");
-                String choiceActor = choicesElement.getAttribute("actor");
-
-                Array<XmlReader.Element> choiceElements = choicesElement.getChildrenByName("choice");
                 Array<ScriptChoice> scriptChoices = new Array<ScriptChoice>();
-                for (XmlReader.Element choice : choiceElements) {
-                    scriptChoices.add(new ScriptChoice(choiceActor, choice.getText(),
-                            choice.getAttribute("divert", divert)));
+                XmlReader.Element choicesElement = knot.getChildByName("choices");
+                if (choicesElement != null) {
+                    String choiceActor = choicesElement.getAttribute("actor");
+
+                    Array<XmlReader.Element> choiceElements = choicesElement.getChildrenByName("choice");
+                    for (XmlReader.Element choice : choiceElements) {
+                        scriptChoices.add(new ScriptChoice(choiceActor, choice.getText(),
+                                choice.getAttribute("divert", divert)));
+                    }
                 }
 
                 scriptKnots.put(id, new ScriptKnot(scriptLines, scriptChoices, id, divert));
