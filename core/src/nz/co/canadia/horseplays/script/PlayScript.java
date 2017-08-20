@@ -25,7 +25,7 @@ public class PlayScript {
 
         try {
             // get root element
-            rootElement = xmlReader.parse(Gdx.files.internal("scripts/script.xml"));
+            rootElement = xmlReader.parse(Gdx.files.internal("playscripts/playscript.xml"));
 
             // get knot elements
             knotElements = rootElement.getChildrenByName("knot");
