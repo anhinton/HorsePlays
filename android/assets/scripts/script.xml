@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<script>
+<playscript>
 
   <knot id = "intro" divert = "veryWell">  
     <line actor = "1">help me to the loo"</line>
@@ -27,4 +27,4 @@
     <line actor = "2">bloody worms</line>
   </knot>
 
-</script>
+</playscript>

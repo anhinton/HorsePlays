@@ -12,11 +12,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import java.io.IOException;
-
 import nz.co.canadia.horseplays.HorsePlays;
 import nz.co.canadia.horseplays.Theatre;
-import nz.co.canadia.horseplays.script.Script;
+import nz.co.canadia.horseplays.script.PlayScript;
 import nz.co.canadia.horseplays.util.Constants;
 
 /**
@@ -30,14 +28,14 @@ public class TheatreScreen implements Screen, InputProcessor {
     private Viewport viewport;
     private Stage stage;
     private Table table;
-    private Script script;
+    private PlayScript playScript;
 
     private Theatre theatre;
 
     public TheatreScreen(final HorsePlays game) {
         this.game = game;
 
-        script = new Script();
+        playScript = new PlayScript();
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Constants.APP_WIDTH, Constants.APP_HEIGHT);

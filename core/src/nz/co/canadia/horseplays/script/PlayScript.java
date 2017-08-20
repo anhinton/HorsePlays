@@ -11,11 +11,11 @@ import java.io.IOException;
  * The play script contains all the horse actor dialog and controls what happens on the Stage
  */
 
-public class Script {
+public class PlayScript {
     private OrderedMap<String, ScriptKnot> scriptKnots;
     ScriptKnot currentKnot;
 
-    public Script() {
+    public PlayScript() {
 
         scriptKnots = new OrderedMap<String, ScriptKnot>();
 
