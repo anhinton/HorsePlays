@@ -13,7 +13,8 @@ import java.io.IOException;
 
 public class PlayScript {
     private OrderedMap<String, ScriptKnot> scriptKnots;
-    ScriptKnot currentKnot;
+    private ScriptKnot currentKnot;
+    private int bombThreshold;
 
     public PlayScript() {
 
@@ -34,6 +35,10 @@ public class PlayScript {
 
                 // get knot id
                 String id = knot.getAttribute("id");
+                // get bombThreshold from "bomb" knot
+                if (id.equals("bomb")) {
+                    bombThreshold = knot.getIntAttribute("threshold");
+                }
                 // get knot divert
                 String divert = knot.getAttribute("divert", "DONE");
 
@@ -53,16 +58,20 @@ public class PlayScript {
                     Array<XmlReader.Element> choiceElements = choicesElement.getChildrenByName("choice");
                     for (XmlReader.Element choice : choiceElements) {
                         scriptChoices.add(new ScriptChoice(choiceActor, choice.getText(),
-                                choice.getAttribute("divert", divert)));
+                                choice.getAttribute("divert", divert),
+                                choice.getIntAttribute("bomb", 0)));
                     }
                 }
 
+                // create scriptKnot and add to array
                 scriptKnots.put(id, new ScriptKnot(scriptLines, scriptChoices, id, divert));
 
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        currentKnot = scriptKnots.get("start");
 
     }
 

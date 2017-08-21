@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <playscript>
 
-  <knot id = "intro" divert = "veryWell">  
+  <!-- script must have a "start" knot to start things off -->
+  <knot id = "start" divert = "veryWell">
     <line actor = "1">help me to the loo"</line>
     <line actor = "2">which loo, love?"</line>
     <choices actor = "1">
       <choice>the good one</choice>
-      <choice>the bad one</choice>
+      <!-- if a choice has a bomb value this is added to the bombcount when selected -->
+      <choice bomb = "1">the bad one</choice>
       <choice>the other one</choice>
     </choices>
   </knot>
@@ -14,7 +16,7 @@
   <knot id = "veryWell">
     <line actor = "2">very well</line>
     <choices actor = "1">
-      <choice divert = "bloodyWell">it bloody well better be!</choice>
+      <choice bomb = "1" divert = "bloodyWell">it bloody well better be!</choice>
       <choice divert = "allWorms">the best of all worms</choice>
     </choices>
   </knot>
@@ -25,6 +27,11 @@
 
   <knot id = "allWorms">
     <line actor = "2">bloody worms</line>
+  </knot>
+
+  <!-- if the bombCount crosses the threshold we run this knot -->
+  <knot id = "bomb" threshold = "2">
+    <line actor = "2">I am going home</line>
   </knot>
 
 </playscript>
