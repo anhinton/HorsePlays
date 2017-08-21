@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import nz.co.canadia.horseplays.Director;
 import nz.co.canadia.horseplays.HorsePlays;
 import nz.co.canadia.horseplays.Theatre;
 import nz.co.canadia.horseplays.script.PlayScript;
@@ -29,6 +30,7 @@ public class TheatreScreen implements Screen, InputProcessor {
     private Stage stage;
     private Table table;
     private PlayScript playScript;
+    private Director director;
 
     private Theatre theatre;
 
@@ -50,6 +52,7 @@ public class TheatreScreen implements Screen, InputProcessor {
         Gdx.input.setInputProcessor(multiplexer);
 
         theatre = new Theatre(table);
+        director = new Director(playScript, theatre);
     }
 
     @Override

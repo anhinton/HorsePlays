@@ -75,4 +75,7 @@ public class PlayScript {
 
     }
 
+    public ScriptKnot getCurrentKnot() {
+        return currentKnot;
+    }
 }

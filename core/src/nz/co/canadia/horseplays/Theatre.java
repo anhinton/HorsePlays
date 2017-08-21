@@ -208,4 +208,8 @@ public class Theatre {
         }
         return false;
     }
+
+    Array<Horse> getHorses() {
+        return horses;
+    }
 }
