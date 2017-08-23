@@ -5,11 +5,15 @@ package nz.co.canadia.horseplays.script;
  */
 
 public class ScriptLine {
-    String actor;
-    String text;
+    private String actor;
+    private String text;
 
-    public ScriptLine(String actor, String text) {
+    ScriptLine(String actor, String text) {
         this.actor = actor;
         this.text = text;
+    }
+
+    public String getText() {
+        return text;
     }
 }

@@ -3,8 +3,8 @@
 
   <!-- script must have a "start" knot to start things off -->
   <knot id = "start" divert = "veryWell">
-    <line actor = "1">help me to the loo"</line>
-    <line actor = "2">which loo, love?"</line>
+    <line actor = "1">help me to the loo</line>
+    <line actor = "2">which loo, love?</line>
     <choices actor = "1">
       <choice>the good one</choice>
       <!-- if a choice has a bomb value this is added to the bombcount when selected -->

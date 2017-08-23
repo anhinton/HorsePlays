@@ -12,17 +12,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import nz.co.canadia.horseplays.Director;
 import nz.co.canadia.horseplays.HorsePlays;
-import nz.co.canadia.horseplays.Theatre;
 import nz.co.canadia.horseplays.script.PlayScript;
 import nz.co.canadia.horseplays.util.Constants;
+import nz.co.canadia.horseplays.SpeechUI;
 
 /**
- * The stage screen where the game is played.
+ * Testing out my new dialog UI
  */
 
-class TheatreScreen implements Screen, InputProcessor {
+public class TestScreen implements Screen, InputProcessor {
     private final HorsePlays game;
     private BitmapFont font;
     private OrthographicCamera camera;
@@ -30,11 +29,10 @@ class TheatreScreen implements Screen, InputProcessor {
     private Stage stage;
     private Table table;
     private PlayScript playScript;
-    private Director director;
+    private SpeechUI speechUI;
+    private String text;
 
-    private Theatre theatre;
-
-    TheatreScreen(final HorsePlays game) {
+    public TestScreen(HorsePlays game) {
         this.game = game;
 
         playScript = new PlayScript();
@@ -51,8 +49,52 @@ class TheatreScreen implements Screen, InputProcessor {
         multiplexer.addProcessor(this);
         Gdx.input.setInputProcessor(multiplexer);
 
-        theatre = new Theatre(table);
-        director = new Director(playScript, theatre);
+        text = playScript.getCurrentLine().getText();
+
+        speechUI = new SpeechUI(table);
+        speechUI.speak(text);
+
+    }
+
+    @Override
+    public boolean keyDown(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        text = playScript.nextLine().getText();
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        return false;
     }
 
     @Override
@@ -62,17 +104,13 @@ class TheatreScreen implements Screen, InputProcessor {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
+        Gdx.gl.glClearColor(.5f, .6f, .1f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
+        speechUI.speak(text);
 
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
-
-        theatre.update();
-
-        game.batch.begin();
-        theatre.draw(game.batch);
-        game.batch.end();
 
         stage.draw();
     }
@@ -101,49 +139,6 @@ class TheatreScreen implements Screen, InputProcessor {
     @Override
     public void dispose() {
         stage.dispose();
-        theatre.dispose();
         font.dispose();
-    }
-
-    @Override
-    public boolean keyDown(int keycode) {
-        return false;
-    }
-
-    @Override
-    public boolean keyUp(int keycode) {
-        return false;
-    }
-
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        theatre.setTouchDown(true);
-        return false;
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        theatre.setTouchDown(false);
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
-
-    @Override
-    public boolean scrolled(int amount) {
-        return false;
     }
 }

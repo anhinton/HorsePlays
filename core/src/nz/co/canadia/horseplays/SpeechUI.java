@@ -15,13 +15,13 @@ import nz.co.canadia.horseplays.util.Constants;
  * This class puts our horse speech on screen
  */
 
-class SpeechUI {
+public class SpeechUI {
     private Table table;
     private NinePatchDrawable speechNinePatch01;
     private BitmapFont speechFont;
     private TextButton speechButton;
 
-    SpeechUI (Table table) {
+    public SpeechUI(Table table) {
         this.table = table;
         speechNinePatch01 = new NinePatchDrawable(
                 new NinePatch(
@@ -41,7 +41,7 @@ class SpeechUI {
         table.align(Align.left + Align.bottom);
     }
 
-    void speak (String s) {
+    public void speak (String s) {
         speechButton.setText(s);
     }
 }

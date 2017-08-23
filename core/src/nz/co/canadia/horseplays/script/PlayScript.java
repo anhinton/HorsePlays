@@ -78,4 +78,12 @@ public class PlayScript {
     public ScriptKnot getCurrentKnot() {
         return currentKnot;
     }
+
+    public ScriptLine getCurrentLine() {
+        return currentKnot.getCurrentScriptLine();
+    }
+
+    public ScriptLine nextLine() {
+        return currentKnot.nextLine();
+    }
 }
