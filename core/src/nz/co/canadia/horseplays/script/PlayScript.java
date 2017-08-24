@@ -83,7 +83,7 @@ public class PlayScript {
         return currentKnot.getCurrentScriptLine();
     }
 
-    public ScriptLine nextLine() {
-        return currentKnot.nextLine();
+    public void nextLine() {
+        currentKnot.nextLine();
     }
 }

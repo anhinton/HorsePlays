@@ -138,7 +138,7 @@ public class Theatre {
     public void draw(SpriteBatch batch) {
         switch (currentZoomLevel) {
             case WIDE:
-                currentHorse.speak(false);
+                //currentHorse.speak(false);
                 backdrop.draw(batch);
                 for (Horse horse : horses) {
                     horse.draw(batch, currentZoomLevel);
@@ -149,7 +149,7 @@ public class Theatre {
                 curtains.draw(batch);
                 break;
             case CLOSE:
-                currentHorse.speak(true);
+                //currentHorse.speak(true);
                 currentHorse.draw(batch, currentZoomLevel);
         }
     }

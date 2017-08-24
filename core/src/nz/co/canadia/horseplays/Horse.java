@@ -126,8 +126,4 @@ class Horse {
         totalChange = Math.abs(sprite.getX() - targetX);
     }
 
-    void speak (boolean speak) {
-        speechUI.speak("help me, Ronda");
-    }
-
 }

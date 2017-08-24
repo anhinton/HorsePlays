@@ -4,11 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Align;
 
+import nz.co.canadia.horseplays.script.PlayScript;
 import nz.co.canadia.horseplays.util.Constants;
 
 /**
@@ -36,12 +39,25 @@ public class SpeechUI {
                         speechNinePatch01, speechNinePatch01, speechNinePatch01, speechFont
                 )
         );
+        speechButton.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                System.out.println("down");
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                System.out.println("up");
+                super.touchUp(event, x, y, pointer, button);
+            }
+        });
         table.add(speechButton).width(Constants.APP_WIDTH / 2);
         table.pad(10);
         table.align(Align.left + Align.bottom);
     }
 
-    public void speak (String s) {
-        speechButton.setText(s);
+    public void speak (PlayScript playScript) {
+        speechButton.setText(playScript.getCurrentLine().getText());
     }
 }

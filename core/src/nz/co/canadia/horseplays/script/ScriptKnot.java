@@ -25,8 +25,7 @@ public class ScriptKnot {
         return scriptLines.get(currentScriptLine);
     }
 
-    ScriptLine nextLine() {
+    void nextLine() {
         currentScriptLine += 1;
-        return getCurrentScriptLine();
     }
 }

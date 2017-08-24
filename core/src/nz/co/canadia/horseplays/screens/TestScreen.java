@@ -7,6 +7,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
@@ -41,6 +43,17 @@ public class TestScreen implements Screen, InputProcessor {
         camera.setToOrtho(false, Constants.APP_WIDTH, Constants.APP_HEIGHT);
         viewport = new FitViewport(Constants.APP_WIDTH, Constants.APP_HEIGHT, camera);
         stage = new Stage(viewport);
+        stage.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                TestScreen.this.touchUp((int)(x), (int)(y), pointer, button);
+            }
+        });
         table = new Table();
         table.setFillParent(true);
         stage.addActor(table);
@@ -52,7 +65,7 @@ public class TestScreen implements Screen, InputProcessor {
         text = playScript.getCurrentLine().getText();
 
         speechUI = new SpeechUI(table);
-        speechUI.speak(text);
+        speechUI.speak(playScript);
 
     }
 
@@ -78,8 +91,8 @@ public class TestScreen implements Screen, InputProcessor {
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        text = playScript.nextLine().getText();
-        return false;
+        playScript.nextLine();
+        return true;
     }
 
     @Override
@@ -107,11 +120,12 @@ public class TestScreen implements Screen, InputProcessor {
         Gdx.gl.glClearColor(.5f, .6f, .1f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        speechUI.speak(text);
+        speechUI.speak(playScript);
 
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
 
+        stage.act();
         stage.draw();
     }
 
