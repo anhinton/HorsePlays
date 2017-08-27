@@ -28,4 +28,20 @@ public class ScriptKnot {
     void nextLine() {
         currentScriptLine += 1;
     }
+
+    boolean hasLine() {
+        return currentScriptLine < scriptLines.size;
+    }
+
+    boolean hasChoice() {
+        return scriptLines.size > 0;
+    }
+
+    Array<ScriptChoice> getChoices() {
+        return scriptChoices;
+    }
+
+    String getDivert() {
+        return divert;
+    }
 }

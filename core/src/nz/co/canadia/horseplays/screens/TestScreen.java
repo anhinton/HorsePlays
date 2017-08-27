@@ -64,8 +64,8 @@ public class TestScreen implements Screen, InputProcessor {
 
         text = playScript.getCurrentLine().getText();
 
-        speechUI = new SpeechUI(table);
-        speechUI.speak(playScript);
+        speechUI = new SpeechUI(table, playScript);
+        playScript.speakCurrentLine(speechUI);
 
     }
 
@@ -91,7 +91,14 @@ public class TestScreen implements Screen, InputProcessor {
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        playScript.nextLine();
+        if (playScript.hasLine()) {
+            playScript.speakCurrentLine(speechUI);
+        } else if (playScript.hasChoice()) {
+            playScript.speakChoice(speechUI);
+        } else {
+            playScript.nextKnot();
+            playScript.speakCurrentLine(speechUI);
+        }
         return true;
     }
 
@@ -119,8 +126,6 @@ public class TestScreen implements Screen, InputProcessor {
     public void render(float delta) {
         Gdx.gl.glClearColor(.5f, .6f, .1f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        speechUI.speak(playScript);
 
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);

@@ -7,6 +7,8 @@ import com.badlogic.gdx.utils.XmlReader;
 
 import java.io.IOException;
 
+import nz.co.canadia.horseplays.SpeechUI;
+
 /**
  * The play script contains all the horse actor dialog and controls what happens on the Stage
  */
@@ -83,7 +85,29 @@ public class PlayScript {
         return currentKnot.getCurrentScriptLine();
     }
 
-    public void nextLine() {
+    private void nextLine() {
         currentKnot.nextLine();
+    }
+
+    public void speakCurrentLine(SpeechUI speechUI) {
+        speechUI.speak(this.getCurrentLine());
+        nextLine();
+    }
+
+    public boolean hasLine() {
+        return currentKnot.hasLine();
+    }
+
+    public boolean hasChoice() {
+        return currentKnot.hasChoice();
+    }
+
+    public void speakChoice(SpeechUI speechUI) {
+        speechUI.speak(currentKnot.getChoices());
+    }
+
+    public void nextKnot() {
+        String divert = currentKnot.getDivert();
+        currentKnot = scriptKnots.get(divert);
     }
 }

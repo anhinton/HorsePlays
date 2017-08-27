@@ -4,7 +4,7 @@ package nz.co.canadia.horseplays.script;
  * A dialog choice from a PlayScript
  */
 
-class ScriptChoice {
+public class ScriptChoice {
     private String actor;
     private String text;
     private String divert;
@@ -15,5 +15,9 @@ class ScriptChoice {
         this.text = text;
         this.divert = divert;
         this.bomb = bomb;
+    }
+
+    public String getText() {
+        return text;
     }
 }

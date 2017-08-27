@@ -39,7 +39,7 @@ public class Theatre {
 
     public Theatre(Table table) {
         this.table = table;
-        speechUI = new SpeechUI(table);
+        //speechUI = new SpeechUI(table, pla);
         theatreStage = new TheatreStage(0, 0);
         backdrop = new Backdrop(Constants.APP_WIDTH / 2, theatreStage.getHeight());
         spotlight01 = new Spotlight(
