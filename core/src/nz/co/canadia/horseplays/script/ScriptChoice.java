@@ -20,4 +20,12 @@ public class ScriptChoice {
     public String getText() {
         return text;
     }
+
+    public String getDivert() {
+        return divert;
+    }
+
+    public int getBomb() {
+        return bomb;
+    }
 }

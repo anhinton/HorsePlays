@@ -34,4 +34,6 @@ public class Constants {
     public enum ZoomLevel {
         WIDE, CLOSE
     }
+
+    public static final String END_KNOT = "DONE";
 }

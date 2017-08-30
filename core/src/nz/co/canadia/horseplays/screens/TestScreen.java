@@ -127,6 +127,8 @@ public class TestScreen implements Screen, InputProcessor {
         Gdx.gl.glClearColor(.5f, .6f, .1f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        playScript.checkBombCount(speechUI);
+
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
 

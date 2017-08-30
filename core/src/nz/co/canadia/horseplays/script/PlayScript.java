@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.XmlReader;
 import java.io.IOException;
 
 import nz.co.canadia.horseplays.SpeechUI;
+import nz.co.canadia.horseplays.util.Constants;
 
 /**
  * The play script contains all the horse actor dialog and controls what happens on the Stage
@@ -17,8 +18,11 @@ public class PlayScript {
     private OrderedMap<String, ScriptKnot> scriptKnots;
     private ScriptKnot currentKnot;
     private int bombThreshold;
+    private int bombCount;
 
     public PlayScript() {
+
+        resetBombCount();
 
         scriptKnots = new OrderedMap<String, ScriptKnot>();
 
@@ -42,7 +46,7 @@ public class PlayScript {
                     bombThreshold = knot.getIntAttribute("threshold");
                 }
                 // get knot divert
-                String divert = knot.getAttribute("divert", "DONE");
+                String divert = knot.getAttribute("divert", Constants.END_KNOT);
 
                 // get line elements and create array of ScriptLines
                 Array<XmlReader.Element> lineElements = knot.getChildrenByName("line");
@@ -103,11 +107,43 @@ public class PlayScript {
     }
 
     public void speakChoice(SpeechUI speechUI) {
-        speechUI.speak(currentKnot.getChoices());
+        speechUI.speak(currentKnot.getChoices(), this);
     }
 
     public void nextKnot() {
         String divert = currentKnot.getDivert();
         currentKnot = scriptKnots.get(divert);
+    }
+
+    public void setCurrentKnot(String knot) {
+        this.currentKnot = scriptKnots.get(knot);
+    }
+
+    private int getBombCount() {
+        return bombCount;
+    }
+
+    private int getBombThreshold() {
+        return bombThreshold;
+    }
+
+    public void addBomb(int bomb) {
+        this.bombCount += bomb;
+    }
+
+    public void end(SpeechUI speechUI) {
+        speechUI.end();
+    }
+
+    private void resetBombCount() {
+        this.bombCount = 0;
+    }
+
+    public void checkBombCount(SpeechUI speechUI) {
+        if (getBombCount() >= getBombThreshold()) {
+            resetBombCount();
+            setCurrentKnot("bomb");
+            speakCurrentLine(speechUI);
+        }
     }
 }

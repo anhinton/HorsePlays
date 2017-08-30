@@ -7,7 +7,7 @@
     <line actor = "2">which loo, love?</line>
     <choices actor = "1">
       <choice>the good one</choice>
-      <!-- if a choice has a bomb value this is added to the bombcount when selected -->
+      <!-- if a choice has a bomb value this is added to the bombCount when selected -->
       <choice bomb = "1">the bad one</choice>
       <choice>the other one</choice>
     </choices>
