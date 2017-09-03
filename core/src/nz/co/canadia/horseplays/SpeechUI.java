@@ -27,8 +27,10 @@ public class SpeechUI {
     private NinePatchDrawable choiceNinePatch01;
     private BitmapFont speechFont;
     private TextButton speechButton;
+    private PlayScript playScript;
 
     public SpeechUI(Table table, PlayScript playScript) {
+        this.playScript = playScript;
         speechNinePatch01 = new NinePatchDrawable(
                 new NinePatch(
                         new Texture(Gdx.files.internal("ui/speechBubble02.png")),
@@ -43,27 +45,29 @@ public class SpeechUI {
         );
         speechFont = new BitmapFont(Gdx.files.internal("fonts/TlwgMonoBold24.fnt"));
         this.table = table;
-        speechButton = lineButton();
-        table.add(speechButton).width(Constants.APP_WIDTH / 2);
         table.pad(10);
         table.align(Align.left + Align.bottom);
     }
 
-    public void speak (ScriptLine scriptLine) {
-        speechButton.setText(scriptLine.getText());
-        table.clearChildren();
-        table.add(speechButton).width(Constants.APP_WIDTH / 2);
-    }
-
-    public void speak(Array<ScriptChoice> choices, PlayScript playScript) {
-        table.clearChildren();
-        for (ScriptChoice choice : choices) {
-            TextButton button = choiceButton(choice, playScript);
-            table.add(button).width(Constants.APP_WIDTH / 2);
+    public void speak () {
+        if (playScript.hasLine()) {
+            ScriptLine scriptLine = playScript.getCurrentLine();
+            TextButton speechButton = lineButton(playScript);
+            speechButton.setText(scriptLine.getText());
+            table.clearChildren();
+            table.add(speechButton).width(Constants.APP_WIDTH / 2);
+        } else if (playScript.hasChoice()) {
+            Array<ScriptChoice> choices = playScript.getCurrentChoices();
+            table.clearChildren();
+            for (ScriptChoice choice : choices) {
+                TextButton button = choiceButton(choice, playScript);
+                table.add(button).width(Constants.APP_WIDTH / 2);
+            }
         }
     }
 
-    private TextButton lineButton() {
+    private TextButton lineButton(final PlayScript playScript) {
+        final SpeechUI speechUI = this;
         speechButton = new TextButton(
                 "",
                 new TextButton.TextButtonStyle(
@@ -78,13 +82,14 @@ public class SpeechUI {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                super.touchUp(event, x, y, pointer, button);
+                playScript.next(speechUI);
             }
         });
         return speechButton;
     }
 
     private TextButton choiceButton(final ScriptChoice choice, final PlayScript playScript) {
+        final SpeechUI speechUI = this;
         TextButton button = new TextButton(
                 "",
                 new TextButton.TextButtonStyle(
@@ -103,9 +108,9 @@ public class SpeechUI {
                 if (choice.getDivert().equals(Constants.END_KNOT)) {
                     end();
                 } else {
-                    playScript.setCurrentKnot(choice.getDivert());
                     playScript.addBomb(choice.getBomb());
-                    super.touchUp(event, x, y, pointer, button);
+                    playScript.setCurrentKnot(choice.getDivert());
+                    playScript.next(speechUI);
                 }
             }
         });

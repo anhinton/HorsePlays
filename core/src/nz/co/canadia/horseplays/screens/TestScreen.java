@@ -62,10 +62,8 @@ public class TestScreen implements Screen, InputProcessor {
         multiplexer.addProcessor(this);
         Gdx.input.setInputProcessor(multiplexer);
 
-        text = playScript.getCurrentLine().getText();
-
         speechUI = new SpeechUI(table, playScript);
-        playScript.speakCurrentLine(speechUI);
+        playScript.start(speechUI);
 
     }
 
@@ -91,15 +89,7 @@ public class TestScreen implements Screen, InputProcessor {
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        if (playScript.hasLine()) {
-            playScript.speakCurrentLine(speechUI);
-        } else if (playScript.hasChoice()) {
-            playScript.speakChoice(speechUI);
-        } else {
-            playScript.nextKnot();
-            playScript.speakCurrentLine(speechUI);
-        }
-        return true;
+        return false;
     }
 
     @Override
@@ -128,6 +118,7 @@ public class TestScreen implements Screen, InputProcessor {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         playScript.checkBombCount(speechUI);
+//        playScript.isPerforming();
 
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);

@@ -19,8 +19,11 @@ public class PlayScript {
     private ScriptKnot currentKnot;
     private int bombThreshold;
     private int bombCount;
+    private boolean performing;
 
     public PlayScript() {
+
+        performing = false;
 
         resetBombCount();
 
@@ -93,9 +96,11 @@ public class PlayScript {
         currentKnot.nextLine();
     }
 
-    public void speakCurrentLine(SpeechUI speechUI) {
-        speechUI.speak(this.getCurrentLine());
-        nextLine();
+    private void speakCurrentLine(SpeechUI speechUI) {
+        speechUI.speak();
+        if (hasChoice()) {
+            nextLine();
+        }
     }
 
     public boolean hasLine() {
@@ -104,10 +109,6 @@ public class PlayScript {
 
     public boolean hasChoice() {
         return currentKnot.hasChoice();
-    }
-
-    public void speakChoice(SpeechUI speechUI) {
-        speechUI.speak(currentKnot.getChoices(), this);
     }
 
     public void nextKnot() {
@@ -145,5 +146,22 @@ public class PlayScript {
             setCurrentKnot("bomb");
             speakCurrentLine(speechUI);
         }
+    }
+
+    public void start(SpeechUI speechUI) {
+        performing = true;
+        speakCurrentLine(speechUI);
+    }
+
+    public void next(SpeechUI speechUI) {
+        speakCurrentLine(speechUI);
+    }
+
+    public Array<ScriptChoice> getCurrentChoices() {
+        return currentKnot.getChoices();
+    }
+
+    public boolean isPerforming() {
+        return performing;
     }
 }
