@@ -50,6 +50,7 @@ public class SpeechUI {
     }
 
     public void speak () {
+        playScript.checkBombCount();
         if (playScript.hasLine()) {
             ScriptLine scriptLine = playScript.getCurrentLine();
             TextButton speechButton = lineButton(playScript);
@@ -63,6 +64,8 @@ public class SpeechUI {
                 TextButton button = choiceButton(choice, playScript);
                 table.add(button).width(Constants.APP_WIDTH / 2);
             }
+        } else {
+            end();
         }
     }
 
@@ -82,7 +85,12 @@ public class SpeechUI {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                playScript.next(speechUI);
+                if (playScript.hasLine()) {
+                    playScript.nextLine();
+                } else {
+                    playScript.nextKnot();
+                }
+                speechUI.speak();
             }
         });
         return speechButton;
@@ -110,15 +118,27 @@ public class SpeechUI {
                 } else {
                     playScript.addBomb(choice.getBomb());
                     playScript.setCurrentKnot(choice.getDivert());
-                    playScript.next(speechUI);
+                    speechUI.speak();
                 }
             }
         });
         return button;
     }
 
-    public void end() {
+    private void end() {
         speechButton.setText("IT'S OVER");
+        speechButton.clearListeners();
+        speechButton.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                super.touchUp(event, x, y, pointer, button);
+            }
+        });
         table.clearChildren();
         table.add(speechButton).width(Constants.APP_WIDTH / 2);
     }

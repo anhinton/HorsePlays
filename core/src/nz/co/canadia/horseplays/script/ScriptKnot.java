@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.Array;
  * A single line of dialog from a script
  */
 
-public class ScriptKnot {
+class ScriptKnot {
     private Array<ScriptLine> scriptLines;
     private Array<ScriptChoice> scriptChoices;
     private int currentScriptLine;
@@ -33,7 +33,7 @@ public class ScriptKnot {
     }
 
     boolean hasChoice() {
-        return scriptLines.size > 0;
+        return scriptChoices.size > 0;
     }
 
     Array<ScriptChoice> getChoices() {

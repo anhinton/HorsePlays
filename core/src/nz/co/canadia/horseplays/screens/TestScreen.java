@@ -63,7 +63,7 @@ public class TestScreen implements Screen, InputProcessor {
         Gdx.input.setInputProcessor(multiplexer);
 
         speechUI = new SpeechUI(table, playScript);
-        playScript.start(speechUI);
+        speechUI.speak();
 
     }
 
@@ -116,9 +116,6 @@ public class TestScreen implements Screen, InputProcessor {
     public void render(float delta) {
         Gdx.gl.glClearColor(.5f, .6f, .1f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
-        playScript.checkBombCount(speechUI);
-//        playScript.isPerforming();
 
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);

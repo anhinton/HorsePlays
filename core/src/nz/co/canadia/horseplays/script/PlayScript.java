@@ -7,7 +7,6 @@ import com.badlogic.gdx.utils.XmlReader;
 
 import java.io.IOException;
 
-import nz.co.canadia.horseplays.SpeechUI;
 import nz.co.canadia.horseplays.util.Constants;
 
 /**
@@ -19,13 +18,9 @@ public class PlayScript {
     private ScriptKnot currentKnot;
     private int bombThreshold;
     private int bombCount;
-    private boolean performing;
 
     public PlayScript() {
-
-        performing = false;
-
-        resetBombCount();
+        bombCount = 0;
 
         scriptKnots = new OrderedMap<String, ScriptKnot>();
 
@@ -84,23 +79,16 @@ public class PlayScript {
 
     }
 
-    public ScriptKnot getCurrentKnot() {
-        return currentKnot;
+    public void setCurrentKnot(String knot) {
+        this.currentKnot = scriptKnots.get(knot);
     }
 
     public ScriptLine getCurrentLine() {
         return currentKnot.getCurrentScriptLine();
     }
 
-    private void nextLine() {
+    public void nextLine() {
         currentKnot.nextLine();
-    }
-
-    private void speakCurrentLine(SpeechUI speechUI) {
-        speechUI.speak();
-        if (hasChoice()) {
-            nextLine();
-        }
     }
 
     public boolean hasLine() {
@@ -111,57 +99,22 @@ public class PlayScript {
         return currentKnot.hasChoice();
     }
 
-    public void nextKnot() {
-        String divert = currentKnot.getDivert();
-        currentKnot = scriptKnots.get(divert);
-    }
-
-    public void setCurrentKnot(String knot) {
-        this.currentKnot = scriptKnots.get(knot);
-    }
-
-    private int getBombCount() {
-        return bombCount;
-    }
-
-    private int getBombThreshold() {
-        return bombThreshold;
-    }
-
     public void addBomb(int bomb) {
         this.bombCount += bomb;
     }
 
-    public void end(SpeechUI speechUI) {
-        speechUI.end();
-    }
-
-    private void resetBombCount() {
-        this.bombCount = 0;
-    }
-
-    public void checkBombCount(SpeechUI speechUI) {
-        if (getBombCount() >= getBombThreshold()) {
-            resetBombCount();
+    public void checkBombCount() {
+        if (bombCount >= bombThreshold) {
+            this.bombCount = 0;
             setCurrentKnot("bomb");
-            speakCurrentLine(speechUI);
         }
-    }
-
-    public void start(SpeechUI speechUI) {
-        performing = true;
-        speakCurrentLine(speechUI);
-    }
-
-    public void next(SpeechUI speechUI) {
-        speakCurrentLine(speechUI);
     }
 
     public Array<ScriptChoice> getCurrentChoices() {
         return currentKnot.getChoices();
     }
 
-    public boolean isPerforming() {
-        return performing;
+    public void nextKnot() {
+        currentKnot = scriptKnots.get(currentKnot.getDivert());
     }
 }
