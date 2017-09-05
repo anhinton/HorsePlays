@@ -16,7 +16,7 @@ class Horse {
     private Sprite sprite;
     private Sprite spriteClose;
 
-    private Constants.Side side;
+    private Constants.HorseSide horseSide;
     private boolean moving;
 
     private float targetX;
@@ -26,7 +26,7 @@ class Horse {
 
     private SpeechUI speechUI;
 
-    Horse (Texture texture, Texture textureClose, float y, boolean flip, Constants.Side side,
+    Horse (Texture texture, Texture textureClose, float y, boolean flip, Constants.HorseSide horseSide,
            SpeechUI speechUI) {
         this.speechUI = speechUI;
         // wide shot sprite
@@ -44,7 +44,7 @@ class Horse {
                 textureClose.getHeight());
         spriteClose = new Sprite(regionClose);
         spriteClose.flip(flip, false);
-        switch (side) {
+        switch (horseSide) {
             case LEFT:
                 sprite.setPosition(-sprite.getWidth(), y);
                 spriteClose.setPosition(0, 0);
@@ -55,7 +55,7 @@ class Horse {
                 break;
         }
 
-        this.side = side;
+        this.horseSide = horseSide;
         targetX = 0;
         moving = false;
         changeX = 0;
@@ -95,7 +95,7 @@ class Horse {
 
     void enter() {
         moving = true;
-        switch (side) {
+        switch (horseSide) {
             case LEFT:
                 changeX = Constants.HORSE_SPEED * Gdx.graphics.getDeltaTime();
                 targetX = Constants.HORSE_MARK - sprite.getWidth() / 2;
@@ -111,7 +111,7 @@ class Horse {
 
     void exit() {
         moving = true;
-        switch (side) {
+        switch (horseSide) {
             case LEFT:
                 changeX = -Constants.HORSE_SPEED * Gdx.graphics.getDeltaTime();
                 targetX = -sprite.getWidth();

@@ -16,4 +16,8 @@ public class ScriptLine {
     public String getText() {
         return text;
     }
+
+    public String getActor() {
+        return actor;
+    }
 }

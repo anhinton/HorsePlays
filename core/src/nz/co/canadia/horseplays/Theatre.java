@@ -54,11 +54,11 @@ public class Theatre {
         horseCloseTexture01 = new Texture(Gdx.files.internal("graphics/horseFace01.png"));
         horses = new Array<Horse>();
         horses.add(new Horse(horseTexture01, horseCloseTexture01, theatreStage.getHeight(), true,
-                Constants.Side.LEFT, speechUI));
+                Constants.HorseSide.LEFT, speechUI));
         horseTexture02 = new Texture(Gdx.files.internal("graphics/horse02.png"));
         horseCloseTexture02 = new Texture(Gdx.files.internal("graphics/horseFace02.png"));
         horses.add(new Horse(horseTexture02, horseCloseTexture02, theatreStage.getHeight(), true,
-                Constants.Side.RIGHT, speechUI));
+                Constants.HorseSide.RIGHT, speechUI));
         curtains = new Curtains();
 
         currentTheatreScene = Constants.TheatreScene.START;

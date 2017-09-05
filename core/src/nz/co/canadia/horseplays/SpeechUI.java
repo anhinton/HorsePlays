@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -45,8 +46,6 @@ public class SpeechUI {
         );
         speechFont = new BitmapFont(Gdx.files.internal("fonts/TlwgMonoBold24.fnt"));
         this.table = table;
-        table.pad(10);
-        table.align(Align.left + Align.bottom);
     }
 
     public void speak () {
@@ -60,14 +59,16 @@ public class SpeechUI {
             TextButton speechButton = lineButton(playScript);
             speechButton.setText(scriptLine.getText());
             table.clearChildren();
-            table.add(speechButton).width(Constants.APP_WIDTH / 2);
+            table.add(speechButton).pad(Constants.BUTTON_PAD);
+            setAlign(scriptLine.getActor());
         } else if (playScript.hasChoice()) {
             // display choices if we have them
             Array<ScriptChoice> choices = playScript.getCurrentChoices();
             table.clearChildren();
+            setAlign(choices.get(0).getActor());
             for (ScriptChoice choice : choices) {
                 TextButton button = choiceButton(choice, playScript);
-                table.add(button).width(Constants.APP_WIDTH / 2);
+                table.add(button).pad(Constants.BUTTON_PAD);
             }
         } else if (playScript.hasKnot()) {
             // go to next knot and start speaking
@@ -147,6 +148,15 @@ public class SpeechUI {
             }
         });
         table.clearChildren();
-        table.add(speechButton).width(Constants.APP_WIDTH / 2);
+        table.align(Align.center);
+        table.add(speechButton).pad(Constants.BUTTON_PAD);
+    }
+
+    private void setAlign(String actor) {
+        if (actor.equals("1")) {
+            this.table.align(Align.bottomRight);
+        } else if (actor.equals("2")) {
+            this.table.align(Align.bottomLeft);
+        }
     }
 }

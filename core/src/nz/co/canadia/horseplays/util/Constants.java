@@ -17,7 +17,7 @@ public class Constants {
 
     public static final float CURTAIN_SPEED = 200;
     public static final float OPEN_CURTAIN_WIDTH = APP_WIDTH / 16;
-    public enum Side { LEFT, RIGHT }
+    public enum HorseSide { LEFT, RIGHT }
 
     public static final float HORSE_SPEED = CURTAIN_SPEED;
     public static final float HORSE_MARK = APP_WIDTH / 4;
@@ -36,4 +36,6 @@ public class Constants {
     }
 
     public static final String END_KNOT = "DONE";
+
+    public static final int BUTTON_PAD = 10;
 }

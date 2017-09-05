@@ -28,4 +28,8 @@ public class ScriptChoice {
     public int getBomb() {
         return bomb;
     }
+
+    public String getActor() {
+        return actor;
+    }
 }
