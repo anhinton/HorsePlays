@@ -21,7 +21,7 @@
     </choices>
   </knot>
 
-  <knot id = "bloodyWell">
+  <knot id = "bloodyWell" divert = "allWorms">
     <line actor = "2">I'm bleeding</line>
   </knot>
 

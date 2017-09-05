@@ -50,23 +50,34 @@ public class SpeechUI {
     }
 
     public void speak () {
+
+        // check if bombThreshold has been exceeded
         playScript.checkBombCount();
+
         if (playScript.hasLine()) {
+            // speak a line if it's available
             ScriptLine scriptLine = playScript.getCurrentLine();
             TextButton speechButton = lineButton(playScript);
             speechButton.setText(scriptLine.getText());
             table.clearChildren();
             table.add(speechButton).width(Constants.APP_WIDTH / 2);
         } else if (playScript.hasChoice()) {
+            // display choices if we have them
             Array<ScriptChoice> choices = playScript.getCurrentChoices();
             table.clearChildren();
             for (ScriptChoice choice : choices) {
                 TextButton button = choiceButton(choice, playScript);
                 table.add(button).width(Constants.APP_WIDTH / 2);
             }
+        } else if (playScript.hasKnot()) {
+            // go to next knot and start speaking
+            playScript.nextKnot();
+            this.speak();
         } else {
+            // it must be all over
             end();
         }
+
     }
 
     private TextButton lineButton(final PlayScript playScript) {
@@ -85,11 +96,7 @@ public class SpeechUI {
 
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                if (playScript.hasLine()) {
-                    playScript.nextLine();
-                } else {
-                    playScript.nextKnot();
-                }
+                playScript.nextLine();
                 speechUI.speak();
             }
         });

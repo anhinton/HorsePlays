@@ -117,4 +117,8 @@ public class PlayScript {
     public void nextKnot() {
         currentKnot = scriptKnots.get(currentKnot.getDivert());
     }
+
+    public boolean hasKnot() {
+        return !currentKnot.getDivert().equals(Constants.END_KNOT);
+    }
 }
