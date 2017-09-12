@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -48,6 +47,7 @@ public class SpeechUI {
         this.table = table;
     }
 
+    // display the appropriate dialogue line or choices on the screen
     public void speak () {
 
         // check if bombThreshold has been exceeded
@@ -59,17 +59,36 @@ public class SpeechUI {
             TextButton speechButton = lineButton(playScript);
             speechButton.setText(scriptLine.getText());
             table.clearChildren();
-            table.add(speechButton).pad(Constants.BUTTON_PAD);
-            setAlign(scriptLine.getActor());
+            if (speechButton.getText().length() > Constants.LINE_LENGTH) {
+                speechButton.getLabel().setWrap(true);
+                table.add(speechButton).pad(Constants.BUTTON_PAD)
+                        .width(Constants.APP_WIDTH * 2 / 3);
+            } else {
+                table.add(speechButton).pad(Constants.BUTTON_PAD);
+            }
+            table.align(getAlign(scriptLine.getActor()));
         } else if (playScript.hasChoice()) {
             // display choices if we have them
             Array<ScriptChoice> choices = playScript.getCurrentChoices();
             table.clearChildren();
-            setAlign(choices.get(0).getActor());
+            int maxChars = 0;
+            int align = getAlign(choices.get(0).getActor());
+            Array<TextButton> buttonArray = new Array<TextButton>();
             for (ScriptChoice choice : choices) {
-                TextButton button = choiceButton(choice, playScript);
-                table.add(button).pad(Constants.BUTTON_PAD);
+                TextButton choiceButton = choiceButton(choice, playScript);
+                buttonArray.add(choiceButton);
+                maxChars = Math.max(maxChars, choiceButton.getText().length());
             }
+            for (TextButton button : buttonArray) {
+                if (maxChars > Constants.LINE_LENGTH) {
+                    table.add(button).pad(Constants.BUTTON_PAD).align(align)
+                            .width(Constants.APP_WIDTH * 2 / 3);
+                } else {
+                    table.add(button).pad(Constants.BUTTON_PAD).align(align);
+                }
+                table.row();
+            }
+            table.align(align);
         } else if (playScript.hasKnot()) {
             // go to next knot and start speaking
             playScript.nextKnot();
@@ -81,6 +100,7 @@ public class SpeechUI {
 
     }
 
+    // return TextButton for a regular line
     private TextButton lineButton(final PlayScript playScript) {
         final SpeechUI speechUI = this;
         speechButton = new TextButton(
@@ -104,6 +124,7 @@ public class SpeechUI {
         return speechButton;
     }
 
+    // return a choice-type TextButton
     private TextButton choiceButton(final ScriptChoice choice, final PlayScript playScript) {
         final SpeechUI speechUI = this;
         TextButton button = new TextButton(
@@ -133,6 +154,7 @@ public class SpeechUI {
         return button;
     }
 
+    // when the PlayScript is over
     private void end() {
         speechButton.setText("IT'S OVER");
         speechButton.clearListeners();
@@ -152,11 +174,14 @@ public class SpeechUI {
         table.add(speechButton).pad(Constants.BUTTON_PAD);
     }
 
-    private void setAlign(String actor) {
+    // return actor alignment
+    private int getAlign(String actor) {
+        int align = 0;
         if (actor.equals("1")) {
-            this.table.align(Align.bottomRight);
+            align = Align.bottomRight;
         } else if (actor.equals("2")) {
-            this.table.align(Align.bottomLeft);
+            align = Align.bottomLeft;
         }
+        return align;
     }
 }

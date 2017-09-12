@@ -17,6 +17,8 @@ public class Constants {
 
     public static final float CURTAIN_SPEED = 200;
     public static final float OPEN_CURTAIN_WIDTH = APP_WIDTH / 16;
+    public static final int LINE_LENGTH = 60;
+
     public enum HorseSide { LEFT, RIGHT }
 
     public static final float HORSE_SPEED = CURTAIN_SPEED;

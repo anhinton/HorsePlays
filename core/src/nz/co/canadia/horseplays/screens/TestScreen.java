@@ -56,6 +56,7 @@ public class TestScreen implements Screen, InputProcessor {
         });
         table = new Table();
         table.setFillParent(true);
+        table.setDebug(true);
         stage.addActor(table);
         InputMultiplexer multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(stage);
