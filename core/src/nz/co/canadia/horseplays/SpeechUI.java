@@ -28,9 +28,11 @@ public class SpeechUI {
     private BitmapFont speechFont;
     private TextButton speechButton;
     private PlayScript playScript;
+    private Theatre theatre;
 
-    public SpeechUI(Table table, PlayScript playScript) {
+    public SpeechUI(Table table, PlayScript playScript, Theatre theatre) {
         this.playScript = playScript;
+        this.theatre = theatre;
         speechNinePatch01 = new NinePatchDrawable(
                 new NinePatch(
                         new Texture(Gdx.files.internal("ui/speechBubble02.png")),
@@ -57,6 +59,7 @@ public class SpeechUI {
             // speak a line if it's available
             ScriptLine scriptLine = playScript.getCurrentLine();
             TextButton speechButton = lineButton(playScript);
+            String actor = scriptLine.getActor();
             speechButton.setText(scriptLine.getText());
             table.clearChildren();
             if (speechButton.getText().length() > Constants.LINE_LENGTH) {
@@ -66,13 +69,15 @@ public class SpeechUI {
             } else {
                 table.add(speechButton).pad(Constants.BUTTON_PAD);
             }
-            table.align(getAlign(scriptLine.getActor()));
+            table.align(getAlign(actor));
+            theatre.setCurrentHorse(actor);
         } else if (playScript.hasChoice()) {
             // display choices if we have them
             Array<ScriptChoice> choices = playScript.getCurrentChoices();
             table.clearChildren();
             int maxChars = 0;
-            int align = getAlign(choices.get(0).getActor());
+            String actor = choices.get(0).getActor();
+            int align = getAlign(actor);
             Array<TextButton> buttonArray = new Array<TextButton>();
             for (ScriptChoice choice : choices) {
                 TextButton choiceButton = choiceButton(choice, playScript);
@@ -89,6 +94,7 @@ public class SpeechUI {
                 table.row();
             }
             table.align(align);
+            theatre.setCurrentHorse(actor);
         } else if (playScript.hasKnot()) {
             // go to next knot and start speaking
             playScript.nextKnot();

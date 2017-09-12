@@ -14,8 +14,6 @@ import nz.co.canadia.horseplays.util.Constants;
  */
 
 public class Theatre {
-    private Table table;
-    private SpeechUI speechUI;
 
     private Backdrop backdrop;
     private Spotlight spotlight01;
@@ -37,9 +35,7 @@ public class Theatre {
     private boolean prevTouchDown;
     private boolean touchDown;
 
-    public Theatre(Table table) {
-        this.table = table;
-        //speechUI = new SpeechUI(table, pla);
+    public Theatre() {
         theatreStage = new TheatreStage(0, 0);
         backdrop = new Backdrop(Constants.APP_WIDTH / 2, theatreStage.getHeight());
         spotlight01 = new Spotlight(
@@ -54,11 +50,11 @@ public class Theatre {
         horseCloseTexture01 = new Texture(Gdx.files.internal("graphics/horseFace01.png"));
         horses = new Array<Horse>();
         horses.add(new Horse(horseTexture01, horseCloseTexture01, theatreStage.getHeight(), true,
-                Constants.HorseSide.LEFT, speechUI));
+                Constants.HorseSide.LEFT));
         horseTexture02 = new Texture(Gdx.files.internal("graphics/horse02.png"));
         horseCloseTexture02 = new Texture(Gdx.files.internal("graphics/horseFace02.png"));
         horses.add(new Horse(horseTexture02, horseCloseTexture02, theatreStage.getHeight(), true,
-                Constants.HorseSide.RIGHT, speechUI));
+                Constants.HorseSide.RIGHT));
         curtains = new Curtains();
 
         currentTheatreScene = Constants.TheatreScene.START;
@@ -174,7 +170,7 @@ public class Theatre {
         this.touchDown = touchDown;
     }
 
-    private void startShow() {
+    public void startShow() {
         curtains.open();
         Timer.schedule(new Timer.Task() {
             @Override
@@ -211,5 +207,21 @@ public class Theatre {
 
     Array<Horse> getHorses() {
         return horses;
+    }
+
+    public Constants.TheatreScene getCurrentTheatreScene() {
+        return currentTheatreScene;
+    }
+
+    void setCurrentHorse(String actor) {
+        if (actor.equals("1")) {
+            currentHorse = horses.get(0);
+        } else if (actor.equals("2")) {
+            currentHorse = horses.get(1);
+        }
+    }
+
+    public void setCurrentZoomLevel(Constants.ZoomLevel currentZoomLevel) {
+        this.currentZoomLevel = currentZoomLevel;
     }
 }

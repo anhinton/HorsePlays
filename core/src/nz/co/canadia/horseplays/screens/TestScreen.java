@@ -6,7 +6,6 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -23,16 +22,14 @@ import nz.co.canadia.horseplays.SpeechUI;
  * Testing out my new dialog UI
  */
 
-public class TestScreen implements Screen, InputProcessor {
+class TestScreen implements Screen, InputProcessor {
     private final HorsePlays game;
-    private BitmapFont font;
     private OrthographicCamera camera;
     private Viewport viewport;
     private Stage stage;
     private Table table;
     private PlayScript playScript;
     private SpeechUI speechUI;
-    private String text;
 
     public TestScreen(HorsePlays game) {
         this.game = game;
@@ -63,7 +60,7 @@ public class TestScreen implements Screen, InputProcessor {
         multiplexer.addProcessor(this);
         Gdx.input.setInputProcessor(multiplexer);
 
-        speechUI = new SpeechUI(table, playScript);
+//        speechUI = new SpeechUI(table, playScript);
         speechUI.speak();
 
     }
@@ -149,6 +146,5 @@ public class TestScreen implements Screen, InputProcessor {
     @Override
     public void dispose() {
         stage.dispose();
-        font.dispose();
     }
 }

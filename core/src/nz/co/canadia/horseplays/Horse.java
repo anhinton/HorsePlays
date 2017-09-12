@@ -24,11 +24,7 @@ class Horse {
     private float distanceMoved;
     private float totalChange;
 
-    private SpeechUI speechUI;
-
-    Horse (Texture texture, Texture textureClose, float y, boolean flip, Constants.HorseSide horseSide,
-           SpeechUI speechUI) {
-        this.speechUI = speechUI;
+    Horse (Texture texture, Texture textureClose, float y, boolean flip, Constants.HorseSide horseSide) {
         // wide shot sprite
 //        sprite = new Sprite(texture, 0, 0, texture.getWidth(), texture.getHeight());
         texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);

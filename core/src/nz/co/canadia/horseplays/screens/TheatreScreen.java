@@ -7,12 +7,15 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import nz.co.canadia.horseplays.HorsePlays;
+import nz.co.canadia.horseplays.SpeechUI;
 import nz.co.canadia.horseplays.Theatre;
 import nz.co.canadia.horseplays.script.PlayScript;
 import nz.co.canadia.horseplays.util.Constants;
@@ -21,8 +24,9 @@ import nz.co.canadia.horseplays.util.Constants;
  * The stage screen where the game is played.
  */
 
-class TheatreScreen implements Screen, InputProcessor {
+public class TheatreScreen implements Screen, InputProcessor {
     private final HorsePlays game;
+    private final SpeechUI speechUI;
     private BitmapFont font;
     private OrthographicCamera camera;
     private Viewport viewport;
@@ -32,7 +36,7 @@ class TheatreScreen implements Screen, InputProcessor {
 
     private Theatre theatre;
 
-    TheatreScreen(final HorsePlays game) {
+    public TheatreScreen(final HorsePlays game) {
         this.game = game;
 
         playScript = new PlayScript();
@@ -41,15 +45,29 @@ class TheatreScreen implements Screen, InputProcessor {
         camera.setToOrtho(false, Constants.APP_WIDTH, Constants.APP_HEIGHT);
         viewport = new FitViewport(Constants.APP_WIDTH, Constants.APP_HEIGHT, camera);
         stage = new Stage(viewport);
+        stage.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                TheatreScreen.this.touchUp((int)(x), (int)(y), pointer, button);
+            }
+        });
         table = new Table();
         table.setFillParent(true);
+//        table.setDebug(true);
         stage.addActor(table);
         InputMultiplexer multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(stage);
         multiplexer.addProcessor(this);
         Gdx.input.setInputProcessor(multiplexer);
 
-        theatre = new Theatre(table);
+        theatre = new Theatre();
+
+        speechUI = new SpeechUI(table, playScript, theatre);
     }
 
     @Override
@@ -126,7 +144,22 @@ class TheatreScreen implements Screen, InputProcessor {
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         theatre.setTouchDown(false);
-        return false;
+        switch(theatre.getCurrentTheatreScene()) {
+             case START:
+                theatre.startShow();
+                break;
+            case OPENING:
+                break;
+            case PERFORMING:
+                theatre.setCurrentZoomLevel(Constants.ZoomLevel.CLOSE);
+                speechUI.speak();
+                break;
+            case CLOSING:
+                break;
+            case FINISHED:
+                break;
+        }
+        return true;
     }
 
     @Override
