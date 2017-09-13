@@ -136,7 +136,7 @@ public class SpeechUI {
         TextButton button = new TextButton(
                 "",
                 new TextButton.TextButtonStyle(
-                        choiceNinePatch01, choiceNinePatch01, choiceNinePatch01, speechFont
+                        choiceNinePatch01, speechNinePatch01, choiceNinePatch01, speechFont
                 )
         );
         button.setText(choice.getText());
