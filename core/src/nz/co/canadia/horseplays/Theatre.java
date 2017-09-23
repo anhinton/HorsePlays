@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
 
+import nz.co.canadia.horseplays.script.PlayScript;
 import nz.co.canadia.horseplays.util.Constants;
 
 /**
@@ -184,10 +185,10 @@ public class Theatre {
         return currentTheatreScene;
     }
 
-    void setCurrentHorse(String actor) {
-        if (actor.equals("1")) {
+    void setCurrentHorse(String actor, Array<String> actors) {
+        if (actor.equals(actors.get(0))) {
             currentHorse = horses.get(0);
-        } else if (actor.equals("2")) {
+        } else if (actor.equals(actors.get(1))) {
             currentHorse = horses.get(1);
         }
     }

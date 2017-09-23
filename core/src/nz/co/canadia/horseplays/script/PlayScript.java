@@ -19,19 +19,36 @@ public class PlayScript {
     private ScriptKnot currentKnot;
     private int bombThreshold;
     private int bombCount;
+    private Array<String> actors;
+    private String playerActor;
 
     public PlayScript() {
         bombCount = 0;
+        actors = new Array<String>();
+        playerActor = "";
 
         scriptKnots = new OrderedMap<String, ScriptKnot>();
 
         XmlReader xmlReader = new XmlReader();
         XmlReader.Element rootElement;
+        Array<XmlReader.Element> actorElements;
         Array<XmlReader.Element> knotElements;
 
         try {
             // get root element
             rootElement = xmlReader.parse(Gdx.files.internal("playscripts/playscript.xml"));
+
+            // get actor names
+            XmlReader.Element actorsElement = rootElement.getChildByName("actors");
+            actorElements = actorsElement.getChildrenByName("actor");
+            for (XmlReader.Element actor : actorElements) {
+                actors.add(actor.getAttribute("name"));
+                String player = actor.getAttribute("player", null);
+
+                if (player != null) {
+                    playerActor = actor.getAttribute("name");
+                }
+            }
 
             // get knot elements
             knotElements = rootElement.getChildrenByName("knot");
@@ -118,5 +135,9 @@ public class PlayScript {
 
     public boolean hasKnot() {
         return !currentKnot.getDivert().equals(Constants.END_KNOT);
+    }
+
+    public Array<String> getActors() {
+        return actors;
     }
 }

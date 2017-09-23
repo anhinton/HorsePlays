@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <playscript>
 
+  <actors>
+    <actor name = "agulary" player = "true"/>
+    <actor name = "mont coptor"/>
+  </actors>
+
   <!-- script must have a "start" knot to start things off -->
   <knot id = "start" divert = "veryWell">
-    <line actor = "1">help me to the loo</line>
-    <line actor = "2">which loo, love?</line>
-    <choices actor = "1">
+    <line actor = "agulary">help me to the loo</line>
+    <line actor = "mont coptor">which loo, love?</line>
+    <choices actor = "agulary">
       <choice>the good one</choice>
       <!-- if a choice has a bomb value this is added to the bombCount when selected -->
       <choice bomb = "1">the bad one</choice>
@@ -14,25 +19,25 @@
   </knot>
   
   <knot id = "veryWell">
-    <line actor = "2">very well</line>
-    <choices actor = "1">
+    <line actor = "mont coptor">very well</line>
+    <choices actor = "agulary">
       <choice bomb = "1" divert = "bloodyWell">it bloody well better be!</choice>
       <choice divert = "allWorms">the best of all worms</choice>
     </choices>
   </knot>
 
   <knot id = "bloodyWell" divert = "allWorms">
-    <line actor = "2">I'm bleeding and all I know is that I wasn't meant to bleed like this and I shouldn't have to explain to everyone
+    <line actor = "mont coptor">I'm bleeding and all I know is that I wasn't meant to bleed like this and I shouldn't have to explain to everyone
 about all this stupid stuff that keeps happening</line>
   </knot>
 
   <knot id = "allWorms">
-    <line actor = "2">bloody worms</line>
+    <line actor = "mont coptor">bloody worms</line>
   </knot>
 
   <!-- if the bombCount crosses the threshold we run this knot -->
   <knot id = "bomb" threshold = "2">
-    <line actor = "2">I am going home</line>
+    <line actor = "mont coptor">I am going home</line>
   </knot>
 
 </playscript>

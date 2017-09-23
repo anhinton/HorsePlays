@@ -12,9 +12,12 @@
       - ~~sets currentTheatreScene to FINISHED~~
 
   + add actor name to dialogue
-      - first line in line button is '<actor>:'
-      - floating about choices is '<actor>:'
-      - declare actor names in playscript XML: tag "player"
+      - ~~first line in line button is '<actor>:'~~
+      - ~~floating about choices is '<actor>:'~~
+      - ~~declare actor names in playscript XML: tag "player"~~
+      - make this appear much prettier
+      - handle alignment better: associate with horse maybe?
       
   + allow normal lines to be selected by touching anywhere, not just on
     button
+    
