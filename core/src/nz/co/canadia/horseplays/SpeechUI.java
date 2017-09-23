@@ -4,10 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
@@ -112,17 +114,13 @@ public class SpeechUI {
         speechButton = new TextButton(
                 "",
                 new TextButton.TextButtonStyle(
-                        speechNinePatch01, speechNinePatch01, speechNinePatch01, speechFont
+                        speechNinePatch01, speechNinePatch01,
+                        speechNinePatch01, speechFont
                 )
         );
-        speechButton.addListener(new InputListener() {
+        speechButton.addListener(new ChangeListener() {
             @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+            public void changed(ChangeEvent event, Actor actor) {
                 playScript.nextLine();
                 speechUI.speak();
             }
@@ -131,47 +129,45 @@ public class SpeechUI {
     }
 
     // return a choice-type TextButton
-    private TextButton choiceButton(final ScriptChoice choice, final PlayScript playScript) {
+    private TextButton choiceButton(final ScriptChoice choice,
+                                    final PlayScript playScript) {
         final SpeechUI speechUI = this;
-        TextButton button = new TextButton(
+        final TextButton choiceButton = new TextButton(
                 "",
                 new TextButton.TextButtonStyle(
-                        choiceNinePatch01, speechNinePatch01, choiceNinePatch01, speechFont
+                        choiceNinePatch01, speechNinePatch01,
+                        choiceNinePatch01, speechFont
                 )
         );
-        button.setText(choice.getText());
-        button.addListener(new InputListener() {
+        choiceButton.setText(choice.getText());
+        choiceButton.addListener(new ChangeListener() {
             @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+            public void changed(ChangeEvent event, Actor actor) {
                 if (choice.getDivert().equals(Constants.END_KNOT)) {
-                    end();
-                } else {
-                    playScript.addBomb(choice.getBomb());
-                    playScript.setCurrentKnot(choice.getDivert());
-                    speechUI.speak();
+                        end();
+                    } else {
+                        playScript.addBomb(choice.getBomb());
+                        playScript.setCurrentKnot(choice.getDivert());
+                        speechUI.speak();
+                    }
                 }
-            }
-        });
-        return button;
+            });
+        return choiceButton;
     }
 
     // when the PlayScript is over
     private void end() {
         speechButton.setText("IT'S OVER");
-        speechButton.clearListeners();
         speechButton.addListener(new InputListener() {
             @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+            public boolean touchDown(InputEvent event, float x, float y,
+                                     int pointer, int button) {
                 return true;
             }
 
             @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+            public void touchUp(InputEvent event, float x, float y,
+                                int pointer, int button) {
                 super.touchUp(event, x, y, pointer, button);
             }
         });
