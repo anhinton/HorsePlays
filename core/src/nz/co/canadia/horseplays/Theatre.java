@@ -3,7 +3,6 @@ package nz.co.canadia.horseplays;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
 
@@ -67,45 +66,6 @@ public class Theatre {
     }
 
     public void update() {
-        // handle input
-        if (touchDown & !prevTouchDown) {
-            prevTouchDown = true;
-        }
-        if (!touchDown & prevTouchDown) {
-            prevTouchDown = false;
-            switch (currentTheatreScene) {
-                case START:
-                    startShow();
-                    break;
-                case OPENING:
-                    break;
-                case PERFORMING:
-                    if (clickCounter <= 3) {
-                        clickCounter++;
-                        switch (currentZoomLevel) {
-                            case WIDE:
-                                currentZoomLevel = Constants.ZoomLevel.CLOSE;
-                                if (clickCounter == 1) {
-                                    currentHorse = horses.get(1);
-                                } else {
-                                    currentHorse = horses.get(0);
-                                }
-                                break;
-                            case CLOSE:
-                                currentZoomLevel = Constants.ZoomLevel.WIDE;
-                                break;
-                        }
-                    } else {
-                        clickCounter = 0;
-                        endShow();
-                    }
-                    break;
-                case CLOSING:
-                    break;
-                case FINISHED:
-                    break;
-            }
-        }
 
         // check animation state
         animating = horsesMoving() | curtains.isMoving();
@@ -119,7 +79,7 @@ public class Theatre {
                 break;
             case CLOSING:
                 if (!animating) {
-                    currentTheatreScene = Constants.TheatreScene.START;
+                    currentTheatreScene = Constants.TheatreScene.FINISHED;
                 }
                 break;
         }
@@ -183,16 +143,27 @@ public class Theatre {
         currentTheatreScene = Constants.TheatreScene.OPENING;
     }
 
-    private void endShow() {
-        for (Horse horse : horses) {
-            horse.exit();
-        }
-        Timer.schedule(new Timer.Task() {
-            @Override
-            public void run() {
-                curtains.close();
+    public void endShow(boolean bomb) {
+        if (bomb) {
+            horses.get(1).exit();
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    horses.get(0).exit();
+                }
+            }, 4);
+            Timer.schedule(new Timer.Task() {
+                @Override
+                public void run() {
+                    curtains.close();
+                }
+            }, 8);
+        } else {
+            for (Horse horse : horses) {
+                horse.exit();
             }
-        }, 2);
+            curtains.close();
+        }
         currentTheatreScene = Constants.TheatreScene.CLOSING;
     }
 

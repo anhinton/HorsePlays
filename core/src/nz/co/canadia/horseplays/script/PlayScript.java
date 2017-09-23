@@ -10,7 +10,8 @@ import java.io.IOException;
 import nz.co.canadia.horseplays.util.Constants;
 
 /**
- * The play script contains all the horse actor dialog and controls what happens on the Stage
+ * The play script contains all the horse actor dialog and controls what
+ * happens on the Stage
  */
 
 public class PlayScript {
@@ -103,11 +104,8 @@ public class PlayScript {
         this.bombCount += bomb;
     }
 
-    public void checkBombCount() {
-        if (bombCount >= bombThreshold) {
-            this.bombCount = 0;
-            setCurrentKnot("bomb");
-        }
+    public boolean hasBombed() {
+        return bombCount >= bombThreshold;
     }
 
     public Array<ScriptChoice> getCurrentChoices() {

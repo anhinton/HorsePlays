@@ -155,8 +155,11 @@ public class TheatreScreen implements Screen, InputProcessor {
                 speechUI.speak();
                 break;
             case CLOSING:
+                theatre.setCurrentZoomLevel(Constants.ZoomLevel.WIDE);
+                theatre.endShow(playScript.hasBombed());
                 break;
             case FINISHED:
+                game.setScreen(new TitleScreen(game));
                 break;
         }
         return true;

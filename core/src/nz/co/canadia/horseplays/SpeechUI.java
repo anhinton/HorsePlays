@@ -55,7 +55,9 @@ public class SpeechUI {
     public void speak () {
 
         // check if bombThreshold has been exceeded
-        playScript.checkBombCount();
+        if (playScript.hasBombed()) {
+            playScript.setCurrentKnot("bomb");
+        }
 
         if (playScript.hasLine()) {
             // speak a line if it's available
@@ -157,23 +159,8 @@ public class SpeechUI {
 
     // when the PlayScript is over
     private void end() {
-        speechButton.setText("IT'S OVER");
-        speechButton.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y,
-                                     int pointer, int button) {
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y,
-                                int pointer, int button) {
-                super.touchUp(event, x, y, pointer, button);
-            }
-        });
         table.clearChildren();
-        table.align(Align.center);
-        table.add(speechButton).pad(Constants.BUTTON_PAD);
+        theatre.endShow(playScript.hasBombed());
     }
 
     // return actor alignment
