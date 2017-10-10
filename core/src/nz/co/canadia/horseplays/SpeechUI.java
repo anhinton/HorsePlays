@@ -6,8 +6,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -65,9 +63,9 @@ public class SpeechUI {
             // speak a line if it's available
             ScriptLine scriptLine = playScript.getCurrentLine();
             TextButton speechButton = lineButton(playScript);
-            String actor = scriptLine.getActor();
-            Array<String> actors = playScript.getActors();
-            speechButton.setText(actor + ":\n" + scriptLine.getText());
+            String character = scriptLine.getCharacter();
+            Array<String> characters = playScript.getCharacters();
+            speechButton.setText(character + ":\n" + scriptLine.getText());
             table.clearChildren();
             if (speechButton.getText().length() > Constants.LINE_LENGTH) {
                 speechButton.getLabel().setWrap(true);
@@ -76,16 +74,16 @@ public class SpeechUI {
             } else {
                 table.add(speechButton).pad(Constants.BUTTON_PAD);
             }
-            table.align(getAlign(actor, actors));
-            theatre.setCurrentHorse(actor, actors);
+            table.align(getAlign(character, characters));
+            theatre.setCurrentHorse(character, characters);
         } else if (playScript.hasChoice()) {
             // display choices if we have them
             Array<ScriptChoice> choices = playScript.getCurrentChoices();
             table.clearChildren();
             int maxChars = 0;
-            String actor = choices.get(0).getActor();
-            Array<String> actors = playScript.getActors();
-            int align = getAlign(actor, actors);
+            String character = choices.get(0).getCharacter();
+            Array<String> characters = playScript.getCharacters();
+            int align = getAlign(character, characters);
 
             // create array of choice buttons
             Array<TextButton> buttonArray = new Array<TextButton>();
@@ -94,8 +92,8 @@ public class SpeechUI {
                 buttonArray.add(choiceButton);
                 maxChars = Math.max(maxChars, choiceButton.getText().length());
             }
-            // add actor name to top of choices
-            table.add(authorLabel(actor)).align(align);
+            // add character name to top of choices
+            table.add(authorLabel(character)).align(align);
             table.row();
 
             // add choice buttons to table
@@ -109,7 +107,7 @@ public class SpeechUI {
                 table.row();
             }
             table.align(align);
-            theatre.setCurrentHorse(actor, actors);
+            theatre.setCurrentHorse(character, characters);
         } else if (playScript.hasKnot()) {
             // go to next knot and start speaking
             playScript.nextKnot();
@@ -121,9 +119,9 @@ public class SpeechUI {
 
     }
 
-    private Label authorLabel(String actor) {
+    private Label authorLabel(String character) {
         return new Label(
-                actor + ":\n",
+                character + ":\n",
                 new Label.LabelStyle(
                         speechFont, Color.WHITE
                 ));
@@ -182,12 +180,12 @@ public class SpeechUI {
         theatre.endShow(playScript.hasBombed());
     }
 
-    // return actor alignment
-    private int getAlign(String actor, Array<String> actors) {
+    // return character alignment
+    private int getAlign(String character, Array<String> characters) {
         int align = 0;
-        if (actor.equals(actors.get(0))) {
+        if (character.equals(characters.get(0))) {
             align = Align.bottomRight;
-        } else if (actor.equals(actors.get(1))) {
+        } else if (character.equals(characters.get(1))) {
             align = Align.bottomLeft;
         }
         return align;

@@ -5,13 +5,13 @@ package nz.co.canadia.horseplays.script;
  */
 
 public class ScriptChoice {
-    private String actor;
+    private String character;
     private String text;
     private String divert;
     private int bomb;
 
-    ScriptChoice(String actor, String text, String divert, int bomb) {
-        this.actor = actor;
+    ScriptChoice(String character, String text, String divert, int bomb) {
+        this.character = character;
         this.text = text;
         this.divert = divert;
         this.bomb = bomb;
@@ -29,7 +29,7 @@ public class ScriptChoice {
         return bomb;
     }
 
-    public String getActor() {
-        return actor;
+    public String getCharacter() {
+        return character;
     }
 }

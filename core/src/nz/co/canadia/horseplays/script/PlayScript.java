@@ -10,7 +10,7 @@ import java.io.IOException;
 import nz.co.canadia.horseplays.util.Constants;
 
 /**
- * The play script contains all the horse actor dialog and controls what
+ * The play script contains all the horse character dialog and controls what
  * happens on the Stage
  */
 
@@ -19,34 +19,34 @@ public class PlayScript {
     private ScriptKnot currentKnot;
     private int bombThreshold;
     private int bombCount;
-    private Array<String> actors;
-    private String playerActor;
+    private Array<String> characters;
+    private String playerCharacter;
 
     public PlayScript() {
         bombCount = 0;
-        actors = new Array<String>();
-        playerActor = "";
+        characters = new Array<String>();
+        playerCharacter = "";
 
         scriptKnots = new OrderedMap<String, ScriptKnot>();
 
         XmlReader xmlReader = new XmlReader();
         XmlReader.Element rootElement;
-        Array<XmlReader.Element> actorElements;
+        Array<XmlReader.Element> characterElements;
         Array<XmlReader.Element> knotElements;
 
         try {
             // get root element
             rootElement = xmlReader.parse(Gdx.files.internal("playscripts/playscript.xml"));
 
-            // get actor names
-            XmlReader.Element actorsElement = rootElement.getChildByName("actors");
-            actorElements = actorsElement.getChildrenByName("actor");
-            for (XmlReader.Element actor : actorElements) {
-                actors.add(actor.getAttribute("name"));
-                String player = actor.getAttribute("player", null);
+            // get character names
+            XmlReader.Element charactersElement = rootElement.getChildByName("characters");
+            characterElements = charactersElement.getChildrenByName("character");
+            for (XmlReader.Element character : characterElements) {
+                characters.add(character.getAttribute("name"));
+                String player = character.getAttribute("player", null);
 
                 if (player != null) {
-                    playerActor = actor.getAttribute("name");
+                    playerCharacter = character.getAttribute("name");
                 }
             }
 
@@ -68,18 +68,18 @@ public class PlayScript {
                 Array<XmlReader.Element> lineElements = knot.getChildrenByName("line");
                 Array<ScriptLine> scriptLines = new Array<ScriptLine>();
                 for (XmlReader.Element line : lineElements) {
-                    scriptLines.add(new ScriptLine(line.getAttribute("actor"), line.getText()));
+                    scriptLines.add(new ScriptLine(line.getAttribute("character"), line.getText()));
                 }
 
                 // get scriptChoices and create array of ScriptChoices
                 Array<ScriptChoice> scriptChoices = new Array<ScriptChoice>();
                 XmlReader.Element choicesElement = knot.getChildByName("choices");
                 if (choicesElement != null) {
-                    String choiceActor = choicesElement.getAttribute("actor");
+                    String choiceCharacter = choicesElement.getAttribute("character");
 
                     Array<XmlReader.Element> choiceElements = choicesElement.getChildrenByName("choice");
                     for (XmlReader.Element choice : choiceElements) {
-                        scriptChoices.add(new ScriptChoice(choiceActor, choice.getText(),
+                        scriptChoices.add(new ScriptChoice(choiceCharacter, choice.getText(),
                                 choice.getAttribute("divert", divert),
                                 choice.getIntAttribute("bomb", 0)));
                     }
@@ -137,7 +137,7 @@ public class PlayScript {
         return !currentKnot.getDivert().equals(Constants.END_KNOT);
     }
 
-    public Array<String> getActors() {
-        return actors;
+    public Array<String> getCharacters() {
+        return characters;
     }
 }
