@@ -16,8 +16,8 @@
       - ~~floating about choices is '<character>:'~~
       - ~~declare character names in playscript XML: tag "player"~~
       - ~~refactor to be "character"~~
-      - make this appear much prettier
-      - handle alignment better: associate with horse maybe?
+      - ~~centre choice buttons and character name~~
+      - ~~padding on buttons on right and bottom only~~
       
   + allow normal lines to be selected by touching anywhere, not just on
     button
