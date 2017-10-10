@@ -93,16 +93,23 @@ public class SpeechUI {
                 maxChars = Math.max(maxChars, choiceButton.getText().length());
             }
             // add character name to top of choices
-            table.add(authorLabel(character)).align(align);
+            table.add(authorLabel(character)).align(Constants.BUTTON_ALIGN)
+                    .pad(0, 0, Constants.BUTTON_PAD, Constants.BUTTON_PAD);
             table.row();
 
             // add choice buttons to table
             for (TextButton button : buttonArray) {
                 if (maxChars > Constants.LINE_LENGTH) {
-                    table.add(button).pad(Constants.BUTTON_PAD).align(align)
+                    table.add(button)
+                            .pad(0, 0, Constants.BUTTON_PAD,
+                                    Constants.BUTTON_PAD)
+                            .align(Constants.BUTTON_ALIGN)
                             .width(Constants.APP_WIDTH * 2 / 3);
                 } else {
-                    table.add(button).pad(Constants.BUTTON_PAD).align(align);
+                    table.add(button)
+                            .pad(0, 0, Constants.BUTTON_PAD,
+                                    Constants.BUTTON_PAD)
+                            .align(Constants.BUTTON_ALIGN);
                 }
                 table.row();
             }
@@ -121,7 +128,7 @@ public class SpeechUI {
 
     private Label authorLabel(String character) {
         return new Label(
-                character + ":\n",
+                character + ":",
                 new Label.LabelStyle(
                         speechFont, Color.WHITE
                 ));
@@ -144,6 +151,7 @@ public class SpeechUI {
                 speechUI.speak();
             }
         });
+        speechButton.getLabel().setAlignment(Constants.BUTTON_ALIGN);
         return speechButton;
     }
 
@@ -171,6 +179,7 @@ public class SpeechUI {
                     }
                 }
             });
+        choiceButton.getLabel().setAlignment(Constants.BUTTON_ALIGN);
         return choiceButton;
     }
 

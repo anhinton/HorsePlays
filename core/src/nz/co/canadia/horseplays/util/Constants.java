@@ -1,6 +1,7 @@
 package nz.co.canadia.horseplays.util;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.utils.Align;
 
 /**
  * Store game constants
@@ -32,12 +33,13 @@ public class Constants {
         START, OPENING, PERFORMING, CLOSING, FINISHED
     }
 
-    // xoomLevel determines whether we are looking at the whole stage, or just one horse
+    // zoomLevel determines whether we are looking at the whole stage, or just one horse
     public enum ZoomLevel {
         WIDE, CLOSE
     }
 
     public static final String END_KNOT = "DONE";
 
-    public static final int BUTTON_PAD = 10;
+    public static final int BUTTON_PAD = 20;
+    public static final int BUTTON_ALIGN = Align.center;
 }
