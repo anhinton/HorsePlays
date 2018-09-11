@@ -1,11 +1,12 @@
 package nz.co.canadia.horseplays.script;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.OrderedMap;
+import com.badlogic.gdx.utils.SerializationException;
 import com.badlogic.gdx.utils.XmlReader;
-
-import java.io.IOException;
 
 import nz.co.canadia.horseplays.util.Constants;
 
@@ -29,14 +30,16 @@ public class PlayScript {
 
         scriptKnots = new OrderedMap<String, ScriptKnot>();
 
+        FileHandle xmlFile;
         XmlReader xmlReader = new XmlReader();
         XmlReader.Element rootElement;
         Array<XmlReader.Element> characterElements;
         Array<XmlReader.Element> knotElements;
 
+        // get root element
         try {
-            // get root element
-            rootElement = xmlReader.parse(Gdx.files.internal("playscripts/playscript.xml"));
+            xmlFile = Gdx.files.internal("playscripts/playscript.xml");
+            rootElement = xmlReader.parse(xmlFile);
 
             // get character names
             XmlReader.Element charactersElement = rootElement.getChildByName("characters");
@@ -89,8 +92,9 @@ public class PlayScript {
                 scriptKnots.put(id, new ScriptKnot(scriptLines, scriptChoices, id, divert));
 
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (SerializationException e) {
+            e.getMessage();
+            Gdx.app.exit();
         }
 
         currentKnot = scriptKnots.get("start");
