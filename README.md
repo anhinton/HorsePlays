@@ -1,4 +1,4 @@
-# Poor People Pizza Party
+# Horse Plays
 
 This game is built using the libGDX Java game development
 framework <http://libgdx.badlogicgames.com/>. Instructions for
