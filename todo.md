@@ -1,16 +1,5 @@
 # todo.md
 
-  + ~~make choice buttons only select choice when touchUp is over the button~~
-  
-  + ~~write stage animation for bomb threshold~~
-      - ~~other horse walks off~~
-      - ~~then player horse walks off~~
-      - ~~then curtains close~~
-      
-  + ~~write logic for finished PlayScript into Theatre~~
-      - ~~plays end animation~~
-      - ~~sets currentTheatreScene to FINISHED~~
-
   + add character name to dialogue
       - ~~first line in line button is '<character>:'~~
       - ~~floating about choices is '<character>:'~~
@@ -26,5 +15,16 @@
   
   + write music
   
+  ## Done
+
+  + ~~make choice buttons only select choice when touchUp is over the button~~
   
-    
+  + ~~write stage animation for bomb threshold~~
+      - ~~other horse walks off~~
+      - ~~then player horse walks off~~
+      - ~~then curtains close~~
+      
+  + ~~write logic for finished PlayScript into Theatre~~
+      - ~~plays end animation~~
+      - ~~sets currentTheatreScene to FINISHED~~
+      
