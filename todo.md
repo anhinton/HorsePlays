@@ -2,11 +2,11 @@
 
   + Check if everything still works. It's been since 2017! Does this still
     make sense? I need to get re-familiar.
-      - Switch input detection from Polling to Event Handling
+      - ~~Switch input detection from Polling to Event Handling~~
           - ~~TitleScreen~~
           - ~~TheatreScreen~~
+      - ~~Bump to libGDX version 1.9.13~~
       - Switch to LWJGL3 for Desktop
-      - Bump to libGDX version 1.9.13
       - ???
 
   + add character name to dialogue
