@@ -6,15 +6,13 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 public class HorsePlays extends Game {
 	public SpriteBatch batch;
-	private ShapeRenderer shapeRenderer;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		shapeRenderer = new ShapeRenderer();
 
 		// show the intro screen
-		this.setScreen(new nz.co.canadia.horseplays.screens.TheatreScreen(this));
+		this.setScreen(new nz.co.canadia.horseplays.screens.TitleScreen(this));
 	}
 
 	@Override

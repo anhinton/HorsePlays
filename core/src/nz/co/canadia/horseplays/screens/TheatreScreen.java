@@ -24,7 +24,7 @@ import nz.co.canadia.horseplays.util.Constants;
  * The stage screen where the game is played.
  */
 
-public class TheatreScreen implements Screen, InputProcessor {
+public class TheatreScreen implements InputProcessor, Screen {
     private final HorsePlays game;
     private final SpeechUI speechUI;
     private BitmapFont font;
@@ -45,21 +45,12 @@ public class TheatreScreen implements Screen, InputProcessor {
         camera.setToOrtho(false, Constants.APP_WIDTH, Constants.APP_HEIGHT);
         viewport = new FitViewport(Constants.APP_WIDTH, Constants.APP_HEIGHT, camera);
         stage = new Stage(viewport);
-        stage.addListener(new InputListener() {
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                return true;
-            }
 
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                TheatreScreen.this.touchUp((int)(x), (int)(y), pointer, button);
-            }
-        });
         table = new Table();
         table.setFillParent(true);
 //        table.setDebug(true);
         stage.addActor(table);
+
         InputMultiplexer multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(stage);
         multiplexer.addProcessor(this);
@@ -137,14 +128,12 @@ public class TheatreScreen implements Screen, InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        theatre.setTouchDown(true);
         return false;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        theatre.setTouchDown(false);
-        switch(theatre.getCurrentTheatreScene()) {
+        switch(theatre.getCurrentScene()) {
              case START:
                 theatre.startShow();
                 break;

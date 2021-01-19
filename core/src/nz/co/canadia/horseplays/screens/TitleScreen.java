@@ -2,6 +2,7 @@ package nz.co.canadia.horseplays.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -16,7 +17,7 @@ import nz.co.canadia.horseplays.util.Constants;
  * Title screen to show on launch
  */
 
-public class TitleScreen implements Screen {
+public class TitleScreen implements InputProcessor, Screen {
     private final HorsePlays game;
     private BitmapFont font;
     private OrthographicCamera camera;
@@ -32,6 +33,12 @@ public class TitleScreen implements Screen {
         viewport = new FitViewport(Constants.APP_WIDTH, Constants.APP_HEIGHT,
                 camera);
 
+        Gdx.input.setInputProcessor(this);
+    }
+
+    private void quit() {
+        game.setScreen(new TheatreScreen(game));
+        dispose();
     }
 
     @Override
@@ -41,7 +48,10 @@ public class TitleScreen implements Screen {
 
     @Override
     public void render (float delta) {
-        Gdx.gl.glClearColor(168/255f, 16/255f, 6/255f, 1);
+        Gdx.gl.glClearColor(Constants.BACKGROUND_COLOR.r,
+                Constants.BACKGROUND_COLOR.g,
+                Constants.BACKGROUND_COLOR.b,
+                Constants.BACKGROUND_COLOR.a);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         camera.update();
@@ -52,19 +62,6 @@ public class TitleScreen implements Screen {
         font.draw(game.batch, "HORSE PLAYS", 100, 100);
 
         game.batch.end();
-
-        // ESC or BACK quits the game
-        Gdx.input.setCatchBackKey(true);
-        if (Gdx.input.isKeyPressed(Input.Keys.BACK)
-                || Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            Gdx.app.exit();
-        }
-
-        // any other input means start the game
-        if (Gdx.input.isTouched() || Gdx.input.isKeyJustPressed(Input.Keys.ANY_KEY)) {
-            game.setScreen(new TheatreScreen(game));
-            dispose();
-        }
     }
 
     @Override
@@ -90,5 +87,55 @@ public class TitleScreen implements Screen {
     @Override
     public void dispose() {
 
+    }
+
+    @Override
+    public boolean keyDown(int keycode) {
+        switch (keycode) {
+            case Input.Keys.BACK:
+            case Input.Keys.ESCAPE:
+                Gdx.app.exit();
+                break;
+            default:
+                quit();
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        quit();
+        return true;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(int amount) {
+        return false;
     }
 }
