@@ -1,16 +1,15 @@
 package nz.co.canadia.horseplays.desktop;
 
-import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
-import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import nz.co.canadia.horseplays.HorsePlays;
 import nz.co.canadia.horseplays.util.Constants;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.title = Constants.GAME_NAME;
-		config.width = Constants.APP_WIDTH;
-		config.height = Constants.APP_HEIGHT;
-		new LwjglApplication(new HorsePlays(), config);
+		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+		config.setTitle(Constants.GAME_NAME);
+		config.setWindowedMode(Constants.APP_WIDTH, Constants.APP_HEIGHT);
+		new Lwjgl3Application(new HorsePlays(), config);
 	}
 }

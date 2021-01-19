@@ -6,7 +6,8 @@
           - ~~TitleScreen~~
           - ~~TheatreScreen~~
       - ~~Bump to libGDX version 1.9.13~~
-      - Switch to LWJGL3 for Desktop
+      - ~~add iOS module~~  
+      - ~~Switch to LWJGL3 for Desktop~~
       - ???
 
   + add character name to dialogue
@@ -26,9 +27,7 @@
   + Click anywhere to speed through "action" on TheatreScreen
     
   + Do something smart to make fonts look good on different device size
-    (abandon if I don't care about iOS)  
-    
-  + add iOS module  
+    (abandon if I don't care about iOS)
     
   + write a play
       - Then write another (it's horse *plays*, guy)
