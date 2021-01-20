@@ -1,22 +1,4 @@
 # todo.md
-
-  + Check if everything still works. It's been since 2017! Does this still
-    make sense? I need to get re-familiar.
-      - ~~Switch input detection from Polling to Event Handling~~
-          - ~~TitleScreen~~
-          - ~~TheatreScreen~~
-      - ~~Bump to libGDX version 1.9.13~~
-      - ~~add iOS module~~  
-      - ~~Switch to LWJGL3 for Desktop~~
-      - ???
-
-  + add character name to dialogue
-      - ~~first line in line button is '<character>:'~~
-      - ~~floating about choices is '<character>:'~~
-      - ~~declare character names in playscript XML: tag "player"~~
-      - ~~refactor to be "character"~~
-      - ~~centre choice buttons and character name~~
-      - ~~padding on buttons on right and bottom only~~
       
   + allow normal lines to be selected by touching anywhere, not just on
     button
@@ -35,6 +17,24 @@
   + write music
   
   ## Done
+
+  + ~~Check if everything still works. It's been since 2017! Does this still
+    make sense? I need to get re-familiar.
+    I guess I'm as familiar as I'll ever be? Let's just make this game!~~
+      - ~~Switch input detection from Polling to Event Handling~~
+          - ~~TitleScreen~~
+          - ~~TheatreScreen~~
+      - ~~Bump to libGDX version 1.9.13~~
+      - ~~add iOS module~~  
+      - ~~Switch to LWJGL3 for Desktop~~
+
+  + ~~add character name to dialogue~~
+      - ~~first line in line button is '<character>:'~~
+      - ~~floating about choices is '<character>:'~~
+      - ~~declare character names in playscript XML: tag "player"~~
+      - ~~refactor to be "character"~~
+      - ~~centre choice buttons and character name~~
+      - ~~padding on buttons on right and bottom only~~
 
   + ~~make choice buttons only select choice when touchUp is over the button~~
   
