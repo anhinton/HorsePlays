@@ -1,11 +1,15 @@
 # todo.md
-      
+
+  + Move play progression logic from TheatreScreen.touchUp() to somewhere
+    in Theatre()?
+      - Also handle PlayScript and SpeechUI in Theatre
+
   + allow normal lines to be selected by touching anywhere, not just on
     button
     
-  + Move play progression logic from TheatreScreen.touchUp() to somewhere
-    in Theatre()?
-    
+  + Fix CLOSING triggering !animating when bomb ending plays (based on
+    whether a curtain or horse is currently moving)
+   
   + Click anywhere to speed through "action" on TheatreScreen
     
   + Do something smart to make fonts look good on different device size

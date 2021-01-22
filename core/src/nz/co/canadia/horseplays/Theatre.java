@@ -3,9 +3,12 @@ package nz.co.canadia.horseplays;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
-
+import nz.co.canadia.horseplays.screens.TheatreScreen;
+import nz.co.canadia.horseplays.script.PlayScript;
+import nz.co.canadia.horseplays.script.ScriptLine;
 import nz.co.canadia.horseplays.util.Constants;
 
 /**
@@ -14,6 +17,9 @@ import nz.co.canadia.horseplays.util.Constants;
 
 public class Theatre {
 
+    private final PlayScript playScript;
+    private final SpeechUI speechUI;
+    private final TheatreScreen theatreScreen;
     private Backdrop backdrop;
     private Spotlight spotlight01;
     private Spotlight spotlight02;
@@ -34,7 +40,12 @@ public class Theatre {
     private boolean prevTouchDown;
     private boolean touchDown;
 
-    public Theatre() {
+    public Theatre(TheatreScreen theatreScreen) {
+
+        this.theatreScreen = theatreScreen;
+        playScript = new PlayScript();
+        speechUI = new SpeechUI(this, playScript);
+
         theatreStage = new TheatreStage(0, 0);
         backdrop = new Backdrop(Constants.APP_WIDTH / 2f, theatreStage.getHeight());
         spotlight01 = new Spotlight(
@@ -65,6 +76,51 @@ public class Theatre {
         touchDown = false;
     }
 
+    public void advance() {
+        if (!animating) {
+            switch (getCurrentScene()) {
+                case START:
+                    startShow();
+                    break;
+//                case OPENING:
+//                    break;
+                case PERFORMING:
+                    speak();
+                    break;
+//                case CLOSING:
+//                    break;
+                case FINISHED:
+                    theatreScreen.exit();
+                    break;
+            }
+        }
+    }
+
+    public void speak() {
+        setCurrentZoomLevel(Constants.ZoomLevel.CLOSE);
+
+        // check if bombThreshold has been exceeded
+        if (playScript.hasBombed()) {
+            playScript.setCurrentKnot("bomb");
+        }
+
+        if (playScript.hasLine()) {
+            speechUI.speak(playScript.getCurrentLine());
+        } else if (playScript.hasChoice()) {
+            speechUI.speak(playScript.getCurrentChoices());
+        } else if (playScript.hasKnot()) {
+            playScript.nextKnot();
+            speak();
+        } else {
+            speechUI.end();
+            endShow();
+        }
+    }
+
+    public SpeechUI getSpeechUI() {
+        return speechUI;
+    }
+
     public void update() {
 
         // check animation state
@@ -74,12 +130,12 @@ public class Theatre {
         switch (currentScene) {
             case OPENING:
                 if (!animating) {
-                    currentScene = Constants.CurrentScene.PERFORMING;
+                    setCurrentScene(Constants.CurrentScene.PERFORMING);
                 }
                 break;
             case CLOSING:
                 if (!animating) {
-                    currentScene = Constants.CurrentScene.FINISHED;
+                    setCurrentScene(Constants.CurrentScene.FINISHED);
                 }
                 break;
         }
@@ -108,6 +164,7 @@ public class Theatre {
                 //currentHorse.speak(true);
                 currentHorse.draw(batch, currentZoomLevel);
         }
+
     }
 
     public void dispose() {
@@ -132,11 +189,17 @@ public class Theatre {
                 }
             }
         }, 2);
-        currentScene = Constants.CurrentScene.OPENING;
+        setCurrentScene(Constants.CurrentScene.OPENING);
     }
 
-    public void endShow(boolean bomb) {
-        if (bomb) {
+    public void close(boolean hasBombed) {
+    }
+
+    public void endShow() {
+        setCurrentZoomLevel(Constants.ZoomLevel.WIDE);
+        setCurrentScene(Constants.CurrentScene.CLOSING);
+
+        if (playScript.hasBombed()) {
             horses.get(1).exit();
             Timer.schedule(new Timer.Task() {
                 @Override
@@ -156,7 +219,6 @@ public class Theatre {
             }
             curtains.close();
         }
-        currentScene = Constants.CurrentScene.CLOSING;
     }
 
     private boolean horsesMoving() {
@@ -174,6 +236,10 @@ public class Theatre {
 
     public Constants.CurrentScene getCurrentScene() {
         return currentScene;
+    }
+
+    public void setCurrentScene(Constants.CurrentScene currentScene) {
+        this.currentScene =  currentScene;
     }
 
     void setCurrentHorse(String actor, Array<String> actors) {

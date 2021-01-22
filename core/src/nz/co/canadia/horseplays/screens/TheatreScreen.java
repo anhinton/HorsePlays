@@ -1,23 +1,14 @@
 package nz.co.canadia.horseplays.screens;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import nz.co.canadia.horseplays.HorsePlays;
-import nz.co.canadia.horseplays.SpeechUI;
 import nz.co.canadia.horseplays.Theatre;
-import nz.co.canadia.horseplays.script.PlayScript;
 import nz.co.canadia.horseplays.util.Constants;
 
 /**
@@ -26,39 +17,33 @@ import nz.co.canadia.horseplays.util.Constants;
 
 public class TheatreScreen implements InputProcessor, Screen {
     private final HorsePlays game;
-    private final SpeechUI speechUI;
-    private BitmapFont font;
     private OrthographicCamera camera;
     private Viewport viewport;
     private Stage stage;
-    private Table table;
-    private PlayScript playScript;
 
     private Theatre theatre;
 
     public TheatreScreen(final HorsePlays game) {
         this.game = game;
 
-        playScript = new PlayScript();
-
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Constants.APP_WIDTH, Constants.APP_HEIGHT);
         viewport = new FitViewport(Constants.APP_WIDTH, Constants.APP_HEIGHT, camera);
         stage = new Stage(viewport);
 
-        table = new Table();
-        table.setFillParent(true);
+        theatre = new Theatre(this);
 //        table.setDebug(true);
-        stage.addActor(table);
+        stage.addActor(theatre.getSpeechUI());
 
         InputMultiplexer multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(stage);
         multiplexer.addProcessor(this);
         Gdx.input.setInputProcessor(multiplexer);
+    }
 
-        theatre = new Theatre();
-
-        speechUI = new SpeechUI(table, playScript, theatre);
+    public void exit() {
+        game.setScreen(new TitleScreen(game));
+        dispose();
     }
 
     @Override
@@ -108,12 +93,20 @@ public class TheatreScreen implements InputProcessor, Screen {
     public void dispose() {
         stage.dispose();
         theatre.dispose();
-        font.dispose();
     }
 
     @Override
     public boolean keyDown(int keycode) {
-        return false;
+        switch (keycode) {
+            case Input.Keys.BACK:
+            case Input.Keys.ESCAPE:
+                exit();
+                break;
+            default:
+                theatre.advance();
+                break;
+        }
+        return true;
     }
 
     @Override
@@ -128,30 +121,13 @@ public class TheatreScreen implements InputProcessor, Screen {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
+        theatre.advance();
+        return true;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        switch(theatre.getCurrentScene()) {
-             case START:
-                theatre.startShow();
-                break;
-            case OPENING:
-                break;
-            case PERFORMING:
-                theatre.setCurrentZoomLevel(Constants.ZoomLevel.CLOSE);
-                speechUI.speak();
-                break;
-            case CLOSING:
-                theatre.setCurrentZoomLevel(Constants.ZoomLevel.WIDE);
-                theatre.endShow(playScript.hasBombed());
-                break;
-            case FINISHED:
-                game.setScreen(new TitleScreen(game));
-                break;
-        }
-        return true;
+        return false;
     }
 
     @Override

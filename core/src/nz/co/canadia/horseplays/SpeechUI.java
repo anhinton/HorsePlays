@@ -13,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
-
 import nz.co.canadia.horseplays.script.PlayScript;
 import nz.co.canadia.horseplays.script.ScriptChoice;
 import nz.co.canadia.horseplays.script.ScriptLine;
@@ -23,18 +22,19 @@ import nz.co.canadia.horseplays.util.Constants;
  * This class puts our horse speech on screen
  */
 
-public class SpeechUI {
-    private Table table;
-    private NinePatchDrawable speechNinePatch01;
-    private NinePatchDrawable choiceNinePatch01;
-    private BitmapFont speechFont;
-    private TextButton speechButton;
-    private PlayScript playScript;
-    private Theatre theatre;
+public class SpeechUI extends Table {
+    private final NinePatchDrawable speechNinePatch01;
+    private final NinePatchDrawable choiceNinePatch01;
+    private final BitmapFont speechFont;
+    private final PlayScript playScript;
+    private final Theatre theatre;
 
-    public SpeechUI(Table table, PlayScript playScript, Theatre theatre) {
+    public SpeechUI(Theatre theatre, PlayScript playScript) {
+        this.setFillParent(true);
+
         this.playScript = playScript;
         this.theatre = theatre;
+
         speechNinePatch01 = new NinePatchDrawable(
                 new NinePatch(
                         new Texture(Gdx.files.internal("ui/speechBubble02.png")),
@@ -48,7 +48,6 @@ public class SpeechUI {
                 )
         );
         speechFont = new BitmapFont(Gdx.files.internal("fonts/TlwgMonoBold24.fnt"));
-        this.table = table;
     }
 
     // display the appropriate dialogue line or choices on the screen
@@ -66,20 +65,20 @@ public class SpeechUI {
             String character = scriptLine.getCharacter();
             Array<String> characters = playScript.getCharacters();
             speechButton.setText(character + ":\n" + scriptLine.getText());
-            table.clearChildren();
+            this.clearChildren();
             if (speechButton.getText().length() > Constants.LINE_LENGTH) {
                 speechButton.getLabel().setWrap(true);
-                table.add(speechButton).pad(Constants.BUTTON_PAD)
-                        .width(Constants.APP_WIDTH * 2 / 3);
+                this.add(speechButton).pad(Constants.BUTTON_PAD)
+                        .width(Constants.APP_WIDTH * 2f / 3);
             } else {
-                table.add(speechButton).pad(Constants.BUTTON_PAD);
+                this.add(speechButton).pad(Constants.BUTTON_PAD);
             }
-            table.align(getAlign(character, characters));
+            this.align(getAlign(character, characters));
             theatre.setCurrentHorse(character, characters);
         } else if (playScript.hasChoice()) {
             // display choices if we have them
             Array<ScriptChoice> choices = playScript.getCurrentChoices();
-            table.clearChildren();
+            this.clearChildren();
             int maxChars = 0;
             String character = choices.get(0).getCharacter();
             Array<String> characters = playScript.getCharacters();
@@ -93,27 +92,27 @@ public class SpeechUI {
                 maxChars = Math.max(maxChars, choiceButton.getText().length());
             }
             // add character name to top of choices
-            table.add(authorLabel(character)).align(Constants.BUTTON_ALIGN)
+            this.add(authorLabel(character)).align(Constants.BUTTON_ALIGN)
                     .pad(0, 0, Constants.BUTTON_PAD, Constants.BUTTON_PAD);
-            table.row();
+            this.row();
 
             // add choice buttons to table
             for (TextButton button : buttonArray) {
                 if (maxChars > Constants.LINE_LENGTH) {
-                    table.add(button)
+                    this.add(button)
                             .pad(0, 0, Constants.BUTTON_PAD,
                                     Constants.BUTTON_PAD)
                             .align(Constants.BUTTON_ALIGN)
-                            .width(Constants.APP_WIDTH * 2 / 3);
+                            .width(Constants.APP_WIDTH * 2f / 3);
                 } else {
-                    table.add(button)
+                    this.add(button)
                             .pad(0, 0, Constants.BUTTON_PAD,
                                     Constants.BUTTON_PAD)
                             .align(Constants.BUTTON_ALIGN);
                 }
-                table.row();
+                this.row();
             }
-            table.align(align);
+            this.align(align);
             theatre.setCurrentHorse(character, characters);
         } else if (playScript.hasKnot()) {
             // go to next knot and start speaking
@@ -124,6 +123,64 @@ public class SpeechUI {
             end();
         }
 
+    }
+
+    public void speak(ScriptLine currentLine) {// speak a line if it's available
+        ScriptLine scriptLine = playScript.getCurrentLine();
+        TextButton speechButton = lineButton(playScript);
+        String character = scriptLine.getCharacter();
+        Array<String> characters = playScript.getCharacters();
+        speechButton.setText(character + ":\n" + scriptLine.getText());
+        this.clearChildren();
+        if (speechButton.getText().length() > Constants.LINE_LENGTH) {
+            speechButton.getLabel().setWrap(true);
+            this.add(speechButton).pad(Constants.BUTTON_PAD)
+                    .width(Constants.APP_WIDTH * 2f / 3);
+        } else {
+            this.add(speechButton).pad(Constants.BUTTON_PAD);
+        }
+        this.align(getAlign(character, characters));
+        theatre.setCurrentHorse(character, characters);
+    }
+
+    public void speak(Array<ScriptChoice> currentChoices) {
+        Array<ScriptChoice> choices = playScript.getCurrentChoices();
+        this.clearChildren();
+        int maxChars = 0;
+        String character = choices.get(0).getCharacter();
+        Array<String> characters = playScript.getCharacters();
+        int align = getAlign(character, characters);
+
+        // create array of choice buttons
+        Array<TextButton> buttonArray = new Array<TextButton>();
+        for (ScriptChoice choice : choices) {
+            TextButton choiceButton = choiceButton(choice, playScript);
+            buttonArray.add(choiceButton);
+            maxChars = Math.max(maxChars, choiceButton.getText().length());
+        }
+        // add character name to top of choices
+        this.add(authorLabel(character)).align(Constants.BUTTON_ALIGN)
+                .pad(0, 0, Constants.BUTTON_PAD, Constants.BUTTON_PAD);
+        this.row();
+
+        // add choice buttons to table
+        for (TextButton button : buttonArray) {
+            if (maxChars > Constants.LINE_LENGTH) {
+                this.add(button)
+                        .pad(0, 0, Constants.BUTTON_PAD,
+                                Constants.BUTTON_PAD)
+                        .align(Constants.BUTTON_ALIGN)
+                        .width(Constants.APP_WIDTH * 2f / 3);
+            } else {
+                this.add(button)
+                        .pad(0, 0, Constants.BUTTON_PAD,
+                                Constants.BUTTON_PAD)
+                        .align(Constants.BUTTON_ALIGN);
+            }
+            this.row();
+        }
+        this.align(align);
+        theatre.setCurrentHorse(character, characters);
     }
 
     private Label authorLabel(String character) {
@@ -137,7 +194,7 @@ public class SpeechUI {
     // return TextButton for a regular line
     private TextButton lineButton(final PlayScript playScript) {
         final SpeechUI speechUI = this;
-        speechButton = new TextButton(
+        TextButton speechButton = new TextButton(
                 "",
                 new TextButton.TextButtonStyle(
                         speechNinePatch01, speechNinePatch01,
@@ -148,7 +205,7 @@ public class SpeechUI {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 playScript.nextLine();
-                speechUI.speak();
+                theatre.speak();
             }
         });
         speechButton.getLabel().setAlignment(Constants.BUTTON_ALIGN);
@@ -175,7 +232,7 @@ public class SpeechUI {
                     } else {
                         playScript.addBomb(choice.getBomb());
                         playScript.setCurrentKnot(choice.getDivert());
-                        speechUI.speak();
+                        theatre.speak();
                     }
                 }
             });
@@ -184,9 +241,8 @@ public class SpeechUI {
     }
 
     // when the PlayScript is over
-    private void end() {
-        table.clearChildren();
-        theatre.endShow(playScript.hasBombed());
+    void end() {
+        clearChildren();
     }
 
     // return character alignment
