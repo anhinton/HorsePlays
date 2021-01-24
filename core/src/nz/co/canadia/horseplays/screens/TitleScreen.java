@@ -36,7 +36,7 @@ public class TitleScreen implements InputProcessor, Screen {
         Gdx.input.setInputProcessor(this);
     }
 
-    private void quit() {
+    private void startPlay() {
         game.setScreen(new TheatreScreen(game));
         dispose();
     }
@@ -94,13 +94,18 @@ public class TitleScreen implements InputProcessor, Screen {
         switch (keycode) {
             case Input.Keys.BACK:
             case Input.Keys.ESCAPE:
-                Gdx.app.exit();
+                quit();
                 break;
             default:
-                quit();
+                startPlay();
                 break;
         }
         return true;
+    }
+
+    private void quit() {
+        Gdx.app.exit();
+        dispose();
     }
 
     @Override
@@ -109,19 +114,17 @@ public class TitleScreen implements InputProcessor, Screen {
     }
 
     @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
+    public boolean keyTyped(char character) { return false; }
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        quit();
-        return true;
+        return false;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
+        startPlay();
+        return true;
     }
 
     @Override

@@ -13,7 +13,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
-import nz.co.canadia.horseplays.script.PlayScript;
 import nz.co.canadia.horseplays.script.ScriptChoice;
 import nz.co.canadia.horseplays.script.ScriptLine;
 import nz.co.canadia.horseplays.util.Constants;
@@ -26,14 +25,15 @@ public class SpeechUI extends Table {
     private final NinePatchDrawable speechNinePatch01;
     private final NinePatchDrawable choiceNinePatch01;
     private final BitmapFont speechFont;
-    private final PlayScript playScript;
     private final Theatre theatre;
+    boolean buttonAdvanceOnly;
 
-    public SpeechUI(Theatre theatre, PlayScript playScript) {
+    public SpeechUI(Theatre theatre) {
         this.setFillParent(true);
 
-        this.playScript = playScript;
         this.theatre = theatre;
+
+        buttonAdvanceOnly = true;
 
         speechNinePatch01 = new NinePatchDrawable(
                 new NinePatch(
@@ -50,86 +50,11 @@ public class SpeechUI extends Table {
         speechFont = new BitmapFont(Gdx.files.internal("fonts/TlwgMonoBold24.fnt"));
     }
 
-    // display the appropriate dialogue line or choices on the screen
-    public void speak () {
-
-        // check if bombThreshold has been exceeded
-        if (playScript.hasBombed()) {
-            playScript.setCurrentKnot("bomb");
-        }
-
-        if (playScript.hasLine()) {
-            // speak a line if it's available
-            ScriptLine scriptLine = playScript.getCurrentLine();
-            TextButton speechButton = lineButton(playScript);
-            String character = scriptLine.getCharacter();
-            Array<String> characters = playScript.getCharacters();
-            speechButton.setText(character + ":\n" + scriptLine.getText());
-            this.clearChildren();
-            if (speechButton.getText().length() > Constants.LINE_LENGTH) {
-                speechButton.getLabel().setWrap(true);
-                this.add(speechButton).pad(Constants.BUTTON_PAD)
-                        .width(Constants.APP_WIDTH * 2f / 3);
-            } else {
-                this.add(speechButton).pad(Constants.BUTTON_PAD);
-            }
-            this.align(getAlign(character, characters));
-            theatre.setCurrentHorse(character, characters);
-        } else if (playScript.hasChoice()) {
-            // display choices if we have them
-            Array<ScriptChoice> choices = playScript.getCurrentChoices();
-            this.clearChildren();
-            int maxChars = 0;
-            String character = choices.get(0).getCharacter();
-            Array<String> characters = playScript.getCharacters();
-            int align = getAlign(character, characters);
-
-            // create array of choice buttons
-            Array<TextButton> buttonArray = new Array<TextButton>();
-            for (ScriptChoice choice : choices) {
-                TextButton choiceButton = choiceButton(choice, playScript);
-                buttonArray.add(choiceButton);
-                maxChars = Math.max(maxChars, choiceButton.getText().length());
-            }
-            // add character name to top of choices
-            this.add(authorLabel(character)).align(Constants.BUTTON_ALIGN)
-                    .pad(0, 0, Constants.BUTTON_PAD, Constants.BUTTON_PAD);
-            this.row();
-
-            // add choice buttons to table
-            for (TextButton button : buttonArray) {
-                if (maxChars > Constants.LINE_LENGTH) {
-                    this.add(button)
-                            .pad(0, 0, Constants.BUTTON_PAD,
-                                    Constants.BUTTON_PAD)
-                            .align(Constants.BUTTON_ALIGN)
-                            .width(Constants.APP_WIDTH * 2f / 3);
-                } else {
-                    this.add(button)
-                            .pad(0, 0, Constants.BUTTON_PAD,
-                                    Constants.BUTTON_PAD)
-                            .align(Constants.BUTTON_ALIGN);
-                }
-                this.row();
-            }
-            this.align(align);
-            theatre.setCurrentHorse(character, characters);
-        } else if (playScript.hasKnot()) {
-            // go to next knot and start speaking
-            playScript.nextKnot();
-            this.speak();
-        } else {
-            // it must be all over
-            end();
-        }
-
-    }
-
-    public void speak(ScriptLine currentLine) {// speak a line if it's available
-        ScriptLine scriptLine = playScript.getCurrentLine();
-        TextButton speechButton = lineButton(playScript);
+    public void speak(ScriptLine scriptLine) {
+        buttonAdvanceOnly = false;
+        TextButton speechButton = lineButton();
         String character = scriptLine.getCharacter();
-        Array<String> characters = playScript.getCharacters();
+        Array<String> characters = theatre.getCharacters();
         speechButton.setText(character + ":\n" + scriptLine.getText());
         this.clearChildren();
         if (speechButton.getText().length() > Constants.LINE_LENGTH) {
@@ -143,18 +68,18 @@ public class SpeechUI extends Table {
         theatre.setCurrentHorse(character, characters);
     }
 
-    public void speak(Array<ScriptChoice> currentChoices) {
-        Array<ScriptChoice> choices = playScript.getCurrentChoices();
+    public void speak(Array<ScriptChoice> choices) {
+        buttonAdvanceOnly = true;
         this.clearChildren();
         int maxChars = 0;
         String character = choices.get(0).getCharacter();
-        Array<String> characters = playScript.getCharacters();
+        Array<String> characters = theatre.getCharacters();
         int align = getAlign(character, characters);
 
         // create array of choice buttons
         Array<TextButton> buttonArray = new Array<TextButton>();
         for (ScriptChoice choice : choices) {
-            TextButton choiceButton = choiceButton(choice, playScript);
+            TextButton choiceButton = choiceButton(choice);
             buttonArray.add(choiceButton);
             maxChars = Math.max(maxChars, choiceButton.getText().length());
         }
@@ -192,8 +117,7 @@ public class SpeechUI extends Table {
     }
 
     // return TextButton for a regular line
-    private TextButton lineButton(final PlayScript playScript) {
-        final SpeechUI speechUI = this;
+    private TextButton lineButton() {
         TextButton speechButton = new TextButton(
                 "",
                 new TextButton.TextButtonStyle(
@@ -204,8 +128,7 @@ public class SpeechUI extends Table {
         speechButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                playScript.nextLine();
-                theatre.speak();
+                theatre.advance();
             }
         });
         speechButton.getLabel().setAlignment(Constants.BUTTON_ALIGN);
@@ -213,9 +136,7 @@ public class SpeechUI extends Table {
     }
 
     // return a choice-type TextButton
-    private TextButton choiceButton(final ScriptChoice choice,
-                                    final PlayScript playScript) {
-        final SpeechUI speechUI = this;
+    private TextButton choiceButton(final ScriptChoice choice) {
         final TextButton choiceButton = new TextButton(
                 "",
                 new TextButton.TextButtonStyle(
@@ -230,9 +151,9 @@ public class SpeechUI extends Table {
                 if (choice.getDivert().equals(Constants.END_KNOT)) {
                         end();
                     } else {
-                        playScript.addBomb(choice.getBomb());
-                        playScript.setCurrentKnot(choice.getDivert());
-                        theatre.speak();
+                        theatre.addBomb(choice.getBomb());
+                        theatre.setCurrentKnot(choice.getDivert());
+                        theatre.advance();
                     }
                 }
             });

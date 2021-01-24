@@ -18,13 +18,11 @@ import nz.co.canadia.horseplays.util.Constants;
 public class PlayScript {
     private OrderedMap<String, ScriptKnot> scriptKnots;
     private ScriptKnot currentKnot;
-    private int bombThreshold;
-    private int bombCount;
+    public int bombThreshold;
     private Array<String> characters;
     private String playerCharacter;
 
     public PlayScript() {
-        bombCount = 0;
         characters = new Array<String>();
         playerCharacter = "";
 
@@ -119,14 +117,6 @@ public class PlayScript {
 
     public boolean hasChoice() {
         return currentKnot.hasChoice();
-    }
-
-    public void addBomb(int bomb) {
-        this.bombCount += bomb;
-    }
-
-    public boolean hasBombed() {
-        return bombCount >= bombThreshold;
     }
 
     public Array<ScriptChoice> getCurrentChoices() {

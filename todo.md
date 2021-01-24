@@ -1,26 +1,34 @@
 # todo.md
-
-  + Move play progression logic from TheatreScreen.touchUp() to somewhere
-    in Theatre()?
-      - Also handle PlayScript and SpeechUI in Theatre
-
-  + allow normal lines to be selected by touching anywhere, not just on
-    button
+    
+  + Use numkeys 1, 2, 3, etc to select choices
     
   + Fix CLOSING triggering !animating when bomb ending plays (based on
     whether a curtain or horse is currently moving)
-   
-  + Click anywhere to speed through "action" on TheatreScreen
     
   + Do something smart to make fonts look good on different device size
     (abandon if I don't care about iOS)
     
   + write a play
       - Then write another (it's horse *plays*, guy)
+    
+  + Write a "save progress" function that keeps track of which knot you are 
+    up to in a PlayScript
+      - NB: Not which line in a knot. Start of knot is good enough for me.
+      - Saves out when returning to title menu
+      - If one exists when in title menu present Resume and Start buttons
+      - Otherwise just Start Button
+      - Clears progess when a PlayScript completes
   
   + write music
   
   ## Done
+
++ ~~Move play progression logic from TheatreScreen.touchUp() to somewhere
+  in Theatre()?~~
+    - ~~Also handle PlayScript and SpeechUI in Theatre~~
+
++ ~~allow normal lines to be selected by touching anywhere, not just on
+  button~~
 
   + ~~Check if everything still works. It's been since 2017! Does this still
     make sense? I need to get re-familiar.

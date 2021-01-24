@@ -121,13 +121,13 @@ public class TheatreScreen implements InputProcessor, Screen {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        theatre.advance();
-        return true;
+        return false;
     }
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
+        theatre.advance();
+        return true;
     }
 
     @Override

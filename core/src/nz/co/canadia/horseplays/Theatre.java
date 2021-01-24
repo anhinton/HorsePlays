@@ -3,12 +3,10 @@ package nz.co.canadia.horseplays;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
 import nz.co.canadia.horseplays.screens.TheatreScreen;
 import nz.co.canadia.horseplays.script.PlayScript;
-import nz.co.canadia.horseplays.script.ScriptLine;
 import nz.co.canadia.horseplays.util.Constants;
 
 /**
@@ -20,31 +18,28 @@ public class Theatre {
     private final PlayScript playScript;
     private final SpeechUI speechUI;
     private final TheatreScreen theatreScreen;
-    private Backdrop backdrop;
-    private Spotlight spotlight01;
-    private Spotlight spotlight02;
-    private TheatreStage theatreStage;
-    private Texture horseTexture01;
-    private Texture horseCloseTexture01;
-    private Texture horseTexture02;
-    private Texture horseCloseTexture02;
-    private Array<Horse> horses;
-    private Curtains curtains;
+    private final Backdrop backdrop;
+    private final Spotlight spotlight01;
+    private final Spotlight spotlight02;
+    private final TheatreStage theatreStage;
+    private final Texture horseTexture01;
+    private final Texture horseCloseTexture01;
+    private final Texture horseTexture02;
+    private final Texture horseCloseTexture02;
+    private final Array<Horse> horses;
+    private final Curtains curtains;
     private Horse currentHorse;
 
     private Constants.CurrentScene currentScene;
     private Constants.ZoomLevel currentZoomLevel;
     private boolean animating;
-
-    private int clickCounter;
-    private boolean prevTouchDown;
-    private boolean touchDown;
+    private int bombCount;
 
     public Theatre(TheatreScreen theatreScreen) {
 
         this.theatreScreen = theatreScreen;
         playScript = new PlayScript();
-        speechUI = new SpeechUI(this, playScript);
+        speechUI = new SpeechUI(this);
 
         theatreStage = new TheatreStage(0, 0);
         backdrop = new Backdrop(Constants.APP_WIDTH / 2f, theatreStage.getHeight());
@@ -71,9 +66,6 @@ public class Theatre {
         animating = false;
         currentZoomLevel = Constants.ZoomLevel.WIDE;
         currentHorse = horses.get(0);
-        clickCounter = 0;
-        prevTouchDown = false;
-        touchDown = false;
     }
 
     public void advance() {
@@ -85,6 +77,9 @@ public class Theatre {
 //                case OPENING:
 //                    break;
                 case PERFORMING:
+                    if (!speechUI.buttonAdvanceOnly) {
+                        playScript.nextLine();
+                    }
                     speak();
                     break;
 //                case CLOSING:
@@ -100,7 +95,7 @@ public class Theatre {
         setCurrentZoomLevel(Constants.ZoomLevel.CLOSE);
 
         // check if bombThreshold has been exceeded
-        if (playScript.hasBombed()) {
+        if (hasBombed()) {
             playScript.setCurrentKnot("bomb");
         }
 
@@ -115,6 +110,10 @@ public class Theatre {
             speechUI.end();
             endShow();
         }
+    }
+
+    private boolean hasBombed() {
+        return bombCount >= playScript.bombThreshold;
     }
 
     public SpeechUI getSpeechUI() {
@@ -192,14 +191,11 @@ public class Theatre {
         setCurrentScene(Constants.CurrentScene.OPENING);
     }
 
-    public void close(boolean hasBombed) {
-    }
-
     public void endShow() {
         setCurrentZoomLevel(Constants.ZoomLevel.WIDE);
         setCurrentScene(Constants.CurrentScene.CLOSING);
 
-        if (playScript.hasBombed()) {
+        if (hasBombed()) {
             horses.get(1).exit();
             Timer.schedule(new Timer.Task() {
                 @Override
@@ -230,10 +226,6 @@ public class Theatre {
         return false;
     }
 
-    Array<Horse> getHorses() {
-        return horses;
-    }
-
     public Constants.CurrentScene getCurrentScene() {
         return currentScene;
     }
@@ -252,5 +244,17 @@ public class Theatre {
 
     public void setCurrentZoomLevel(Constants.ZoomLevel currentZoomLevel) {
         this.currentZoomLevel = currentZoomLevel;
+    }
+
+    public Array<String> getCharacters() {
+        return playScript.getCharacters();
+    }
+
+    public void addBomb(int bomb) {
+        bombCount += bomb;
+    }
+
+    public void setCurrentKnot(String knot) {
+        playScript.setCurrentKnot(knot);
     }
 }
