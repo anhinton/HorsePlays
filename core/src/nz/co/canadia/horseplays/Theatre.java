@@ -69,6 +69,10 @@ public class Theatre {
         currentHorse = horses.get(0);
     }
 
+    public void addBomb(int bomb) {
+        bombCount += bomb;
+    }
+
     public void advance() {
         if (!animating) {
             switch (getCurrentScene()) {
@@ -93,59 +97,16 @@ public class Theatre {
         }
     }
 
-    public void speak() {
-        setCurrentZoomLevel(Constants.ZoomLevel.CLOSE);
-
-        // check if bombThreshold has been exceeded
-        if (hasBombed()) {
-            playScript.setCurrentKnot("bomb");
-        }
-
-        if (playScript.hasLine()) {
-            speechUI.speak(playScript.getCurrentLine());
-        } else if (playScript.hasChoice()) {
-            speechUI.speak(playScript.getCurrentChoices());
-        } else if (playScript.hasKnot()) {
-            playScript.nextKnot();
-            speak();
-        } else {
-            speechUI.end();
-            endShow();
-        }
-    }
-
-    private boolean hasBombed() {
-        return bombCount >= playScript.bombThreshold;
-    }
-
-    public SpeechUI getSpeechUI() {
-        return speechUI;
-    }
-
-    public void update() {
-
-        // check animation state
-        animating = horsesMoving() | curtains.isMoving();
-
-        // advance to next theatre scene
-        switch (currentScene) {
-            case OPENING:
-                if (!animating) {
-                    setCurrentScene(Constants.CurrentScene.PERFORMING);
-                }
-                break;
-            case CLOSING:
-                if (!animating) {
-                    setCurrentScene(Constants.CurrentScene.FINISHED);
-                }
-                break;
-        }
-
-        // update objects
-        curtains.update();
-        for (Horse horse : horses) {
-            horse.update();
-        }
+    public void dispose() {
+        backdrop.dispose();
+        curtains.dispose();
+        horseTexture01.dispose();
+        horseTexture02.dispose();
+        horseCloseTexture01.dispose();
+        horseCloseTexture02.dispose();
+        spotlight01.dispose();
+        spotlight02.dispose();
+        theatreStage.dispose();
     }
 
     public void draw(SpriteBatch batch) {
@@ -168,19 +129,57 @@ public class Theatre {
 
     }
 
-    public void dispose() {
-        backdrop.dispose();
-        curtains.dispose();
-        horseTexture01.dispose();
-        horseTexture02.dispose();
-        horseCloseTexture01.dispose();
-        horseCloseTexture02.dispose();
-        spotlight01.dispose();
-        spotlight02.dispose();
-        theatreStage.dispose();
+    public Constants.CurrentScene getCurrentScene() {
+        return currentScene;
+    }
+
+    public Array<String> getCharacters() {
+        return playScript.getCharacters();
+    }
+
+    public SpeechUI getSpeechUI() {
+        return speechUI;
+    }
+
+    private boolean hasBombed() {
+        return bombCount >= playScript.bombThreshold;
+    }
+
+    private boolean horsesAnimating() {
+        for (Horse horse : horses) {
+            if (horse.getAnimating()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void speak() {
+        setCurrentZoomLevel(Constants.ZoomLevel.CLOSE);
+
+        // check if bombThreshold has been exceeded
+        if (hasBombed()) {
+            playScript.setCurrentKnot("bomb");
+        }
+
+        if (playScript.hasLine()) {
+            speechUI.speak(playScript.getCurrentLine());
+        } else if (playScript.hasChoice()) {
+            speechUI.speak(playScript.getCurrentChoices());
+        } else if (playScript.hasKnot()) {
+            playScript.nextKnot();
+            speak();
+        } else {
+            speechUI.end();
+            endShow();
+        }
     }
 
     public void startShow() {
+        for (Horse horse : horses) {
+            horse.startAnimating();
+        }
+        curtains.startAnimating();
         curtains.open();
         Timer.schedule(new Timer.Task() {
             @Override
@@ -197,70 +196,33 @@ public class Theatre {
         setCurrentZoomLevel(Constants.ZoomLevel.WIDE);
         setCurrentScene(Constants.CurrentScene.CLOSING);
 
+        curtains.startAnimating();
+
         if (hasBombed()) {
+            horses.get(1).startAnimating();
             horses.get(1).exit();
-            Timer.schedule(new Timer.Task() {
-                @Override
-                public void run() {
-                    horses.get(0).exit();
-                }
-            }, 4);
+//            Timer.schedule(new Timer.Task() {
+//                @Override
+//                public void run() {
+//                    horses.get(0).exit();
+//                }
+//            }, 4);
             Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
                     curtains.close();
                 }
-            }, 8);
+            }, 4);
         } else {
             for (Horse horse : horses) {
+                horse.startAnimating();
                 horse.exit();
             }
             curtains.close();
         }
     }
 
-    private boolean horsesMoving() {
-        for (Horse horse : horses) {
-            if (horse.isMoving()) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public Constants.CurrentScene getCurrentScene() {
-        return currentScene;
-    }
-
-    public void setCurrentScene(Constants.CurrentScene currentScene) {
-        this.currentScene =  currentScene;
-    }
-
-    void setCurrentHorse(String actor, Array<String> actors) {
-        if (actor.equals(actors.get(0))) {
-            currentHorse = horses.get(0);
-        } else if (actor.equals(actors.get(1))) {
-            currentHorse = horses.get(1);
-        }
-    }
-
-    public void setCurrentZoomLevel(Constants.ZoomLevel currentZoomLevel) {
-        this.currentZoomLevel = currentZoomLevel;
-    }
-
-    public Array<String> getCharacters() {
-        return playScript.getCharacters();
-    }
-
-    public void addBomb(int bomb) {
-        bombCount += bomb;
-    }
-
-    public void setCurrentKnot(String knot) {
-        playScript.setCurrentKnot(knot);
-    }
-
-    public void choose(int digit) {
+    public void selectChoice(int digit) {
 
         if (speechUI.hasChoices & speechUI.buttonAdvanceOnly) {
             Array<ScriptChoice> currentChoices = playScript.getCurrentChoices();
@@ -274,6 +236,52 @@ public class Theatre {
                     advance();
                 }
             }
+        }
+    }
+
+    void setCurrentHorse(String actor, Array<String> actors) {
+        if (actor.equals(actors.get(0))) {
+            currentHorse = horses.get(0);
+        } else if (actor.equals(actors.get(1))) {
+            currentHorse = horses.get(1);
+        }
+    }
+
+    public void setCurrentScene(Constants.CurrentScene currentScene) {
+        this.currentScene =  currentScene;
+    }
+
+    public void setCurrentZoomLevel(Constants.ZoomLevel currentZoomLevel) {
+        this.currentZoomLevel = currentZoomLevel;
+    }
+
+    public void setCurrentKnot(String knot) {
+        playScript.setCurrentKnot(knot);
+    }
+
+    public void update() {
+
+        // check animation state
+        animating = horsesAnimating() | curtains.getAnimating();
+
+        // advance to next theatre scene
+        switch (currentScene) {
+            case OPENING:
+                if (!animating) {
+                    setCurrentScene(Constants.CurrentScene.PERFORMING);
+                }
+                break;
+            case CLOSING:
+                if (!animating) {
+                    setCurrentScene(Constants.CurrentScene.FINISHED);
+                }
+                break;
+        }
+
+        // update objects
+        curtains.update();
+        for (Horse horse : horses) {
+            horse.update();
         }
     }
 }

@@ -108,43 +108,43 @@ public class TheatreScreen implements InputProcessor, Screen {
                 break;
             case Input.Keys.NUM_1:
             case Input.Keys.NUMPAD_1:
-                theatre.choose(1);
+                theatre.selectChoice(1);
                 break;
             case Input.Keys.NUM_2:
             case Input.Keys.NUMPAD_2:
-                theatre.choose(2);
+                theatre.selectChoice(2);
                 break;
             case Input.Keys.NUM_3:
             case Input.Keys.NUMPAD_3:
-                theatre.choose(3);
+                theatre.selectChoice(3);
                 break;
             case Input.Keys.NUM_4:
             case Input.Keys.NUMPAD_4:
-                theatre.choose(4);
+                theatre.selectChoice(4);
                 break;
             case Input.Keys.NUM_5:
             case Input.Keys.NUMPAD_5:
-                theatre.choose(5);
+                theatre.selectChoice(5);
                 break;
             case Input.Keys.NUM_6:
             case Input.Keys.NUMPAD_6:
-                theatre.choose(6);
+                theatre.selectChoice(6);
                 break;
             case Input.Keys.NUM_7:
             case Input.Keys.NUMPAD_7:
-                theatre.choose(7);
+                theatre.selectChoice(7);
                 break;
             case Input.Keys.NUM_8:
             case Input.Keys.NUMPAD_8:
-                theatre.choose(8);
+                theatre.selectChoice(8);
                 break;
             case Input.Keys.NUM_9:
             case Input.Keys.NUMPAD_9:
-                theatre.choose(9);
+                theatre.selectChoice(9);
                 break;
             case Input.Keys.NUM_0:
             case Input.Keys.NUMPAD_0:
-                theatre.choose(10);
+                theatre.selectChoice(10);
                 break;
         }
         return true;

@@ -1,8 +1,5 @@
 # todo.md
     
-  + Fix CLOSING triggering !animating when bomb ending plays (based on
-    whether a curtain or horse is currently moving)
-    
   + Do something smart to make fonts look good on different device size
     (abandon if I don't care about iOS)
     
@@ -24,6 +21,9 @@
   + write music
   
   ## Done
+
++ ~~Fix CLOSING triggering !animating when bomb ending plays (based on
+  whether a curtain or horse is currently moving)~~
 
 + ~~Use numkeys 1, 2, 3, etc to select choices~~
 

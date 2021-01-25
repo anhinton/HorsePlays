@@ -41,6 +41,11 @@ public class TitleScreen implements InputProcessor, Screen {
         dispose();
     }
 
+    private void quit() {
+        Gdx.app.exit();
+        dispose();
+    }
+
     @Override
     public void show() {
 
@@ -102,11 +107,6 @@ public class TitleScreen implements InputProcessor, Screen {
                 break;
         }
         return true;
-    }
-
-    private void quit() {
-        Gdx.app.exit();
-        dispose();
     }
 
     @Override

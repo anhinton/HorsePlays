@@ -13,16 +13,18 @@ import nz.co.canadia.horseplays.util.Constants;
  */
 
 class Horse {
-    private Sprite sprite;
-    private Sprite spriteClose;
+    private final Sprite sprite;
+    private final Sprite spriteClose;
 
-    private Constants.HorseSide horseSide;
+    private final Constants.HorseSide horseSide;
     private boolean moving;
+    private boolean animating;
 
     private float targetX;
-    private float changeX;
+    private float direction;
     private float distanceMoved;
     private float totalChange;
+    private float changeX;
 
     Horse (Texture texture, Texture textureClose, float y, boolean flip, Constants.HorseSide horseSide) {
         // wide shot sprite
@@ -54,13 +56,19 @@ class Horse {
         this.horseSide = horseSide;
         targetX = 0;
         moving = false;
+        animating = false;
+        direction = 0;
         changeX = 0;
         distanceMoved = 0;
         totalChange = 0;
     }
 
-    boolean isMoving() {
-        return moving;
+    boolean getAnimating() {
+        return animating;
+    }
+
+    void startAnimating() {
+        this.animating = true;
     }
 
     void draw (SpriteBatch batch, Constants.ZoomLevel currentZoomLevel) {
@@ -74,15 +82,14 @@ class Horse {
         }
     }
 
-    void dispose () {
-    }
-
     void update() {
         if (moving) {
             if (distanceMoved >= totalChange) {
+                animating = false;
                 moving = false;
                 sprite.setX(targetX);
             } else {
+                changeX = direction * Constants.HORSE_SPEED * Gdx.graphics.getDeltaTime();
                 distanceMoved += Math.abs(changeX);
                 sprite.setX(sprite.getX() + changeX);
             }
@@ -90,14 +97,15 @@ class Horse {
     }
 
     void enter() {
+        animating = true;
         moving = true;
         switch (horseSide) {
             case LEFT:
-                changeX = Constants.HORSE_SPEED * Gdx.graphics.getDeltaTime();
+                direction = 1;
                 targetX = Constants.HORSE_MARK - sprite.getWidth() / 2;
                 break;
             case RIGHT:
-                changeX = -Constants.HORSE_SPEED * Gdx.graphics.getDeltaTime();
+                direction = -1;
                 targetX = Constants.APP_WIDTH - Constants.HORSE_MARK - sprite.getWidth() / 2;
                 break;
         }
@@ -106,14 +114,15 @@ class Horse {
     }
 
     void exit() {
+        animating = true;
         moving = true;
         switch (horseSide) {
             case LEFT:
-                changeX = -Constants.HORSE_SPEED * Gdx.graphics.getDeltaTime();
+                direction = -1;
                 targetX = -sprite.getWidth();
                 break;
             case RIGHT:
-                changeX = Constants.HORSE_SPEED * Gdx.graphics.getDeltaTime();
+                direction = 1;
                 targetX = Constants.APP_WIDTH;
                 break;
         }
