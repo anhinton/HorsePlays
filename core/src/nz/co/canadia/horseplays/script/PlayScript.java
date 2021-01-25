@@ -3,11 +3,9 @@ package nz.co.canadia.horseplays.script;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.OrderedMap;
 import com.badlogic.gdx.utils.SerializationException;
 import com.badlogic.gdx.utils.XmlReader;
-
 import nz.co.canadia.horseplays.util.Constants;
 
 /**
@@ -16,6 +14,7 @@ import nz.co.canadia.horseplays.util.Constants;
  */
 
 public class PlayScript {
+    private String title;
     private OrderedMap<String, ScriptKnot> scriptKnots;
     private ScriptKnot currentKnot;
     public int bombThreshold;
@@ -38,6 +37,9 @@ public class PlayScript {
         try {
             xmlFile = Gdx.files.internal("playscripts/playscript.xml");
             rootElement = xmlReader.parse(xmlFile);
+
+            //get title
+            title = rootElement.getAttribute("title");
 
             // get character names
             XmlReader.Element charactersElement = rootElement.getChildByName("characters");
@@ -133,5 +135,9 @@ public class PlayScript {
 
     public Array<String> getCharacters() {
         return characters;
+    }
+
+    public String getTitle() {
+        return title;
     }
 }

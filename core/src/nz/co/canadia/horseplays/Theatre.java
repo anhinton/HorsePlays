@@ -2,6 +2,7 @@ package nz.co.canadia.horseplays;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
@@ -29,18 +30,23 @@ public class Theatre {
     private final Texture horseCloseTexture02;
     private final Array<Horse> horses;
     private final Curtains curtains;
+    private boolean titleVisible;
     private Horse currentHorse;
 
     private Constants.CurrentScene currentScene;
     private Constants.ZoomLevel currentZoomLevel;
     private boolean animating;
     private int bombCount;
+    private BitmapFont font;
 
     public Theatre(TheatreScreen theatreScreen) {
 
         this.theatreScreen = theatreScreen;
         playScript = new PlayScript();
         speechUI = new SpeechUI(this);
+
+        titleVisible = true;
+        font = new BitmapFont(Gdx.files.internal("fonts/TlwgMonoBold64.fnt"));
 
         theatreStage = new TheatreStage(0, 0);
         backdrop = new Backdrop(Constants.APP_WIDTH / 2f, theatreStage.getHeight());
@@ -75,7 +81,7 @@ public class Theatre {
 
     public void advance() {
         if (!animating) {
-            switch (getCurrentScene()) {
+            switch (currentScene) {
                 case START:
                     startShow();
                     break;
@@ -83,6 +89,7 @@ public class Theatre {
 //                    speak();
 //                    break;
                 case PERFORMING:
+                    titleVisible = false;
                     if (!speechUI.buttonAdvanceOnly) {
                         playScript.nextLine();
                     }
@@ -127,10 +134,11 @@ public class Theatre {
                 currentHorse.draw(batch, currentZoomLevel);
         }
 
-    }
+        if (titleVisible) {
+            font.setColor(Constants.FONT_COLOR);
+            font.draw(batch, playScript.getTitle(), 100, 100);
+        }
 
-    public Constants.CurrentScene getCurrentScene() {
-        return currentScene;
     }
 
     public Array<String> getCharacters() {
