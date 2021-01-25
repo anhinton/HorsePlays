@@ -1,7 +1,5 @@
 # todo.md
     
-  + Use numkeys 1, 2, 3, etc to select choices
-    
   + Fix CLOSING triggering !animating when bomb ending plays (based on
     whether a curtain or horse is currently moving)
     
@@ -10,6 +8,10 @@
     
   + write a play
       - Then write another (it's horse *plays*, guy)
+      - Scully meets Mulder
+      - Dawson and Joey talk about sex stuff
+      - Buffy and Angel talk about ...?
+      - Wayne and Cassandra/Garth ...?
     
   + Write a "save progress" function that keeps track of which knot you are 
     up to in a PlayScript
@@ -22,6 +24,8 @@
   + write music
   
   ## Done
+
++ ~~Use numkeys 1, 2, 3, etc to select choices~~
 
 + ~~Move play progression logic from TheatreScreen.touchUp() to somewhere
   in Theatre()?~~

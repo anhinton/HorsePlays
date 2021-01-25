@@ -17,6 +17,8 @@ import nz.co.canadia.horseplays.script.ScriptChoice;
 import nz.co.canadia.horseplays.script.ScriptLine;
 import nz.co.canadia.horseplays.util.Constants;
 
+import javax.swing.*;
+
 /**
  * This class puts our horse speech on screen
  */
@@ -26,6 +28,7 @@ public class SpeechUI extends Table {
     private final NinePatchDrawable choiceNinePatch01;
     private final BitmapFont speechFont;
     private final Theatre theatre;
+    boolean hasChoices;
     boolean buttonAdvanceOnly;
 
     public SpeechUI(Theatre theatre) {
@@ -34,6 +37,7 @@ public class SpeechUI extends Table {
         this.theatre = theatre;
 
         buttonAdvanceOnly = true;
+        hasChoices = false;
 
         speechNinePatch01 = new NinePatchDrawable(
                 new NinePatch(
@@ -52,6 +56,7 @@ public class SpeechUI extends Table {
 
     public void speak(ScriptLine scriptLine) {
         buttonAdvanceOnly = false;
+        hasChoices = false;
         TextButton speechButton = lineButton();
         String character = scriptLine.getCharacter();
         Array<String> characters = theatre.getCharacters();
@@ -70,6 +75,7 @@ public class SpeechUI extends Table {
 
     public void speak(Array<ScriptChoice> choices) {
         buttonAdvanceOnly = true;
+        hasChoices = true;
         this.clearChildren();
         int maxChars = 0;
         String character = choices.get(0).getCharacter();

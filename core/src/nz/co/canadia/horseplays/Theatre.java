@@ -7,6 +7,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
 import nz.co.canadia.horseplays.screens.TheatreScreen;
 import nz.co.canadia.horseplays.script.PlayScript;
+import nz.co.canadia.horseplays.script.ScriptChoice;
 import nz.co.canadia.horseplays.util.Constants;
 
 /**
@@ -75,6 +76,7 @@ public class Theatre {
                     startShow();
                     break;
 //                case OPENING:
+//                    speak();
 //                    break;
                 case PERFORMING:
                     if (!speechUI.buttonAdvanceOnly) {
@@ -256,5 +258,22 @@ public class Theatre {
 
     public void setCurrentKnot(String knot) {
         playScript.setCurrentKnot(knot);
+    }
+
+    public void choose(int digit) {
+
+        if (speechUI.hasChoices & speechUI.buttonAdvanceOnly) {
+            Array<ScriptChoice> currentChoices = playScript.getCurrentChoices();
+            if (digit <= currentChoices.size) {
+                ScriptChoice choice = currentChoices.get(digit - 1);
+                if (choice.getDivert().equals(Constants.END_KNOT)) {
+                    speechUI.end();
+                } else {
+                    addBomb(choice.getBomb());
+                    setCurrentKnot(choice.getDivert());
+                    advance();
+                }
+            }
+        }
     }
 }

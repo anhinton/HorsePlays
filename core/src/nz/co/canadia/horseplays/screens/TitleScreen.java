@@ -96,7 +96,8 @@ public class TitleScreen implements InputProcessor, Screen {
             case Input.Keys.ESCAPE:
                 quit();
                 break;
-            default:
+            case Input.Keys.ENTER:
+            case Input.Keys.SPACE:
                 startPlay();
                 break;
         }

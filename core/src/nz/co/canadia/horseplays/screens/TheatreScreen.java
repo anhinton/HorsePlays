@@ -17,11 +17,11 @@ import nz.co.canadia.horseplays.util.Constants;
 
 public class TheatreScreen implements InputProcessor, Screen {
     private final HorsePlays game;
-    private OrthographicCamera camera;
-    private Viewport viewport;
-    private Stage stage;
+    private final OrthographicCamera camera;
+    private final Viewport viewport;
+    private final Stage stage;
 
-    private Theatre theatre;
+    private final Theatre theatre;
 
     public TheatreScreen(final HorsePlays game) {
         this.game = game;
@@ -102,8 +102,49 @@ public class TheatreScreen implements InputProcessor, Screen {
             case Input.Keys.ESCAPE:
                 exit();
                 break;
-            default:
+            case Input.Keys.ENTER:
+            case Input.Keys.SPACE:
                 theatre.advance();
+                break;
+            case Input.Keys.NUM_1:
+            case Input.Keys.NUMPAD_1:
+                theatre.choose(1);
+                break;
+            case Input.Keys.NUM_2:
+            case Input.Keys.NUMPAD_2:
+                theatre.choose(2);
+                break;
+            case Input.Keys.NUM_3:
+            case Input.Keys.NUMPAD_3:
+                theatre.choose(3);
+                break;
+            case Input.Keys.NUM_4:
+            case Input.Keys.NUMPAD_4:
+                theatre.choose(4);
+                break;
+            case Input.Keys.NUM_5:
+            case Input.Keys.NUMPAD_5:
+                theatre.choose(5);
+                break;
+            case Input.Keys.NUM_6:
+            case Input.Keys.NUMPAD_6:
+                theatre.choose(6);
+                break;
+            case Input.Keys.NUM_7:
+            case Input.Keys.NUMPAD_7:
+                theatre.choose(7);
+                break;
+            case Input.Keys.NUM_8:
+            case Input.Keys.NUMPAD_8:
+                theatre.choose(8);
+                break;
+            case Input.Keys.NUM_9:
+            case Input.Keys.NUMPAD_9:
+                theatre.choose(9);
+                break;
+            case Input.Keys.NUM_0:
+            case Input.Keys.NUMPAD_0:
+                theatre.choose(10);
                 break;
         }
         return true;
