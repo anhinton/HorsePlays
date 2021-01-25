@@ -1,6 +1,7 @@
 package nz.co.canadia.horseplays.screens;
 
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -23,7 +24,8 @@ public class TheatreScreen implements InputProcessor, Screen {
 
     private final Theatre theatre;
 
-    public TheatreScreen(final HorsePlays game) {
+    public TheatreScreen(final HorsePlays game,
+                         FileHandle playScriptXml, boolean load) {
         this.game = game;
 
         camera = new OrthographicCamera();
@@ -31,7 +33,7 @@ public class TheatreScreen implements InputProcessor, Screen {
         viewport = new FitViewport(Constants.APP_WIDTH, Constants.APP_HEIGHT, camera);
         stage = new Stage(viewport);
 
-        theatre = new Theatre(this);
+        theatre = new Theatre(this, playScriptXml, load);
 //        table.setDebug(true);
         stage.addActor(theatre.getSpeechUI());
 

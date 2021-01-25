@@ -1,6 +1,7 @@
 package nz.co.canadia.horseplays.script;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.OrderedMap;
@@ -14,6 +15,8 @@ import nz.co.canadia.horseplays.util.Constants;
  */
 
 public class PlayScript {
+    private final Preferences autosave;
+    private FileHandle playScriptXml;
     private String title;
     private OrderedMap<String, ScriptKnot> scriptKnots;
     private ScriptKnot currentKnot;
@@ -21,13 +24,14 @@ public class PlayScript {
     private Array<String> characters;
     private String playerCharacter;
 
-    public PlayScript() {
+    public PlayScript(FileHandle playScriptXml) {
+        autosave = Gdx.app.getPreferences(Constants.AUTOSAVE_PATH);
+
         characters = new Array<String>();
         playerCharacter = "";
 
         scriptKnots = new OrderedMap<String, ScriptKnot>();
 
-        FileHandle xmlFile;
         XmlReader xmlReader = new XmlReader();
         XmlReader.Element rootElement;
         Array<XmlReader.Element> characterElements;
@@ -35,8 +39,8 @@ public class PlayScript {
 
         // get root element
         try {
-            xmlFile = Gdx.files.internal("playscripts/playscript.xml");
-            rootElement = xmlReader.parse(xmlFile);
+            this.playScriptXml = playScriptXml;
+            rootElement = xmlReader.parse(playScriptXml);
 
             //get title
             title = rootElement.getAttribute("title");
@@ -135,6 +139,14 @@ public class PlayScript {
 
     public Array<String> getCharacters() {
         return characters;
+    }
+
+    public String getCurrentKnotId() {
+        return currentKnot.getId();
+    }
+
+    public FileHandle getPlayScriptXml() {
+        return playScriptXml;
     }
 
     public String getTitle() {

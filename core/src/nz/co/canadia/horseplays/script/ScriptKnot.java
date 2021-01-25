@@ -7,16 +7,18 @@ import com.badlogic.gdx.utils.Array;
  */
 
 class ScriptKnot {
-    private Array<ScriptLine> scriptLines;
-    private Array<ScriptChoice> scriptChoices;
+    private final Array<ScriptLine> scriptLines;
+    private final Array<ScriptChoice> scriptChoices;
     private int currentScriptLine;
-    private String divert;
+    private final String id;
+    private final String divert;
 
     ScriptKnot(Array<ScriptLine> scriptLines, Array<ScriptChoice> scriptChoices, String id,
                String divert) {
         this.scriptLines = scriptLines;
         currentScriptLine = 0;
         this.scriptChoices = scriptChoices;
+        this.id = id;
         this.divert = divert;
     }
 
@@ -42,5 +44,9 @@ class ScriptKnot {
 
     String getDivert() {
         return divert;
+    }
+
+    String getId() {
+        return id;
     }
 }

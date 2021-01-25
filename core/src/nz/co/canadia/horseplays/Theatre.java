@@ -1,6 +1,8 @@
 package nz.co.canadia.horseplays;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -30,6 +32,7 @@ public class Theatre {
     private final Texture horseCloseTexture02;
     private final Array<Horse> horses;
     private final Curtains curtains;
+    private final Preferences autosave;
     private boolean titleVisible;
     private Horse currentHorse;
 
@@ -37,15 +40,16 @@ public class Theatre {
     private Constants.ZoomLevel currentZoomLevel;
     private boolean animating;
     private int bombCount;
-    private BitmapFont font;
+    private final BitmapFont font;
 
-    public Theatre(TheatreScreen theatreScreen) {
+    public Theatre(TheatreScreen theatreScreen, FileHandle playScriptXml, boolean load) {
 
         this.theatreScreen = theatreScreen;
-        playScript = new PlayScript();
+        playScript = new PlayScript(playScriptXml);
         speechUI = new SpeechUI(this);
 
-        titleVisible = true;
+        autosave = Gdx.app.getPreferences(Constants.AUTOSAVE_PATH);
+
         font = new BitmapFont(Gdx.files.internal("fonts/TlwgMonoBold64.fnt"));
 
         theatreStage = new TheatreStage(0, 0);
@@ -69,10 +73,21 @@ public class Theatre {
                 Constants.HorseSide.RIGHT));
         curtains = new Curtains();
 
-        currentScene = Constants.CurrentScene.START;
         animating = false;
-        currentZoomLevel = Constants.ZoomLevel.WIDE;
-        currentHorse = horses.get(0);
+
+        if (load) {
+            currentScene = Constants.CurrentScene.PERFORMING;
+            setCurrentKnot(autosave.getString("currentKnot"));
+            bombCount = autosave.getInteger("bombCount");
+            speak();
+            titleVisible = false;
+        } else {
+            currentScene = Constants.CurrentScene.START;
+            currentZoomLevel = Constants.ZoomLevel.WIDE;
+            currentHorse = horses.get(0);
+            bombCount = 0;
+            titleVisible = true;
+        }
     }
 
     public void addBomb(int bomb) {
@@ -102,6 +117,11 @@ public class Theatre {
                     break;
             }
         }
+    }
+
+    public void clearAutosave() {
+        autosave.clear();
+        autosave.flush();
     }
 
     public void dispose() {
@@ -204,6 +224,8 @@ public class Theatre {
         setCurrentZoomLevel(Constants.ZoomLevel.WIDE);
         setCurrentScene(Constants.CurrentScene.CLOSING);
 
+        clearAutosave();
+
         curtains.startAnimating();
 
         if (hasBombed()) {
@@ -255,6 +277,11 @@ public class Theatre {
         }
     }
 
+    public void setCurrentKnot(String knot) {
+        playScript.setCurrentKnot(knot);
+        saveProgress();
+    }
+
     public void setCurrentScene(Constants.CurrentScene currentScene) {
         this.currentScene =  currentScene;
     }
@@ -263,8 +290,11 @@ public class Theatre {
         this.currentZoomLevel = currentZoomLevel;
     }
 
-    public void setCurrentKnot(String knot) {
-        playScript.setCurrentKnot(knot);
+    private void saveProgress() {
+        autosave.putString("currentPlayXml", playScript.getPlayScriptXml().toString());
+        autosave.putString("currentKnot", playScript.getCurrentKnotId());
+        autosave.putInteger("bombCount", bombCount);
+        autosave.flush();
     }
 
     public void update() {

@@ -1,9 +1,7 @@
 package nz.co.canadia.horseplays.screens;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.*;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -19,12 +17,15 @@ import nz.co.canadia.horseplays.util.Constants;
 
 public class TitleScreen implements InputProcessor, Screen {
     private final HorsePlays game;
+    private final Preferences autosave;
     private BitmapFont font;
     private OrthographicCamera camera;
     private Viewport viewport;
 
     public TitleScreen (final HorsePlays game) {
         this.game = game;
+
+        autosave = Gdx.app.getPreferences(Constants.AUTOSAVE_PATH);
 
         font = new BitmapFont(Gdx.files.internal("fonts/TlwgMonoBold64.fnt"));
 
@@ -36,8 +37,8 @@ public class TitleScreen implements InputProcessor, Screen {
         Gdx.input.setInputProcessor(this);
     }
 
-    private void startPlay() {
-        game.setScreen(new TheatreScreen(game));
+    private void startPlay(FileHandle playScriptXml, boolean load) {
+        game.setScreen(new TheatreScreen(game, playScriptXml, load));
         dispose();
     }
 
@@ -64,7 +65,7 @@ public class TitleScreen implements InputProcessor, Screen {
 
         game.batch.begin();
         font.setColor(Constants.FONT_COLOR);
-        font.draw(game.batch, "HORSE PLAYS", 100, 100);
+        font.draw(game.batch, "HORSE PLAYS\n1. Continue\n2. New", 100, Constants.APP_HEIGHT - Constants.BUTTON_PAD);
 
         game.batch.end();
     }
@@ -101,9 +102,17 @@ public class TitleScreen implements InputProcessor, Screen {
             case Input.Keys.ESCAPE:
                 quit();
                 break;
-            case Input.Keys.ENTER:
-            case Input.Keys.SPACE:
-                startPlay();
+            case Input.Keys.NUM_1:
+            case Input.Keys.NUMPAD_1:
+                // Continue
+                if (autosave.contains("currentPlayXml")) {
+                    startPlay(Gdx.files.internal("playscripts/playscript.xml"), true);
+                }
+                break;
+            case Input.Keys.NUM_2:
+            case Input.Keys.NUMPAD_2:
+                // New
+                startPlay(Gdx.files.internal("playscripts/playscript.xml"), false);
                 break;
         }
         return true;
@@ -124,8 +133,7 @@ public class TitleScreen implements InputProcessor, Screen {
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        startPlay();
-        return true;
+        return false;
     }
 
     @Override
