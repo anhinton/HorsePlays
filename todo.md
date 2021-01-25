@@ -1,12 +1,12 @@
 # todo.md
 
-+ Write a "save progress" function that keeps track of which knot you are
-  up to in a PlayScript
-    - NB: Not which line in a knot. Start of knot is good enough for me.
-    - Saves out when returning to title menu
-    - If one exists when in title menu present Resume and Start buttons
-    - Otherwise just Start Button
-    - Clears progess when a PlayScript completes
+  + Write a "save progress" function that keeps track of which knot you are
+    up to in a PlayScript
+      - NB: Not which line in a knot. Start of knot is good enough for me.
+      - Saves out when returning to title menu
+      - If one exists when in title menu present Resume and Start buttons
+      - Otherwise just Start Button
+      - Clears progess when a PlayScript completes
     
   + write a play
       - Then write another (it's horse *plays*, guy)
