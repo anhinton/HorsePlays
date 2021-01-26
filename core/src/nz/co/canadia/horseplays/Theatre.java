@@ -142,7 +142,11 @@ public class Theatre {
     }
 
     private boolean hasBombed() {
-        return bombCount >= playScript.bombThreshold;
+        if (playScript.bombThreshold >= 0) {
+            return bombCount >= playScript.bombThreshold;
+        } else {
+            return false;
+        }
     }
 
     private boolean horsesAnimating() {

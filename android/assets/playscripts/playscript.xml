@@ -8,6 +8,8 @@
 
   <!-- script must have a "start" knot to start things off -->
   <knot id = "start" divert = "veryWell">
+    <!-- if a knot has a 'divert' the play will move to this knot when the
+    current knot is complete -->
     <line character = "agulary">help me to the loo</line>
     <line character = "mont coptor">which loo, love?</line>
     <choices character = "agulary">
@@ -21,6 +23,7 @@
   <knot id = "veryWell">
     <line character = "mont coptor">very well</line>
     <choices character = "agulary">
+      <!-- choices can have their own 'divert to branch to different knots -->
       <choice bomb = "1" divert = "bloodyWell">it bloody well better be!</choice>
       <choice divert = "allWorms">the best of all worms</choice>
     </choices>
@@ -31,6 +34,8 @@
 about all this stupid stuff that keeps happening</line>
   </knot>
 
+  <!-- if knot has not 'divert' then it is and end knot and the play will
+  finish here -->
   <knot id = "allWorms">
     <line character = "mont coptor">bloody worms</line>
   </knot>

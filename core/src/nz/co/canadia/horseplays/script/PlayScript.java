@@ -26,6 +26,9 @@ public class PlayScript {
 
         scriptKnots = new OrderedMap<String, ScriptKnot>();
 
+        // Set default bomb threshold for the case when no bomb knot exists
+        bombThreshold = -1;
+
         XmlReader xmlReader = new XmlReader();
         XmlReader.Element rootElement;
         Array<XmlReader.Element> characterElements;
