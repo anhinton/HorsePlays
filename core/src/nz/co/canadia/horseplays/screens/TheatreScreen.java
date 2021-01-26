@@ -44,6 +44,7 @@ public class TheatreScreen implements InputProcessor, Screen {
     }
 
     public void exit() {
+        theatre.saveProgress();
         game.setScreen(new TitleScreen(game));
         dispose();
     }

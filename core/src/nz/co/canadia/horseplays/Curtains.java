@@ -20,11 +20,13 @@ class Curtains {
     private float leftChangeX;
     private float rightChangeX;
     private boolean leftMoving;
+    private final float leftOpenX;
     private float leftTargetX;
     private float leftDirection;
     private float leftDistanceMoved;
     private float leftTotalDistance;
     private boolean rightMoving;
+    private final float rightOpenX;
     private float rightTargetX;
     private float rightDirection;
     private float rightDistanceMoved;
@@ -40,6 +42,9 @@ class Curtains {
         leftSprite.setPosition(0, 0);
         rightSprite = new Sprite(region);
         rightSprite.setPosition(Constants.APP_WIDTH / 2f, 0);
+
+        leftOpenX = Constants.OPEN_CURTAIN_WIDTH - leftSprite.getWidth();
+        rightOpenX = Constants.APP_WIDTH - Constants.OPEN_CURTAIN_WIDTH;
 
         leftChangeX = 0;
         rightChangeX = 0;
@@ -102,12 +107,12 @@ class Curtains {
     void open () {
         animating = true;
         leftMoving = true;
-        leftTargetX = Constants.OPEN_CURTAIN_WIDTH - leftSprite.getWidth();
+        leftTargetX = leftOpenX;
         leftDirection = -1;
         leftDistanceMoved = 0;
         leftTotalDistance = Math.abs(leftSprite.getX() - leftTargetX);
         rightMoving = true;
-        rightTargetX = Constants.APP_WIDTH - Constants.OPEN_CURTAIN_WIDTH;
+        rightTargetX = rightOpenX;
         rightDirection = 1;
         rightDistanceMoved = 0;
         rightTotalDistance = Math.abs(rightSprite.getX() - rightTargetX);
@@ -125,5 +130,10 @@ class Curtains {
         rightDirection = -1;
         rightDistanceMoved = 0;
         rightTotalDistance = Math.abs(rightSprite.getX() - rightTargetX);
+    }
+
+    public void setOpen() {
+        leftSprite.setX(leftOpenX);
+        rightSprite.setX(rightOpenX);
     }
 }

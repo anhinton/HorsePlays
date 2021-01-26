@@ -1,7 +1,6 @@
 package nz.co.canadia.horseplays.script;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.OrderedMap;
@@ -15,20 +14,15 @@ import nz.co.canadia.horseplays.util.Constants;
  */
 
 public class PlayScript {
-    private final Preferences autosave;
     private FileHandle playScriptXml;
     private String title;
     private OrderedMap<String, ScriptKnot> scriptKnots;
     private ScriptKnot currentKnot;
     public int bombThreshold;
     private Array<String> characters;
-    private String playerCharacter;
 
     public PlayScript(FileHandle playScriptXml) {
-        autosave = Gdx.app.getPreferences(Constants.AUTOSAVE_PATH);
-
         characters = new Array<String>();
-        playerCharacter = "";
 
         scriptKnots = new OrderedMap<String, ScriptKnot>();
 
@@ -51,10 +45,6 @@ public class PlayScript {
             for (XmlReader.Element character : characterElements) {
                 characters.add(character.getAttribute("name"));
                 String player = character.getAttribute("player", null);
-
-                if (player != null) {
-                    playerCharacter = character.getAttribute("name");
-                }
             }
 
             // get knot elements

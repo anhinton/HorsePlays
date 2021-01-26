@@ -20,6 +20,7 @@ class Horse {
     private boolean moving;
     private boolean animating;
 
+    private float performingX;
     private float targetX;
     private float direction;
     private float distanceMoved;
@@ -54,6 +55,14 @@ class Horse {
         }
 
         this.horseSide = horseSide;
+        switch (horseSide) {
+            case LEFT:
+                performingX = Constants.HORSE_MARK - sprite.getWidth() / 2;
+                break;
+            case RIGHT:
+                performingX = Constants.APP_WIDTH - Constants.HORSE_MARK - sprite.getWidth() / 2;
+                break;
+        }
         targetX = 0;
         moving = false;
         animating = false;
@@ -99,14 +108,13 @@ class Horse {
     void enter() {
         animating = true;
         moving = true;
+        targetX = performingX;
         switch (horseSide) {
             case LEFT:
                 direction = 1;
-                targetX = Constants.HORSE_MARK - sprite.getWidth() / 2;
                 break;
             case RIGHT:
                 direction = -1;
-                targetX = Constants.APP_WIDTH - Constants.HORSE_MARK - sprite.getWidth() / 2;
                 break;
         }
         distanceMoved = 0;
@@ -130,4 +138,7 @@ class Horse {
         totalChange = Math.abs(sprite.getX() - targetX);
     }
 
+    public void setPerforming() {
+        sprite.setX(performingX);
+    }
 }

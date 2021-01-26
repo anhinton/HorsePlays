@@ -17,8 +17,6 @@ import nz.co.canadia.horseplays.script.ScriptChoice;
 import nz.co.canadia.horseplays.script.ScriptLine;
 import nz.co.canadia.horseplays.util.Constants;
 
-import javax.swing.*;
-
 /**
  * This class puts our horse speech on screen
  */
