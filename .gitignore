@@ -68,4 +68,5 @@ build/
 ## OS Specific
 .DS_Store
 Thumbs.db
+
 /android/assets/playscripts/.Rhistory

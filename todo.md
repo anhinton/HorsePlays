@@ -1,5 +1,8 @@
 # todo.md
 
++ Fix text wrap on choices
+    - Add numbers to start of choice to match keyboard selection
+
 + Make a Title screen menu
     - 'Continue' button when a play has autosaved
     - List of plays under 'New'

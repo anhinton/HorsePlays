@@ -15,18 +15,18 @@ scriptLines = textScript[c(FALSE, TRUE)]
 
 startKnot = 
   c("<knot id = \"start\">",
-    paste0("<line character = \"", characterNames, "\">", scriptLines,
+    paste0("<line character=\"", characterNames, "\">", scriptLines,
        "</line>"),
     "</knot>")
 
 characterNode = c(
   "<characters>",
-  paste0("<character name = \"", unique(characterNames), "\"/>"),
+  paste0("<character name=\"", unique(characterNames), "\"/>"),
   "</characters>")
 
 playscript = c(
   "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>",
-  "<playscript title = \"The FBI's Most Unwanted\">",
+  "<playscript title=\"The FBI's Most Unwanted\">",
   characterNode,
   startKnot,
   "</playscript>")

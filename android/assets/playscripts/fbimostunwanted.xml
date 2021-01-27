@@ -1,42 +1,95 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<playscript title = "The FBI's Most Unwanted">
-<characters>
-<character name = "MULDER"/>
-<character name = "SCULLY"/>
-</characters>
-<knot id = "start" divert = "qualifications">
-<line character = "MULDER">Sorry, nobody down here but the FBI's most unwanted.</line>
-<line character = "SCULLY">Agent Mulder. I'm Dana Scully, I've been assigned to work with you.</line>
-<line character = "MULDER">Oh, isn't it nice to be suddenly so highly regarded? So, who did you tick off to get stuck with this detail, Scully?</line>
-<line character = "SCULLY">Actually, I'm looking forward to working with you. I've heard a lot about you.</line>
-<choices character = "MULDER">
-<choice>Oh, really? I was under the impression... that you were sent to spy on me.</choice>
-</choices>
-</knot>
-<knot id = "qualifications">
-<line character = "SCULLY">If you have any doubt about my qualifications or credentials, th...</line>
-<line character = "MULDER">You're a medical doctor, you teach at the academy. You did your undergraduate degree in physics.</line>
-<line character = "MULDER">"Einstein's Twin Paradox, A New Interpretation. Dana Scully Senior Thesis". Now that's a credential, rewriting Einstein.</line>
-<line character = "SCULLY">Did you bother to read it?</line>
-<line character = "MULDER">I did. I liked it.</line>
-<line character = "MULDER">It's just that in most of my work, the laws of physics rarely seems to apply.</line>
-<line character = "MULDER">Maybe I can get your medical opinion on this, though.</line>
-<line character = "MULDER">Oregon female, age twenty-one, no explainable cause of death. Autopsy shows nothing. Zip.</line>
-<line character = "MULDER">There are, however, these two distinct marks on her lower back. Doctor Scully, can you ID these marks?</line>
-<line character = "SCULLY">Needle punctures, maybe. An animal bite. Electrocution of some kind.</line>
-<line character = "MULDER">How's your chemistry? This is the substance found in the surrounding tissue.</line>
-<line character = "SCULLY">It's organic. I don't know, is it some kind of synthetic protein?</line>
-<line character = "MULDER">Beats me, I've never seen it before either.</line>
-<line character = "MULDER">But here it is again in Sturgis, South Dakota.</line>
-<line character = "MULDER">And again in Shamrock, Texas.</line>
-<line character = "SCULLY">Do you have a theory?</line>
-<line character = "MULDER">I have plenty of theories.</line>
-<line character = "MULDER">Maybe what you can explain to me is why it's bureau policy to label these cases as "unexplained phenomenon" and ignore them. Do you believe in the existence of extraterrestrials?</line>
-<line character = "SCULLY">Logically, I would have to say "no".</line>
-<line character = "SCULLY">Given the distances needed to travel from the far reaches of space, the energy requirements would exceed a spacecraft's capabilities th...</line>
-<line character = "MULDER">Conventional wisdom. You know this Oregon female? She's the fourth person in her graduating class to die under mysterious circumstances. Now, when convention and science offer us no answers, might we not finally turn to the fantastic as a plausibility?</line>
-<line character = "SCULLY">The girl obviously died of something. If it was natural causes, it's plausible that there was something missed in the post-mortem. If she was murdered, it's plausible there was a sloppy investigation. What I find fantastic is any notion that there are answers beyond the realm of science. The answers are there. You just have to know where to look.</line>
-<line character = "MULDER">That's why they put the "I" in "F.B.I". See you tomorrow morning, Scully, bright and early.</line>
-<line character = "MULDER">We leave for the very plausible state of Oregon at eight A.M.</line>
-</knot>
+<playscript title="The FBI's Most Unwanted">
+    <characters>
+        <character name="MULDER"/>
+        <character name="SCULLY"/>
+    </characters>
+
+    <knot id="start" divert="qualifications">
+        <line character="MULDER">Sorry, nobody down here but the FBI's most unwanted.</line>
+        <line character="SCULLY">Agent Mulder. I'm Dana Scully, I've been assigned to work with you.</line>
+        <line character="MULDER">Oh, isn't it nice to be suddenly so highly regarded? So, who did you tick off to get stuck with this detail, Scully?</line>
+        <line character="SCULLY">Actually, I'm looking forward to working with you. I've heard a lot about you.</line>
+        <line character="MULDER">Oh, really? I was under the impression...</line>
+        <choices character="MULDER">
+            <choice>that you were sent to spy on me.</choice>
+            <choice bomb="1">that you and the other Agents like to make fun of me.</choice>
+            <choice bomb="2">... damn it, I lost my train of thought there.</choice>
+        </choices>
+    </knot>
+
+    <knot id="qualifications" divert="physics">
+        <line character="SCULLY">If you have any doubt about my qualifications or credentials, th...</line>
+        <line character="MULDER">You're a medical doctor, you teach at the academy. You did your undergraduate degree in physics.</line>
+        <line character="MULDER">"Einstein's Twin Paradox, A New Interpretation. Dana Scully Senior Thesis". Now that's a credential, rewriting Einstein.</line>
+        <line character="SCULLY">Did you bother to read it?</line>
+        <choices character="MULDER">
+            <choice>I did. I liked it.</choice>
+            <choice bomb="1">I did. I have a few notes, actually.</choice>
+            <choice bomb="2">Do I look like a horse who can read?</choice>
+        </choices>
+    </knot>
+
+    <knot id="physics" divert="sturgis">
+        <line character="MULDER">It's just that in most of my work, the laws of physics rarely seems to apply.</line>
+        <line character="MULDER">Maybe I can get your medical opinion on this, though.</line>
+        <line character="MULDER">Oregon female, age twenty-one, no explainable cause of death. Autopsy shows nothing. Zip.</line>
+        <line character="MULDER">There are, however, these two distinct marks on her lower back. Doctor Scully, can you ID these marks?</line>
+        <line character="SCULLY">Needle punctures, maybe. An animal bite. Electrocution of some kind.</line>
+        <line character="MULDER">How's your chemistry? This is the substance found in the surrounding tissue.</line>
+        <line character="SCULLY">It's organic. I don't know, is it some kind of synthetic protein?</line>
+        <choices character="MULDER">
+            <choice>Beats me, I've never seen it before either.</choice>
+            <choice bomb="1">For all I know it's proof that the King lives.</choice>
+            <choice bomb="2">LOL how could you not even know smdh...</choice>
+        </choices>
+    </knot>
+
+    <knot id="sturgis" divert="unexplained">
+        <line character="MULDER">But here it is again in Sturgis, South Dakota.</line>
+        <line character="MULDER">And again in Shamrock, Texas.</line>
+        <line character="SCULLY">Do you have a theory?</line>
+        <choices character="MULDER">
+            <choice>I have plenty of theories.</choice>
+            <choice bomb="2" divert="didyoudoit">DID YOU DO IT!?</choice>
+            <choice bomb="1" divert = "bunnies">It could be bunnies.</choice>
+        </choices>
+    </knot>
+
+    <knot id="didyoudoit" divert="unexplained">
+        <line character="SCULLY">Mulder?</line>
+    </knot>
+
+    <knot id="bunnies" divert="unexplained">
+        <line character="SCULLY">I've got a ...</line>
+        <line character="MULDER">Bunnies aren't just cute like everybody supposes.</line>
+        <line character="SCULLY">...</line>
+    </knot>
+
+    <knot id="unexplained" divert="obviously-died">
+        <line character="MULDER">Maybe what you can explain to me is why it's bureau policy to label these cases as "unexplained phenomenon" and ignore them.</line>
+        <line character="MULDER">Do you believe in the existence of extraterrestrials?</line>
+        <line character="SCULLY">Logically, I would have to say "no".</line>
+        <line character="SCULLY">Given the distances needed to travel from the far reaches of space, the energy requirements would exceed a spacecraft's capabilities th...</line>
+        <line character="MULDER">Conventional wisdom.</line>
+        <line character="MULDER">You know this Oregon female? She's the fourth person in her graduating class to die under mysterious circumstances.</line>
+        <line character="MULDER">Now, when convention and science offer us no answers...</line>
+        <choices character="MULDER">
+            <choice>might we not finally turn to the fantastic as a plausibility?</choice>
+            <choice bomb="2">maybe we should just give up?</choice>
+            <choice bomb="1">might we not find the answers online?</choice>
+        </choices>
+    </knot>
+
+    <knot id="obviously-died">
+        <line character="SCULLY">The girl obviously died of something. If it was natural causes, it's plausible that there was something missed in the post-mortem. If she was murdered, it's plausible there was a sloppy investigation.</line>
+        <line character="SCULLY">What I find fantastic is any notion that there are answers beyond the realm of science. The answers are there. You just have to know where to look.</line>
+        <line character="MULDER">That's why they put the "I" in "F.B.I". See you tomorrow morning, Scully, bright and early.</line>
+        <line character="MULDER">We leave for the very plausible state of Oregon at eight A.M.</line>
+    </knot>
+
+    <knot id="bomb" threshold="5">
+        <line character="SCULLY">Sure, fine, whatever.</line>
+        <line character="SCULLY">I'm making like the truth and getting out of here.</line>
+    </knot>
 </playscript>
