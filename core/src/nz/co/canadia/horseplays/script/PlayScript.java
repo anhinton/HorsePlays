@@ -83,6 +83,7 @@ public class PlayScript {
                                 choice.getAttribute("divert", divert),
                                 choice.getIntAttribute("bomb", 0)));
                     }
+                    scriptChoices.shuffle();
                 }
 
                 // create scriptKnot and add to array
