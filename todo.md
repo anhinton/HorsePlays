@@ -18,7 +18,7 @@
 
 + write a play
     - Then write another (it's horse *plays*, guy)
-    - Scully meets Mulder
+    - ~~Scully meets Mulder~~
     - Dawson and Joey talk about sex stuff
     - Buffy and Angel talk about ...?
     - Wayne and Cassandra/Garth ...?
