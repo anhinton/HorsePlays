@@ -25,8 +25,8 @@
         <line character="SCULLY">Did you bother to read it?</line>
         <choices character="MULDER">
             <choice>I did. I liked it.</choice>
-            <choice bomb="1">I did. I have a few notes, actually.</choice>
-            <choice bomb="2">Do I look like a horse who can read?</choice>
+            <choice bomb="2">I prefer the late night cable version.</choice>
+            <choice bomb="1">I only read the box scores.</choice>
         </choices>
     </knot>
 
@@ -40,9 +40,15 @@
         <line character="SCULLY">It's organic. I don't know, is it some kind of synthetic protein?</line>
         <choices character="MULDER">
             <choice>Beats me, I've never seen it before either.</choice>
-            <choice bomb="1">For all I know it's proof that the King lives.</choice>
-            <choice bomb="2">LOL how could you not even know smdh...</choice>
+            <choice bomb="2">For all I know it's proof that the King lives.</choice>
+            <choice bomb="1" divert="swampgas">The substance may have been swamp gas.</choice>
         </choices>
+    </knot>
+
+    <knot id="swampgas" divert="sturgis">
+        <line character="SCULLY">Swamp gas?</line>
+        <line character="MULDER">It's a natural phenonemon.</line>
+        <line character="SCULLY">Happens to me when I eat Dodger Dogs.</line>
     </knot>
 
     <knot id="sturgis" divert="unexplained">
