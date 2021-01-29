@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<playscript title="A Whole Big Sucking Thing">
+    <characters>
+        <character name="BUFFY"/>
+        <character name="GILES"/>
+    </characters>
+
+    <knot id="start" divert="whyareyouhere">
+        <line character="BUFFY">Okay, what's the sitch?</line>
+        <line character="GILES">Sorry?</line>
+        <line character="BUFFY">You heard about the dead guy, right? The dead guy in the locker?</line>
+        <line character="GILES">Yes.</line>
+        <line character="BUFFY">'Cause, it's the weirdest thing. He's got two little, little holes in his neck, and all his blood's been drained. Isn't that bizarre? Aren't you just going, 'ooh'?</line>
+        <line character="GILES">I was afraid of this.</line>
+        <choices character="BUFFY">
+            <choice divert="lastmonthshair">Well, *I* wasn't! It's my first day!</choice>
+            <choice bomb="1">Me too! I could die before I get a chance to finish this scene!</choice>
+            <choice bomb="2">Chill out, my horse, it's just a a play.</choice>
+        </choices>
+    </knot>
+
+    <knot id="lastmonthshair" divert="whyareyouhere">
+        <line character="BUFFY">I was afraid that I was gonna be behind in all my classes, that I wouldn't make any friends, that I would have last month's hair.</line>
+        <line character="BUFFY">I didn't think there'd be vampires on campus.</line>
+        <line character="BUFFY">And I don't care.</line>
+    </knot>
+
+    <knot id="whyareyouhere" divert="besure">
+        <line character="GILES">Then why are you here?</line>
+        <line character="BUFFY">To tell you that... I don't care, which... I don't, and... have now told you, so... bye. </line>
+        <line character="GILES">Is he, w-will he... rise again?</line>
+        <line character="BUFFY">Who?</line>
+        <line character="GILES">The boy.</line>
+        <choices character="BUFFY">
+            <choice>No. He's just dead.</choice>
+            <choice bomb="1">Not unless a woman says or does something. He's a gamer.</choice>
+            <choice bomb="2">Not according to what I remember of the script...</choice>
+        </choices>
+    </knot>
+
+    <knot id="besure" divert="fairlyodd">
+        <line character="GILES">Can you be sure?</line>
+        <line character="BUFFY">To make you a vampire they have to suck your blood. And then you have to suck their blood. It's like a whole big sucking thing. Mostly they're just gonna kill you.</line>
+        <line character="BUFFY">Why am I still talking to you?</line>
+        <line character="GILES">You really have no idea what's going on, do you? You think it's coincidence, your being here? That boy was just the beginning.</line>
+        <line character="BUFFY">Oh, why can't you people just leave me alone?</line>
+        <line character="GILES">Because you are the Slayer. Into each generation a Slayer is born, one girl in all the world, a Chosen One, one born with the strength and skill to hunt--</line>
+        <line character="BUFFY">With the strength and skill to hunt the vampires, to stop the spread of their evil blah, blah, blah... I've heard it, okay?</line>
+        <line character="GILES">I really don't understand this attitude. You, you've accepted your duty, you, you've slain vampires before...</line>
+        <line character="BUFFY">Yeah, and I've both been there and done that, and I'm moving on.</line>
+        <line character="GILES">What do you know about this town? </line>
+        <choices character="BUFFY">
+            <choice>It's two hours on the freeway from Neiman Marcus?</choice>
+            <choice bomb="1">It sank into the earth when a massive fissure opened beneath it?</choice>
+            <choice bomb="2">Is this a...? What town is this?</choice>
+        </choices>
+    </knot>
+
+    <knot id="fairlyodd" divert="zombies">
+        <line character="GILES">Dig a bit in the history of this place. You'll find a, a steady stream of fairly odd occurrences.</line>
+        <line character="GILES">Now, I believe this whole area is a center of mystical energy, that things gravitate towards it that, that, that you might not find elsewhere.</line>
+        <choices character="BUFFY">
+            <choice>Like vampires.</choice>
+            <choice bomb="2">Like horses.</choice>
+            <choice bomb="1" divert="swampgas">Like swamp gas.</choice>
+        </choices>
+    </knot>
+
+    <knot id="zombies" divert="coolbutokay">
+        <line character="GILES">Like zombies, werewolves, incubi, succubi, everything you've ever dreaded was under your bed, but told yourself couldn't be by the light of day. They're all real!</line>
+        <line character="BUFFY">What? You, like, sent away for the Time-Life series?</line>
+        <line character="GILES">Ah, w-w-w-yes.</line>
+        <line character="BUFFY">Did you get the free phone?</line>
+        <line character="GILES">Um, the calendar.</line>
+    </knot>
+
+    <knot id="swampgas" divert="coolbutokay">
+        <line character="GILES">Swamp gas?</line>
+        <line character="BUFFY">It's a natural phenonemon.</line>
+        <line character="GILES">Happens to me when I eat Dodger Dogs.</line>
+    </knot>
+
+    <knot id="coolbutokay" divert="preparesher">
+        <line character="BUFFY">Cool! But, okay, first of all, I'm a Vampire Slayer. And secondly, I'm retired.</line>
+        <line character="BUFFY">Hey, I know! Why don't you kill 'em?</line>
+        <line character="GILES">I-I'm a Watcher, I-I haven't the skill...</line>
+        <line character="BUFFY">Oh, come on, stake through the heart, a little sunlight... It's like falling off a log.</line>
+        <line character="GILES">A, a Slayer slays, a Watcher--</line>
+        <choices character="BUFFY">
+            <choice>Watches?</choice>
+            <choice bomb="2">Listens?</choice>
+            <choice bomb="1">Falls off logs?</choice>
+        </choices>
+    </knot>
+
+    <knot id="preparesher">
+        <line character="GILES">Yes. No! He, he trains her, he, he, he prepares her--</line>
+        <line character="BUFFY">Prepares me for what? For getting kicked out of school? For losing all of my friends?</line>
+        <line character="BUFFY">For having to spend all of my time fighting for my life and never getting to tell anyone because I might endanger them?</line>
+        <line character="BUFFY">Go ahead!</line>
+        <line character="BUFFY">Prepare me.</line>
+        <line character="GILES">It's getting worse!</line>
+        <line character="BUFFY">What's getting worse?</line>
+        <line character="GILES">The influx of the undead, the... supernatural occurrences, it's been building for years. There's a reason why you're here and a reason why it's now!</line>
+        <line character="BUFFY">Because now is the time my mom moved here.</line>
+        <line character="GILES">Something's coming, something, something... something is, is gonna happen here. Soon!</line>
+        <line character="BUFFY">Gee, can you vague that up for me?</line>
+        <line character="GILES">The signs, as far as I can tell, point to a crucial mystical upheaval, very soon. Days. Possibly less.</line>
+        <line character="BUFFY">Oh, come on! This is Sunnydale! How bad an evil can there be here?</line>
+    </knot>
+
+    <knot id="bomb" threshold="5">
+        <line character="GILES">Bugger this.</line>
+    </knot>
+</playscript>

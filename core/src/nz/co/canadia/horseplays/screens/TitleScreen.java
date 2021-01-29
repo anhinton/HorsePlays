@@ -106,13 +106,13 @@ public class TitleScreen implements InputProcessor, Screen {
             case Input.Keys.NUMPAD_1:
                 // Continue
                 if (autosave.contains("currentPlayXml")) {
-                    startPlay(Gdx.files.internal("playscripts/fbimostunwanted.xml"), true);
+                    startPlay(Gdx.files.internal(autosave.getString("currentPlayXml")), true);
                 }
                 break;
             case Input.Keys.NUM_2:
             case Input.Keys.NUMPAD_2:
                 // New
-                startPlay(Gdx.files.internal("playscripts/fbimostunwanted.xml"), false);
+                startPlay(Gdx.files.internal("playscripts/whatsthesitch.xml"), false);
                 break;
         }
         return true;
