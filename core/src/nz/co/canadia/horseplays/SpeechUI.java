@@ -82,8 +82,8 @@ public class SpeechUI extends Table {
 
         // create array of choice buttons
         Array<TextButton> buttonArray = new Array<TextButton>();
-        for (ScriptChoice choice : choices) {
-            TextButton choiceButton = choiceButton(choice);
+        for(int i = 0; i < choices.size; i++) {
+            TextButton choiceButton = choiceButton(choices.get(i), i + 1);
             buttonArray.add(choiceButton);
             maxChars = Math.max(maxChars, choiceButton.getText().length());
         }
@@ -141,7 +141,7 @@ public class SpeechUI extends Table {
     }
 
     // return a choice-type TextButton
-    private TextButton choiceButton(final ScriptChoice choice) {
+    private TextButton choiceButton(final ScriptChoice choice, int position) {
         final TextButton choiceButton = new TextButton(
                 "",
                 new TextButton.TextButtonStyle(
@@ -149,7 +149,7 @@ public class SpeechUI extends Table {
                         choiceNinePatch01, speechFont
                 )
         );
-        choiceButton.setText(choice.getText());
+        choiceButton.setText(position + ". " + choice.getText());
         choiceButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {

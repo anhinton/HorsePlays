@@ -1,6 +1,4 @@
 # todo.md
-
-+ Add numbers to start of choice to match keyboard selection
     
 + Fix play titles on start of play (make sure it fits on screen)
 
@@ -24,6 +22,8 @@
   (abandon if I don't care about iOS)
   
   ## Done
+
++ ~~Add numbers to start of choice to match keyboard selection~~
 
 + ~~Fix text wrap on long script choice~~
 
