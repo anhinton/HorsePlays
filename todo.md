@@ -15,13 +15,6 @@
     - If one exists when in title menu present Resume and Start buttons
     - Otherwise just Start Button
     - ~~Clears progress when a PlayScript completes~~
-
-+ write a play
-    - Then write another (it's horse *plays*, guy)
-    - ~~Scully meets Mulder~~
-    - ~~Buffy and Giles discuss being Buffy being the Slayer~~
-    - Dawson and Joey talk about sex stuff
-    - Wayne and Cassandra/Garth ...?
     
 + write music
 
@@ -29,6 +22,12 @@
   (abandon if I don't care about iOS)
   
   ## Done
+
++ ~~write a play~~
+    - ~~Then write another (it's horse *plays*, guy)~~
+    - ~~Scully meets Mulder~~
+    - ~~Buffy and Giles discuss being Buffy being the Slayer~~
+    - ~~Leaving it at two plays because I can't find any other scenes I like enough~~
 
 + ~~Fix CLOSING triggering !animating when bomb ending plays (based on
   whether a curtain or horse is currently moving)~~
