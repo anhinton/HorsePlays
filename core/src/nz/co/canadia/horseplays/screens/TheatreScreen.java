@@ -44,7 +44,6 @@ public class TheatreScreen implements InputProcessor, Screen {
     }
 
     public void exit() {
-        theatre.saveProgress();
         game.setScreen(new TitleScreen(game));
         dispose();
     }
@@ -103,6 +102,7 @@ public class TheatreScreen implements InputProcessor, Screen {
         switch (keycode) {
             case Input.Keys.BACK:
             case Input.Keys.ESCAPE:
+                theatre.saveProgress();
                 exit();
                 break;
             case Input.Keys.ENTER:

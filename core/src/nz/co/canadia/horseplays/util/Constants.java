@@ -42,6 +42,7 @@ public class Constants {
 
     public static final int BUTTON_PAD = 20;
     public static final int BUTTON_ALIGN = Align.center;
+    public static final int MENU_BUTTON_WIDTH = (int) (APP_WIDTH / 3f);
 
     public static final String AUTOSAVE_PATH = "nz.co.canadia.horseplays.autosave";
 }

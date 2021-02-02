@@ -4,7 +4,16 @@ import com.badlogic.gdx.*;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -18,7 +27,12 @@ import nz.co.canadia.horseplays.util.Constants;
 public class TitleScreen implements InputProcessor, Screen {
     private final HorsePlays game;
     private final Preferences autosave;
-    private BitmapFont font;
+    private final Stage stage;
+    private final Table table;
+    private final BitmapFont speechFont;
+    private final BitmapFont titleFont;
+    private final Texture speechBubble02Texture;
+    private final Texture choiceBubble01Texture;
     private OrthographicCamera camera;
     private Viewport viewport;
 
@@ -27,14 +41,96 @@ public class TitleScreen implements InputProcessor, Screen {
 
         autosave = Gdx.app.getPreferences(Constants.AUTOSAVE_PATH);
 
-        font = new BitmapFont(Gdx.files.internal("fonts/TlwgMonoBold64.fnt"));
+        speechBubble02Texture = new Texture(Gdx.files.internal("ui/speechBubble02.png"));
+        choiceBubble01Texture = new Texture(Gdx.files.internal("ui/choiceBubble01.png"));
+        speechFont = new BitmapFont(Gdx.files.internal("fonts/TlwgMonoBold24.fnt"));
+        titleFont = new BitmapFont(Gdx.files.internal("fonts/TlwgMonoBold64.fnt"));
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Constants.APP_WIDTH, Constants.APP_HEIGHT);
         viewport = new FitViewport(Constants.APP_WIDTH, Constants.APP_HEIGHT,
                 camera);
 
-        Gdx.input.setInputProcessor(this);
+        stage = new Stage(viewport);
+        table = new Table();
+        table.setFillParent(true);
+        stage.addActor(table);
+
+        showMainMenu();
+
+        InputMultiplexer multiplexer = new InputMultiplexer();
+        multiplexer.addProcessor(stage);
+        multiplexer.addProcessor(this);
+        Gdx.input.setInputProcessor(multiplexer);
+    }
+
+    private TextButton menuButton(String text) {
+        NinePatchDrawable downNinePatch = new NinePatchDrawable(
+                new NinePatch(
+                        speechBubble02Texture,
+                        20, 20, 20, 20
+                )
+        );
+        NinePatchDrawable upNinePatch = new NinePatchDrawable(
+                new NinePatch(
+                        choiceBubble01Texture,
+                        20, 20, 20, 20
+                )
+        );
+        return new TextButton(
+                text,
+                new TextButton.TextButtonStyle(
+                        upNinePatch, downNinePatch,
+                        upNinePatch, speechFont
+                )
+        );
+    }
+
+    private void showMainMenu() {
+        table.clearChildren();
+
+        Label.LabelStyle titleLabelStyle = new Label.LabelStyle(titleFont, Constants.FONT_COLOR);
+        Label titleLabel = new Label("HORSE PLAYS", titleLabelStyle);
+        table.add(titleLabel).space(Constants.BUTTON_PAD);
+        table.row();
+
+        if (autosave.contains("currentPlayXml")) {
+            TextButton continueButton = menuButton("Continue");
+            continueButton.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    startPlay(Gdx.files.internal(autosave.getString("currentPlayXml")), true);
+                }
+            });
+            table.add(continueButton).space(Constants.BUTTON_PAD).width(Constants.MENU_BUTTON_WIDTH);
+            table.row();
+        }
+
+        TextButton startButton = menuButton("Start");
+        startButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                startPlay(Gdx.files.internal("playscripts/fbimostunwanted.xml"), false);
+            }
+        });
+        table.add(startButton).space(Constants.BUTTON_PAD).width(Constants.MENU_BUTTON_WIDTH);
+        table.row();
+
+        TextButton settingsButton = menuButton("Settings");
+        table.add(settingsButton).space(Constants.BUTTON_PAD).width(Constants.MENU_BUTTON_WIDTH);
+        table.row();
+        
+        if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
+            TextButton quitButton = menuButton("Quit");
+            quitButton.addListener(new ChangeListener() {
+                @Override
+                public void changed(ChangeEvent event, Actor actor) {
+                    quit();
+                }
+            });
+            table.add(quitButton).space(Constants.BUTTON_PAD).width(Constants.MENU_BUTTON_WIDTH);
+            table.row();            
+        }
     }
 
     private void startPlay(FileHandle playScriptXml, boolean load) {
@@ -61,13 +157,9 @@ public class TitleScreen implements InputProcessor, Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         camera.update();
-        game.batch.setProjectionMatrix(camera.combined);
 
-        game.batch.begin();
-        font.setColor(Constants.FONT_COLOR);
-        font.draw(game.batch, "HORSE PLAYS\n1. Continue\n2. New", 100, Constants.APP_HEIGHT - Constants.BUTTON_PAD);
-
-        game.batch.end();
+        stage.act(Gdx.graphics.getDeltaTime());
+        stage.draw();
     }
 
     @Override
@@ -92,7 +184,11 @@ public class TitleScreen implements InputProcessor, Screen {
 
     @Override
     public void dispose() {
-
+        speechBubble02Texture.dispose();
+        choiceBubble01Texture.dispose();
+        speechFont.dispose();
+        titleFont.dispose();
+        stage.dispose();
     }
 
     @Override
@@ -101,18 +197,6 @@ public class TitleScreen implements InputProcessor, Screen {
             case Input.Keys.BACK:
             case Input.Keys.ESCAPE:
                 quit();
-                break;
-            case Input.Keys.NUM_1:
-            case Input.Keys.NUMPAD_1:
-                // Continue
-                if (autosave.contains("currentPlayXml")) {
-                    startPlay(Gdx.files.internal(autosave.getString("currentPlayXml")), true);
-                }
-                break;
-            case Input.Keys.NUM_2:
-            case Input.Keys.NUMPAD_2:
-                // New
-                startPlay(Gdx.files.internal("playscripts/fbimostunwanted.xml"), false);
                 break;
         }
         return true;
