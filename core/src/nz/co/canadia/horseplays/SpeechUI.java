@@ -25,6 +25,7 @@ public class SpeechUI extends Table {
     private final NinePatchDrawable speechNinePatch01;
     private final NinePatchDrawable choiceNinePatch01;
     private final BitmapFont speechFont;
+    private final BitmapFont titleFont;
     private final Theatre theatre;
     boolean hasChoices;
     boolean buttonAdvanceOnly;
@@ -50,6 +51,28 @@ public class SpeechUI extends Table {
                 )
         );
         speechFont = new BitmapFont(Gdx.files.internal("fonts/TlwgMonoBold24.fnt"));
+        titleFont = new BitmapFont(Gdx.files.internal("fonts/TlwgMonoBold64.fnt"));
+    }
+
+    public void showTitle(String title) {
+        TextButton titleButton = new TextButton(
+                "",
+                new TextButton.TextButtonStyle(
+                        choiceNinePatch01, choiceNinePatch01,
+                        choiceNinePatch01, titleFont
+                )
+        );
+        titleButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                theatre.advance();
+            }
+        });
+        titleButton.setText(title);
+        titleButton.getLabel().setWrap(true);
+        this.clearChildren();
+        this.add(titleButton).pad(Constants.BUTTON_PAD)
+                .width(Constants.APP_WIDTH * 2f / 3);
     }
 
     public void speak(ScriptLine scriptLine) {

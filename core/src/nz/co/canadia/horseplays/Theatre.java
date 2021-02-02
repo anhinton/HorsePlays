@@ -33,24 +33,21 @@ public class Theatre {
     private final Array<Horse> horses;
     private final Curtains curtains;
     private final Preferences autosave;
-    private boolean titleVisible;
     private Horse currentHorse;
 
     private Constants.CurrentScene currentScene;
     private Constants.ZoomLevel currentZoomLevel;
     private boolean animating;
     private int bombCount;
-    private final BitmapFont font;
 
     public Theatre(TheatreScreen theatreScreen, FileHandle playScriptXml, boolean load) {
 
         this.theatreScreen = theatreScreen;
         playScript = new PlayScript(playScriptXml);
         speechUI = new SpeechUI(this);
+        speechUI.showTitle(playScript.getTitle());
 
         autosave = Gdx.app.getPreferences(Constants.AUTOSAVE_PATH);
-
-        font = new BitmapFont(Gdx.files.internal("fonts/TlwgMonoBold64.fnt"));
 
         theatreStage = new TheatreStage(0, 0);
         backdrop = new Backdrop(Constants.APP_WIDTH / 2f, theatreStage.getHeight());
@@ -87,7 +84,6 @@ public class Theatre {
         } else {
             currentScene = Constants.CurrentScene.START;
             currentZoomLevel = Constants.ZoomLevel.WIDE;
-            titleVisible = true;
             bombCount = 0;
         }
     }
@@ -102,18 +98,16 @@ public class Theatre {
                 case START:
                     startShow();
                     break;
-//                case OPENING:
-//                    speak();
-//                    break;
+                case OPENING:
+                    break;
                 case PERFORMING:
-                    titleVisible = false;
                     if (!speechUI.buttonAdvanceOnly) {
                         playScript.nextLine();
                     }
                     speak();
                     break;
-//                case CLOSING:
-//                    break;
+                case CLOSING:
+                    break;
                 case FINISHED:
                     theatreScreen.exit();
                     break;
@@ -180,6 +174,7 @@ public class Theatre {
     }
 
     public void startShow() {
+        speechUI.clearChildren();
         for (Horse horse : horses) {
             horse.startAnimating();
         }
@@ -207,12 +202,6 @@ public class Theatre {
         if (hasBombed()) {
             horses.get(1).startAnimating();
             horses.get(1).exit();
-//            Timer.schedule(new Timer.Task() {
-//                @Override
-//                public void run() {
-//                    horses.get(0).exit();
-//                }
-//            }, 4);
             Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
@@ -255,7 +244,6 @@ public class Theatre {
 
     public void setCurrentKnot(String knot) {
         playScript.setCurrentKnot(knot);
-//        saveProgress();
     }
 
     public void setCurrentScene(Constants.CurrentScene currentScene) {
@@ -320,11 +308,6 @@ public class Theatre {
             case CLOSE:
                 //currentHorse.speak(true);
                 currentHorse.draw(batch, currentZoomLevel);
-        }
-
-        if (titleVisible) {
-            font.setColor(Constants.FONT_COLOR);
-            font.draw(batch, playScript.getTitle(), 100, 100);
         }
 
     }

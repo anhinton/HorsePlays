@@ -1,6 +1,4 @@
 # todo.md
-    
-+ Fix play titles on start of play (make sure it fits on screen)
 
 + Make a Title screen menu
     - 'Continue' button when a play has autosaved
@@ -21,7 +19,9 @@
 + Do something smart to make fonts look good on different device size
   (abandon if I don't care about iOS)
   
-  ## Done
+## Done
+    
++ ~~Fix play titles on start of play (make sure it fits on screen)~~
 
 + ~~Add numbers to start of choice to match keyboard selection~~
 
