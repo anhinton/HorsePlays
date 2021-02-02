@@ -1,12 +1,14 @@
 # todo.md
 
-+ Fix text wrap on choices
-    - Add numbers to start of choice to match keyboard selection
++ Add numbers to start of choice to match keyboard selection
+    
++ Fix play titles on start of play (make sure it fits on screen)
 
 + Make a Title screen menu
     - 'Continue' button when a play has autosaved
     - List of plays under 'New'
     - Volume settings
+    - Make a credits screen
 
 + Write a "save progress" function that keeps track of which knot you are
   up to in a PlayScript
@@ -22,6 +24,8 @@
   (abandon if I don't care about iOS)
   
   ## Done
+
++ ~~Fix text wrap on long script choice~~
 
 + ~~write a play~~
     - ~~Then write another (it's horse *plays*, guy)~~

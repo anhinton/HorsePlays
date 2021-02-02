@@ -112,7 +112,7 @@ public class TitleScreen implements InputProcessor, Screen {
             case Input.Keys.NUM_2:
             case Input.Keys.NUMPAD_2:
                 // New
-                startPlay(Gdx.files.internal("playscripts/whatsthesitch.xml"), false);
+                startPlay(Gdx.files.internal("playscripts/awholebigsuckingthing.xml"), false);
                 break;
         }
         return true;

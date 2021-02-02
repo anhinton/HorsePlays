@@ -95,6 +95,7 @@ public class SpeechUI extends Table {
         // add choice buttons to table
         for (TextButton button : buttonArray) {
             if (maxChars > Constants.LINE_LENGTH) {
+                button.getLabel().setWrap(true);
                 this.add(button)
                         .pad(0, 0, Constants.BUTTON_PAD,
                                 Constants.BUTTON_PAD)
