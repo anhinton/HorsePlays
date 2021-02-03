@@ -72,7 +72,7 @@ public class SpeechUI extends Table {
         titleButton.getLabel().setWrap(true);
         this.clearChildren();
         this.add(titleButton).pad(Constants.BUTTON_PAD)
-                .width(Constants.APP_WIDTH * 2f / 3);
+                .width(Constants.SPEECH_BUTTON_WIDTH);
     }
 
     public void speak(ScriptLine scriptLine) {
@@ -86,7 +86,7 @@ public class SpeechUI extends Table {
         if (speechButton.getText().length() > Constants.LINE_LENGTH) {
             speechButton.getLabel().setWrap(true);
             this.add(speechButton).pad(Constants.BUTTON_PAD)
-                    .width(Constants.APP_WIDTH * 2f / 3);
+                    .width(Constants.SPEECH_BUTTON_WIDTH);
         } else {
             this.add(speechButton).pad(Constants.BUTTON_PAD);
         }
@@ -123,7 +123,7 @@ public class SpeechUI extends Table {
                         .pad(0, 0, Constants.BUTTON_PAD,
                                 Constants.BUTTON_PAD)
                         .align(Constants.BUTTON_ALIGN)
-                        .width(Constants.APP_WIDTH * 2f / 3);
+                        .width(Constants.SPEECH_BUTTON_WIDTH);
             } else {
                 this.add(button)
                         .pad(0, 0, Constants.BUTTON_PAD,

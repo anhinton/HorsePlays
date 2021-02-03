@@ -2,7 +2,7 @@
 
 + Make a Title screen menu
     - ~~'Continue' button when a play has autosaved~~
-    - List of plays under 'New'
+    - ~~List of plays under 'New'~~
     - Volume settings
     - Make a credits screen
 

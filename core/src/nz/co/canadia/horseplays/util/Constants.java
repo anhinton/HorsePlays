@@ -1,6 +1,7 @@
 package nz.co.canadia.horseplays.util;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Align;
 
 /**
@@ -42,7 +43,8 @@ public class Constants {
 
     public static final int BUTTON_PAD = 20;
     public static final int BUTTON_ALIGN = Align.center;
-    public static final int MENU_BUTTON_WIDTH = (int) (APP_WIDTH / 3f);
+    public static final int MENU_BUTTON_WIDTH = MathUtils.round(APP_WIDTH / 3f);
+    public static final int SPEECH_BUTTON_WIDTH = MathUtils.round(Constants.APP_WIDTH * 2f / 3);
 
     public static final String AUTOSAVE_PATH = "nz.co.canadia.horseplays.autosave";
 }

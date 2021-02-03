@@ -29,12 +29,12 @@ public class TitleScreen implements InputProcessor, Screen {
     private final Preferences autosave;
     private final Stage stage;
     private final Table table;
-    private final BitmapFont speechFont;
-    private final BitmapFont titleFont;
+    private final BitmapFont smallFont;
+    private final BitmapFont bigFont;
     private final Texture speechBubble02Texture;
     private final Texture choiceBubble01Texture;
-    private OrthographicCamera camera;
-    private Viewport viewport;
+    private final OrthographicCamera camera;
+    private final Viewport viewport;
 
     public TitleScreen (final HorsePlays game) {
         this.game = game;
@@ -43,8 +43,8 @@ public class TitleScreen implements InputProcessor, Screen {
 
         speechBubble02Texture = new Texture(Gdx.files.internal("ui/speechBubble02.png"));
         choiceBubble01Texture = new Texture(Gdx.files.internal("ui/choiceBubble01.png"));
-        speechFont = new BitmapFont(Gdx.files.internal("fonts/TlwgMonoBold24.fnt"));
-        titleFont = new BitmapFont(Gdx.files.internal("fonts/TlwgMonoBold64.fnt"));
+        smallFont = new BitmapFont(Gdx.files.internal("fonts/TlwgMonoBold24.fnt"));
+        bigFont = new BitmapFont(Gdx.files.internal("fonts/TlwgMonoBold64.fnt"));
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Constants.APP_WIDTH, Constants.APP_HEIGHT);
@@ -77,25 +77,27 @@ public class TitleScreen implements InputProcessor, Screen {
                         20, 20, 20, 20
                 )
         );
-        return new TextButton(
+        TextButton menuButton = new TextButton(
                 text,
                 new TextButton.TextButtonStyle(
                         upNinePatch, downNinePatch,
-                        upNinePatch, speechFont
+                        upNinePatch, smallFont
                 )
         );
+        menuButton.getLabel().setWrap(true);
+        return menuButton;
     }
 
     private void showMainMenu() {
         table.clearChildren();
 
-        Label.LabelStyle titleLabelStyle = new Label.LabelStyle(titleFont, Constants.FONT_COLOR);
+        Label.LabelStyle titleLabelStyle = new Label.LabelStyle(bigFont, Constants.FONT_COLOR);
         Label titleLabel = new Label("HORSE PLAYS", titleLabelStyle);
         table.add(titleLabel).space(Constants.BUTTON_PAD);
         table.row();
 
         if (autosave.contains("currentPlayXml")) {
-            TextButton continueButton = menuButton("Continue");
+            TextButton continueButton = menuButton("CONTINUE");
             continueButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
@@ -106,22 +108,22 @@ public class TitleScreen implements InputProcessor, Screen {
             table.row();
         }
 
-        TextButton startButton = menuButton("Start");
+        TextButton startButton = menuButton("NEW");
         startButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                startPlay(Gdx.files.internal("playscripts/fbimostunwanted.xml"), false);
+                showPlayMenu();
             }
         });
         table.add(startButton).space(Constants.BUTTON_PAD).width(Constants.MENU_BUTTON_WIDTH);
         table.row();
 
-        TextButton settingsButton = menuButton("Settings");
+        TextButton settingsButton = menuButton("SETTINGS");
         table.add(settingsButton).space(Constants.BUTTON_PAD).width(Constants.MENU_BUTTON_WIDTH);
         table.row();
         
         if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
-            TextButton quitButton = menuButton("Quit");
+            TextButton quitButton = menuButton("QUIT");
             quitButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
@@ -131,6 +133,48 @@ public class TitleScreen implements InputProcessor, Screen {
             table.add(quitButton).space(Constants.BUTTON_PAD).width(Constants.MENU_BUTTON_WIDTH);
             table.row();            
         }
+    }
+
+    private void showPlayMenu() {
+        table.clearChildren();
+
+        Label.LabelStyle topLabelStyle = new Label.LabelStyle(smallFont, Constants.FONT_COLOR);
+        Label topLabel = new Label("Select a play:", topLabelStyle);
+        table.add(topLabel).space(Constants.BUTTON_PAD);
+        table.row();
+
+        // The FBI's Most Unwanted
+        TextButton fbiButton = menuButton("The FBI's Most Unwanted");
+        fbiButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                startPlay(Gdx.files.internal("playscripts/fbimostunwanted.xml"), false);
+            }
+        });
+        table.add(fbiButton).space(Constants.BUTTON_PAD).width(Constants.SPEECH_BUTTON_WIDTH);
+        table.row();
+
+        // A Whole Big Sucking Thing
+        TextButton suckingButton = menuButton("A Whole Big Sucking Thing");
+        suckingButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                startPlay(Gdx.files.internal("playscripts/awholebigsuckingthing.xml"), false);
+            }
+        });
+        table.add(suckingButton).space(Constants.BUTTON_PAD).width(Constants.SPEECH_BUTTON_WIDTH);
+        table.row();
+
+        // Back button
+        TextButton backButton = menuButton("BACK");
+        backButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                showMainMenu();
+            }
+        });
+        table.add(backButton).space(Constants.BUTTON_PAD).width(Constants.SPEECH_BUTTON_WIDTH);
+        table.row();
     }
 
     private void startPlay(FileHandle playScriptXml, boolean load) {
@@ -186,8 +230,8 @@ public class TitleScreen implements InputProcessor, Screen {
     public void dispose() {
         speechBubble02Texture.dispose();
         choiceBubble01Texture.dispose();
-        speechFont.dispose();
-        titleFont.dispose();
+        smallFont.dispose();
+        bigFont.dispose();
         stage.dispose();
     }
 
