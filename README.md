@@ -1,4 +1,4 @@
-# Horse Plays
+# Ashley Noel Hinton's Horse Plays
 
 This game is built using the libGDX Java game development
 framework <http://libgdx.badlogicgames.com/>. Instructions for
@@ -8,7 +8,7 @@ at <https://github.com/libgdx/libgdx/wiki/Gradle-and-Intellij-IDEA>.
 
 ### License
 
-Horse Plays copyright 2018 Ashley Noel Hinton.
+Horse Plays copyright 2021 Ashley Noel Hinton.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
