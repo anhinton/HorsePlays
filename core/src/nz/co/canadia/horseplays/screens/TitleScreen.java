@@ -37,8 +37,9 @@ public class TitleScreen implements InputProcessor, Screen {
     private final Texture choiceBubble01Texture;
     private final OrthographicCamera camera;
     private final Viewport viewport;
-    private final Label.LabelStyle musicVolumeLabelStyle;
+    private final Label.LabelStyle smallLabelStyle;
     private final Label musicVolumeValueLabel;
+    private final Label.LabelStyle bigLabelStyle;
     private Constants.CurrentMenu currentMenu;
 
     public TitleScreen (final HorsePlays game) {
@@ -53,9 +54,9 @@ public class TitleScreen implements InputProcessor, Screen {
         smallFont = new BitmapFont(Gdx.files.internal("fonts/TlwgMonoBold24.fnt"));
         bigFont = new BitmapFont(Gdx.files.internal("fonts/TlwgMonoBold64.fnt"));
 
-        musicVolumeLabelStyle = new Label.LabelStyle(smallFont, Constants.FONT_COLOR);
-        musicVolumeValueLabel = new Label(printVolume(game.getMusicVolume()), musicVolumeLabelStyle);
-
+        bigLabelStyle = new Label.LabelStyle(bigFont, Constants.FONT_COLOR);
+        smallLabelStyle = new Label.LabelStyle(smallFont, Constants.FONT_COLOR);
+        musicVolumeValueLabel = new Label(printVolume(game.getMusicVolume()), smallLabelStyle);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Constants.APP_WIDTH, Constants.APP_HEIGHT);
@@ -104,9 +105,12 @@ public class TitleScreen implements InputProcessor, Screen {
         table.clearChildren();
         table.center();
 
-        Label.LabelStyle titleLabelStyle = new Label.LabelStyle(bigFont, Constants.FONT_COLOR);
-        Label titleLabel = new Label("HORSE PLAYS", titleLabelStyle);
-        table.add(titleLabel).space(Constants.BUTTON_PAD);
+        // The big title so everyone knows what cool game this is
+        Label anhintonLabel = new Label("Ashley Noel Hinton's", smallLabelStyle);
+        table.add(anhintonLabel);
+        table.row();
+        Label titleLabel = new Label("HORSE PLAYS", bigLabelStyle);
+        table.add(titleLabel);
         table.row();
 
         if (autosave.contains("currentPlayXml")) {
@@ -210,7 +214,7 @@ public class TitleScreen implements InputProcessor, Screen {
         
         // Music Volume
         // Label
-        Label musicVolumeLabel = new Label("Music Volume: ", musicVolumeLabelStyle);
+        Label musicVolumeLabel = new Label("Music Volume: ", smallLabelStyle);
         table.add(musicVolumeLabel).space(Constants.BUTTON_PAD).left();
         // Down button
         TextButton musicVolumeDownButton = menuButton("DOWN");
@@ -234,16 +238,32 @@ public class TitleScreen implements InputProcessor, Screen {
         table.add(musicVolumeValueLabel).space(Constants.BUTTON_PAD).left();
         table.row();
 
+        // Credits button
+        TextButton creditsButton = menuButton("CREDITS");
+        creditsButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                showCreditsMenu();
+            }
+        });
+        table.add(creditsButton).space(Constants.BUTTON_PAD).width(Constants.MENU_BUTTON_WIDTH).left().colspan(4);
+        table.row();
+
         // Back button
         TextButton backButton = menuButton("BACK");
         backButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                settings.flush();
                 goBack();
             }
         });
         table.add(backButton).space(Constants.BUTTON_PAD).width(Constants.MENU_BUTTON_WIDTH).left().colspan(4);
         table.row();
+
+    }
+
+    private void showCreditsMenu() {
 
     }
 
@@ -275,6 +295,7 @@ public class TitleScreen implements InputProcessor, Screen {
     }
 
     private void setMusicVolume(float musicVolume) {
+        game.setMusicVolume(musicVolume);
         musicVolumeValueLabel.setText(printVolume(game.getMusicVolume()));
         settings.putFloat("musicVolume", game.getMusicVolume());
     }
