@@ -5,11 +5,19 @@
     - ~~List of plays under 'New'~~
     - ~~Volume settings~~
     - Make a credits screen
+        - Make sure all characters in credits are available in font
+        
++ In-game menu to handle volume change and quit on mobile
     
 + write music
 
 + Do something smart to make fonts look good on different device size
   (abandon if I don't care about iOS)
+  
++ Clean up excess Skin stuff or maybe don't
+    - Probably default-font at least can be done without
+    - And surely I can include my NinePatches in here to make things clean
+    - Guess we'll see how much time I leave myself
   
 ## Done
 

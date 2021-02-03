@@ -7,10 +7,13 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
@@ -40,6 +43,7 @@ public class TitleScreen implements InputProcessor, Screen {
     private final Label.LabelStyle smallLabelStyle;
     private final Label musicVolumeValueLabel;
     private final Label.LabelStyle bigLabelStyle;
+    private final Skin skin;
     private Constants.CurrentMenu currentMenu;
 
     public TitleScreen (final HorsePlays game) {
@@ -48,6 +52,8 @@ public class TitleScreen implements InputProcessor, Screen {
         autosave = Gdx.app.getPreferences(Constants.AUTOSAVE_PATH);
         settings = Gdx.app.getPreferences(Constants.SETTINGS_PATH);
         game.setMusicVolume(settings.getFloat("musicVolume", Constants.MUSIC_VOLUME_DEFAULT));
+
+        skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 
         speechBubble02Texture = new Texture(Gdx.files.internal("ui/speechBubble02.png"));
         choiceBubble01Texture = new Texture(Gdx.files.internal("ui/choiceBubble01.png"));
@@ -264,7 +270,35 @@ public class TitleScreen implements InputProcessor, Screen {
     }
 
     private void showCreditsMenu() {
+        currentMenu = Constants.CurrentMenu.CREDITS;
+        table.clearChildren();
+        table.top().left().pad(Constants.BUTTON_PAD);
 
+        Label.LabelStyle settingsLabelStyle = new Label.LabelStyle(smallFont, Constants.FONT_COLOR);
+        Label settingsLabel = new Label("Credits", settingsLabelStyle);
+        table.add(settingsLabel).space(Constants.BUTTON_PAD).left().colspan(4);
+        table.row();
+
+        // credits ScrollPane
+        FileHandle file = Gdx.files.internal("credits.txt");
+        String creditsText = file.readString();
+        Label creditsLabel = new Label(creditsText, smallLabelStyle);
+        creditsLabel.setWrap(true);
+        ScrollPane creditsPane = new ScrollPane(creditsLabel, skin, "default");
+        creditsPane.setFadeScrollBars(false);
+        table.add(creditsPane).space(Constants.BUTTON_PAD).prefWidth(Constants.APP_WIDTH);
+        table.row();
+
+        // Back button
+        TextButton backButton = menuButton("BACK");
+        backButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                goBack();
+            }
+        });
+        table.add(backButton).space(Constants.BUTTON_PAD).width(Constants.MENU_BUTTON_WIDTH).left().colspan(4);
+        table.row();
     }
 
     private void goBack() {
