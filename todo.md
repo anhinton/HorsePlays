@@ -3,16 +3,8 @@
 + Make a Title screen menu
     - ~~'Continue' button when a play has autosaved~~
     - ~~List of plays under 'New'~~
-    - Volume settings
+    - ~~Volume settings~~
     - Make a credits screen
-
-+ Write a "save progress" function that keeps track of which knot you are
-  up to in a PlayScript
-    - ~~NB: Not which line in a knot. Start of knot is good enough for me.~~
-    - ~~Saves out when returning to title menu~~
-    - If one exists when in title menu present Resume and Start buttons
-    - Otherwise just Start Button
-    - ~~Clears progress when a PlayScript completes~~
     
 + write music
 
@@ -20,6 +12,14 @@
   (abandon if I don't care about iOS)
   
 ## Done
+
++ ~~Write a "save progress" function that keeps track of which knot you are
+  up to in a PlayScript~~
+    - ~~NB: Not which line in a knot. Start of knot is good enough for me.~~
+    - ~~Saves out when returning to title menu~~
+    - ~~If one exists when in title menu present Continue and New buttons~~
+    - ~~Otherwise just New Button~~
+    - ~~Clears progress when a PlayScript completes~~
     
 + ~~Fix play titles on start of play (make sure it fits on screen)~~
 

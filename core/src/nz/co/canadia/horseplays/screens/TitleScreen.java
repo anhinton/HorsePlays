@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -27,6 +28,7 @@ import nz.co.canadia.horseplays.util.Constants;
 public class TitleScreen implements InputProcessor, Screen {
     private final HorsePlays game;
     private final Preferences autosave;
+    private final Preferences settings;
     private final Stage stage;
     private final Table table;
     private final BitmapFont smallFont;
@@ -35,16 +37,25 @@ public class TitleScreen implements InputProcessor, Screen {
     private final Texture choiceBubble01Texture;
     private final OrthographicCamera camera;
     private final Viewport viewport;
+    private final Label.LabelStyle musicVolumeLabelStyle;
+    private final Label musicVolumeValueLabel;
+    private Constants.CurrentMenu currentMenu;
 
     public TitleScreen (final HorsePlays game) {
         this.game = game;
 
         autosave = Gdx.app.getPreferences(Constants.AUTOSAVE_PATH);
+        settings = Gdx.app.getPreferences(Constants.SETTINGS_PATH);
+        game.setMusicVolume(settings.getFloat("musicVolume", Constants.MUSIC_VOLUME_DEFAULT));
 
         speechBubble02Texture = new Texture(Gdx.files.internal("ui/speechBubble02.png"));
         choiceBubble01Texture = new Texture(Gdx.files.internal("ui/choiceBubble01.png"));
         smallFont = new BitmapFont(Gdx.files.internal("fonts/TlwgMonoBold24.fnt"));
         bigFont = new BitmapFont(Gdx.files.internal("fonts/TlwgMonoBold64.fnt"));
+
+        musicVolumeLabelStyle = new Label.LabelStyle(smallFont, Constants.FONT_COLOR);
+        musicVolumeValueLabel = new Label(printVolume(game.getMusicVolume()), musicVolumeLabelStyle);
+
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Constants.APP_WIDTH, Constants.APP_HEIGHT);
@@ -89,7 +100,9 @@ public class TitleScreen implements InputProcessor, Screen {
     }
 
     private void showMainMenu() {
+        currentMenu = Constants.CurrentMenu.MAIN;
         table.clearChildren();
+        table.center();
 
         Label.LabelStyle titleLabelStyle = new Label.LabelStyle(bigFont, Constants.FONT_COLOR);
         Label titleLabel = new Label("HORSE PLAYS", titleLabelStyle);
@@ -112,13 +125,19 @@ public class TitleScreen implements InputProcessor, Screen {
         startButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                showPlayMenu();
+                showNewMenu();
             }
         });
         table.add(startButton).space(Constants.BUTTON_PAD).width(Constants.MENU_BUTTON_WIDTH);
         table.row();
 
         TextButton settingsButton = menuButton("SETTINGS");
+        settingsButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                showSettingsMenu();
+            }
+        });
         table.add(settingsButton).space(Constants.BUTTON_PAD).width(Constants.MENU_BUTTON_WIDTH);
         table.row();
         
@@ -127,7 +146,7 @@ public class TitleScreen implements InputProcessor, Screen {
             quitButton.addListener(new ChangeListener() {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
-                    quit();
+                    goBack();
                 }
             });
             table.add(quitButton).space(Constants.BUTTON_PAD).width(Constants.MENU_BUTTON_WIDTH);
@@ -135,8 +154,10 @@ public class TitleScreen implements InputProcessor, Screen {
         }
     }
 
-    private void showPlayMenu() {
+    private void showNewMenu() {
+        currentMenu = Constants.CurrentMenu.NEW;
         table.clearChildren();
+        table.center();
 
         Label.LabelStyle topLabelStyle = new Label.LabelStyle(smallFont, Constants.FONT_COLOR);
         Label topLabel = new Label("Select a play:", topLabelStyle);
@@ -170,11 +191,92 @@ public class TitleScreen implements InputProcessor, Screen {
         backButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                showMainMenu();
+                goBack();
             }
         });
         table.add(backButton).space(Constants.BUTTON_PAD).width(Constants.SPEECH_BUTTON_WIDTH);
         table.row();
+    }
+
+    public void showSettingsMenu() {
+        currentMenu = Constants.CurrentMenu.SETTINGS;
+        table.clearChildren();
+        table.top().left().pad(Constants.BUTTON_PAD);
+
+        Label.LabelStyle settingsLabelStyle = new Label.LabelStyle(bigFont, Constants.FONT_COLOR);
+        Label settingsLabel = new Label("Settings", settingsLabelStyle);
+        table.add(settingsLabel).space(Constants.BUTTON_PAD).left().colspan(4);
+        table.row();
+        
+        // Music Volume
+        // Label
+        Label musicVolumeLabel = new Label("Music Volume: ", musicVolumeLabelStyle);
+        table.add(musicVolumeLabel).space(Constants.BUTTON_PAD).left();
+        // Down button
+        TextButton musicVolumeDownButton = menuButton("DOWN");
+        musicVolumeDownButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                musicVolumeDown();
+            }
+        });
+        table.add(musicVolumeDownButton).left().space(Constants.BUTTON_PAD).width(Constants.VOLUME_BUTTON_WIDTH);
+        // Up button
+        TextButton musicVolumeUpButton = menuButton("UP");
+        musicVolumeUpButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                musicVolumeUp();
+            }
+        });
+        table.add(musicVolumeUpButton).left().space(Constants.BUTTON_PAD).width(Constants.VOLUME_BUTTON_WIDTH);
+        //Value
+        table.add(musicVolumeValueLabel).space(Constants.BUTTON_PAD).left();
+        table.row();
+
+        // Back button
+        TextButton backButton = menuButton("BACK");
+        backButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                goBack();
+            }
+        });
+        table.add(backButton).space(Constants.BUTTON_PAD).width(Constants.MENU_BUTTON_WIDTH).left().colspan(4);
+        table.row();
+
+    }
+
+    private void goBack() {
+        switch (currentMenu) {
+            case MAIN:
+                quit();
+                break;
+            case NEW:
+            case SETTINGS:
+                showMainMenu();
+                break;
+            case CREDITS:
+                showSettingsMenu();
+                break;
+        }
+    }
+
+    private String printVolume(float volume) {
+        return String.valueOf(MathUtils.round(volume * 10));
+    }
+
+    private void musicVolumeUp() {
+        setMusicVolume(game.getMusicVolume() + 0.1f);
+    }
+
+    private void musicVolumeDown() {
+        setMusicVolume(game.getMusicVolume() - 0.1f);
+    }
+
+    private void setMusicVolume(float musicVolume) {
+        musicVolumeValueLabel.setText(printVolume(game.getMusicVolume()));
+        settings.putFloat("musicVolume", game.getMusicVolume());
     }
 
     private void startPlay(FileHandle playScriptXml, boolean load) {
@@ -240,7 +342,7 @@ public class TitleScreen implements InputProcessor, Screen {
         switch (keycode) {
             case Input.Keys.BACK:
             case Input.Keys.ESCAPE:
-                quit();
+                goBack();
                 break;
         }
         return true;

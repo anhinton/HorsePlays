@@ -29,6 +29,11 @@ public class Constants {
     public static final float SPOTLIGHT_OFFSET_X = Constants.APP_WIDTH / 11f;
     public static final float SPOTLIGHT_OFFSET_Y = Constants.APP_HEIGHT * 8f / 9;
 
+    // which title menu is showing
+    public enum CurrentMenu {
+        MAIN, NEW, SETTINGS, CREDITS, QUIT
+    }
+
     // a scene is used to work out what part of the game we are up to
     public enum CurrentScene {
         START, OPENING, PERFORMING, CLOSING, FINISHED
@@ -45,6 +50,9 @@ public class Constants {
     public static final int BUTTON_ALIGN = Align.center;
     public static final int MENU_BUTTON_WIDTH = MathUtils.round(APP_WIDTH / 3f);
     public static final int SPEECH_BUTTON_WIDTH = MathUtils.round(Constants.APP_WIDTH * 2f / 3);
+    public static final int VOLUME_BUTTON_WIDTH = 100;
 
     public static final String AUTOSAVE_PATH = "nz.co.canadia.horseplays.autosave";
+    public static final String SETTINGS_PATH = "nz.co.canadia.horseplays.settings";
+    public static final float MUSIC_VOLUME_DEFAULT = 0.5f;
 }
