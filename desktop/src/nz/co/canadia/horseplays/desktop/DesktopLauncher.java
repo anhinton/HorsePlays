@@ -8,6 +8,7 @@ import nz.co.canadia.horseplays.util.Constants;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
+		config.setResizable(false);
 		config.setTitle(Constants.GAME_NAME);
 		config.setWindowedMode(Constants.APP_WIDTH, Constants.APP_HEIGHT);
 		new Lwjgl3Application(new HorsePlays(), config);
