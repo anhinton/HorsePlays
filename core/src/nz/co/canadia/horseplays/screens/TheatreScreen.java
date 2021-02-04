@@ -211,66 +211,71 @@ public class TheatreScreen implements InputProcessor, Screen {
 
     @Override
     public boolean keyDown(int keycode) {
-        switch(keycode) {
-            case Input.Keys.BACK:
-            case Input.Keys.ESCAPE:
-                goBack();
-                return true;
-        }
-
-        switch (currentGameMenu) {
-            case MENU:
-                if (keycode == Input.Keys.Q) {
+        if (currentGameMenu == Constants.CurrentGameMenu.MENU) {
+            switch (keycode) {
+                case Input.Keys.BACK:
+                case Input.Keys.ESCAPE:
+                case Input.Keys.ENTER:
+                case Input.Keys.SPACE:
+                case Input.Keys.R:
+                    goBack();
+                    break;
+                case Input.Keys.Q:
                     theatre.saveProgress();
                     exit();
-                }
-            case GAME:
-                switch (keycode) {
-                    case Input.Keys.ENTER:
-                    case Input.Keys.SPACE:
-                        theatre.advance();
-                        break;
-                    case Input.Keys.NUM_1:
-                    case Input.Keys.NUMPAD_1:
-                        theatre.selectChoice(1);
-                        break;
-                    case Input.Keys.NUM_2:
-                    case Input.Keys.NUMPAD_2:
-                        theatre.selectChoice(2);
-                        break;
-                    case Input.Keys.NUM_3:
-                    case Input.Keys.NUMPAD_3:
-                        theatre.selectChoice(3);
-                        break;
-                    case Input.Keys.NUM_4:
-                    case Input.Keys.NUMPAD_4:
-                        theatre.selectChoice(4);
-                        break;
-                    case Input.Keys.NUM_5:
-                    case Input.Keys.NUMPAD_5:
-                        theatre.selectChoice(5);
-                        break;
-                    case Input.Keys.NUM_6:
-                    case Input.Keys.NUMPAD_6:
-                        theatre.selectChoice(6);
-                        break;
-                    case Input.Keys.NUM_7:
-                    case Input.Keys.NUMPAD_7:
-                        theatre.selectChoice(7);
-                        break;
-                    case Input.Keys.NUM_8:
-                    case Input.Keys.NUMPAD_8:
-                        theatre.selectChoice(8);
-                        break;
-                    case Input.Keys.NUM_9:
-                    case Input.Keys.NUMPAD_9:
-                        theatre.selectChoice(9);
-                        break;
-                    case Input.Keys.NUM_0:
-                    case Input.Keys.NUMPAD_0:
-                        theatre.selectChoice(10);
-                        break;
-                }
+                    break;
+            }
+        } else if (currentGameMenu == Constants.CurrentGameMenu.GAME) {
+            switch (keycode) {
+                case Input.Keys.BACK:
+                case Input.Keys.ESCAPE:
+                    goBack();
+                    break;
+                case Input.Keys.ENTER:
+                case Input.Keys.SPACE:
+                    theatre.advance();
+                    break;
+                case Input.Keys.NUM_1:
+                case Input.Keys.NUMPAD_1:
+                    theatre.selectChoice(1);
+                    break;
+                case Input.Keys.NUM_2:
+                case Input.Keys.NUMPAD_2:
+                    theatre.selectChoice(2);
+                    break;
+                case Input.Keys.NUM_3:
+                case Input.Keys.NUMPAD_3:
+                    theatre.selectChoice(3);
+                    break;
+                case Input.Keys.NUM_4:
+                case Input.Keys.NUMPAD_4:
+                    theatre.selectChoice(4);
+                    break;
+                case Input.Keys.NUM_5:
+                case Input.Keys.NUMPAD_5:
+                    theatre.selectChoice(5);
+                    break;
+                case Input.Keys.NUM_6:
+                case Input.Keys.NUMPAD_6:
+                    theatre.selectChoice(6);
+                    break;
+                case Input.Keys.NUM_7:
+                case Input.Keys.NUMPAD_7:
+                    theatre.selectChoice(7);
+                    break;
+                case Input.Keys.NUM_8:
+                case Input.Keys.NUMPAD_8:
+                    theatre.selectChoice(8);
+                    break;
+                case Input.Keys.NUM_9:
+                case Input.Keys.NUMPAD_9:
+                    theatre.selectChoice(9);
+                    break;
+                case Input.Keys.NUM_0:
+                case Input.Keys.NUMPAD_0:
+                    theatre.selectChoice(10);
+                    break;
+            }
         }
         return true;
     }
