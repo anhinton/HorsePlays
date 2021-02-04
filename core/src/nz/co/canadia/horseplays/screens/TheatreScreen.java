@@ -229,6 +229,7 @@ public class TheatreScreen implements InputProcessor, Screen {
             switch (keycode) {
                 case Input.Keys.BACK:
                 case Input.Keys.ESCAPE:
+                case Input.Keys.Q:
                     goBack();
                     break;
                 case Input.Keys.ENTER:
