@@ -1,13 +1,18 @@
 package nz.co.canadia.horseplays.screens;
 
-import com.badlogic.gdx.*;
+import com.badlogic.gdx.Application;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -57,8 +62,8 @@ public class TitleScreen implements InputProcessor, Screen {
 
         speechBubble02Texture = new Texture(Gdx.files.internal("ui/speechBubble02.png"));
         choiceBubble01Texture = new Texture(Gdx.files.internal("ui/choiceBubble01.png"));
-        smallFont = new BitmapFont(Gdx.files.internal("fonts/TlwgMonoBold24.fnt"));
-        bigFont = new BitmapFont(Gdx.files.internal("fonts/TlwgMonoBold64.fnt"));
+        smallFont = new BitmapFont(Gdx.files.internal("fonts/Podkova24.fnt"));
+        bigFont = new BitmapFont(Gdx.files.internal("fonts/Inconsolata64.fnt"));
 
         bigLabelStyle = new Label.LabelStyle(bigFont, Constants.FONT_COLOR);
         smallLabelStyle = new Label.LabelStyle(smallFont, Constants.FONT_COLOR);
@@ -95,15 +100,13 @@ public class TitleScreen implements InputProcessor, Screen {
                         20, 20, 20, 20
                 )
         );
-        TextButton menuButton = new TextButton(
+        return new TextButton(
                 text,
                 new TextButton.TextButtonStyle(
                         upNinePatch, downNinePatch,
                         upNinePatch, smallFont
                 )
         );
-        menuButton.getLabel().setWrap(true);
-        return menuButton;
     }
 
     private void showMainMenu() {
@@ -291,12 +294,12 @@ public class TitleScreen implements InputProcessor, Screen {
 
         // credits ScrollPane
         FileHandle file = Gdx.files.internal("credits.txt");
-        String creditsText = file.readString();
+        String creditsText = file.readString("UTF-8");
         Label creditsLabel = new Label(creditsText, smallLabelStyle);
         creditsLabel.setWrap(true);
         ScrollPane creditsPane = new ScrollPane(creditsLabel, skin, "default");
         creditsPane.setFadeScrollBars(false);
-        table.add(creditsPane).space(Constants.BUTTON_PAD).prefWidth(Constants.APP_WIDTH);
+        table.add(creditsPane).space(Constants.BUTTON_PAD).prefWidth(Constants.APP_WIDTH).colspan(2);
         table.row();
     }
 

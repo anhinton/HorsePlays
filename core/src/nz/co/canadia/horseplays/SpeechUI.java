@@ -24,8 +24,8 @@ import nz.co.canadia.horseplays.util.Constants;
 public class SpeechUI extends Table {
     private final NinePatchDrawable speechNinePatch01;
     private final NinePatchDrawable choiceNinePatch01;
-    private final BitmapFont speechFont;
-    private final BitmapFont titleFont;
+    private final BitmapFont smallFont;
+    private final BitmapFont bigFont;
     private final Theatre theatre;
     boolean hasChoices;
     boolean buttonAdvanceOnly;
@@ -50,8 +50,8 @@ public class SpeechUI extends Table {
                         20, 20, 20, 20
                 )
         );
-        speechFont = new BitmapFont(Gdx.files.internal("fonts/TlwgMonoBold24.fnt"));
-        titleFont = new BitmapFont(Gdx.files.internal("fonts/TlwgMonoBold64.fnt"));
+        smallFont = new BitmapFont(Gdx.files.internal("fonts/Podkova24.fnt"));
+        bigFont = new BitmapFont(Gdx.files.internal("fonts/Inconsolata64.fnt"));
     }
 
     public void showTitle(String title) {
@@ -59,7 +59,7 @@ public class SpeechUI extends Table {
                 "",
                 new TextButton.TextButtonStyle(
                         choiceNinePatch01, choiceNinePatch01,
-                        choiceNinePatch01, titleFont
+                        choiceNinePatch01, bigFont
                 )
         );
         titleButton.addListener(new ChangeListener() {
@@ -140,7 +140,7 @@ public class SpeechUI extends Table {
         return new Label(
                 character + ":",
                 new Label.LabelStyle(
-                        speechFont, Color.WHITE
+                        smallFont, Color.WHITE
                 ));
     }
 
@@ -150,7 +150,7 @@ public class SpeechUI extends Table {
                 "",
                 new TextButton.TextButtonStyle(
                         speechNinePatch01, speechNinePatch01,
-                        speechNinePatch01, speechFont
+                        speechNinePatch01, smallFont
                 )
         );
         speechButton.addListener(new ChangeListener() {
@@ -169,7 +169,7 @@ public class SpeechUI extends Table {
                 "",
                 new TextButton.TextButtonStyle(
                         choiceNinePatch01, speechNinePatch01,
-                        choiceNinePatch01, speechFont
+                        choiceNinePatch01, smallFont
                 )
         );
         choiceButton.setText(position + ". " + choice.getText());

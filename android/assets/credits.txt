@@ -26,8 +26,10 @@ Unless declared otherwise below the assets in this game are licensed under a Cre
 
   + "Horse walking." by Teresa Kenney is copyright Teresa Kenney - Dreamstime.com
 
+  + "Inconsolata" Copyright 2006 The Inconsolata Project Authors is licensed under the SIL Open Font License, Version 1.1
+
   + "Mangalarga Marchador.jpg" by Fábio Vidigal is licensed under CC BY-SA
 
-  + "Thai TlwgMono" Copyright 2003 Poonlap Veerathanabutr poonlap@linux.thai.net is licensed under GPL-2+ with Font exception.
+  + "Podkova" Copyright 2011 The Podkova Project Authors is licensed under the SIL Open Font License, Version 1.1
 
   + "A Whole Big Sucking Thing" is inspired by 'Welcome to the Hellmouth', Episode 1 of Season 1 of Buffy the Vampire Slayer, written by Hatsune Miku

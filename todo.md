@@ -1,11 +1,4 @@
 # todo.md
-
-+ Make a Title screen menu
-    - ~~'Continue' button when a play has autosaved~~
-    - ~~List of plays under 'New'~~
-    - ~~Volume settings~~
-    - Make a credits screen
-        - Make sure all characters in credits are available in font
         
 + In-game menu to handle volume change and quit on mobile
     
@@ -20,6 +13,17 @@
     - Guess we'll see how much time I leave myself
   
 ## Done
+
++ ~~Make a Title screen menu~~
+    - ~~'Continue' button when a play has autosaved~~
+    - ~~List of plays under 'New'~~
+    - ~~Volume settings~~
+    - ~~Make a credits screen~~
+        - ~~Make sure all characters in credits are available in font.
+          Two things were preventing the character 'á' from displaying:~~
+            - ~~On Windows `credits.txt` was not being read in as UTF-8~~
+            - ~~In general, the font used did not have any character beyond the standard 26-letter
+              capital and lowercase letters. Now I have a full "extended" font.~~          
 
 + ~~Write a "save progress" function that keeps track of which knot you are
   up to in a PlayScript~~
