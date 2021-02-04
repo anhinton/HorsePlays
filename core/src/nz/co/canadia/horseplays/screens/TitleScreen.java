@@ -274,9 +274,19 @@ public class TitleScreen implements InputProcessor, Screen {
         table.clearChildren();
         table.top().left().pad(Constants.BUTTON_PAD);
 
-        Label.LabelStyle settingsLabelStyle = new Label.LabelStyle(smallFont, Constants.FONT_COLOR);
+        Label.LabelStyle settingsLabelStyle = new Label.LabelStyle(bigFont, Constants.FONT_COLOR);
         Label settingsLabel = new Label("Credits", settingsLabelStyle);
-        table.add(settingsLabel).space(Constants.BUTTON_PAD).left().colspan(4);
+        table.add(settingsLabel).space(Constants.BUTTON_PAD).left();
+
+        // Back button
+        TextButton backButton = menuButton("BACK");
+        backButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                goBack();
+            }
+        });
+        table.add(backButton).space(Constants.BUTTON_PAD).width(Constants.VOLUME_BUTTON_WIDTH).right();
         table.row();
 
         // credits ScrollPane
@@ -287,17 +297,6 @@ public class TitleScreen implements InputProcessor, Screen {
         ScrollPane creditsPane = new ScrollPane(creditsLabel, skin, "default");
         creditsPane.setFadeScrollBars(false);
         table.add(creditsPane).space(Constants.BUTTON_PAD).prefWidth(Constants.APP_WIDTH);
-        table.row();
-
-        // Back button
-        TextButton backButton = menuButton("BACK");
-        backButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                goBack();
-            }
-        });
-        table.add(backButton).space(Constants.BUTTON_PAD).width(Constants.MENU_BUTTON_WIDTH).left().colspan(4);
         table.row();
     }
 

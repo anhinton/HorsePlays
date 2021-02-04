@@ -1,6 +1,9 @@
 package nz.co.canadia.horseplays;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.MathUtils;
@@ -11,6 +14,11 @@ public class HorsePlays extends Game {
 
 	@Override
 	public void create () {
+		// catch Back key on Android
+		if (Gdx.app.getType() == Application.ApplicationType.Android) {
+			Gdx.input.setCatchKey(Input.Keys.BACK, true);
+		}
+
 		batch = new SpriteBatch();
 		musicVolume = 0;
 
