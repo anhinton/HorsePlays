@@ -1,6 +1,9 @@
 # todo.md
         
-+ In-game menu to handle volume change and quit on mobile
++ In-game menu to quit on mobile
+    - ~~Quit~~
+    - Volume control can just happen in the Menu - we have autosave after all!
+    - Sort out menu image
     
 + write music
 
