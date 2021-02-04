@@ -49,7 +49,7 @@ public class TitleScreen implements InputProcessor, Screen {
     private final Label musicVolumeValueLabel;
     private final Label.LabelStyle bigLabelStyle;
     private final Skin skin;
-    private Constants.CurrentMenu currentMenu;
+    private Constants.CurrentTitleMenu currentTitleMenu;
 
     public TitleScreen (final HorsePlays game) {
         this.game = game;
@@ -110,7 +110,7 @@ public class TitleScreen implements InputProcessor, Screen {
     }
 
     private void showMainMenu() {
-        currentMenu = Constants.CurrentMenu.MAIN;
+        currentTitleMenu = Constants.CurrentTitleMenu.MAIN;
         table.clearChildren();
         table.center();
 
@@ -168,7 +168,7 @@ public class TitleScreen implements InputProcessor, Screen {
     }
 
     private void showNewMenu() {
-        currentMenu = Constants.CurrentMenu.NEW;
+        currentTitleMenu = Constants.CurrentTitleMenu.NEW;
         table.clearChildren();
         table.center();
 
@@ -212,7 +212,7 @@ public class TitleScreen implements InputProcessor, Screen {
     }
 
     public void showSettingsMenu() {
-        currentMenu = Constants.CurrentMenu.SETTINGS;
+        currentTitleMenu = Constants.CurrentTitleMenu.SETTINGS;
         table.clearChildren();
         table.top().left().pad(Constants.BUTTON_PAD);
 
@@ -273,7 +273,7 @@ public class TitleScreen implements InputProcessor, Screen {
     }
 
     private void showCreditsMenu() {
-        currentMenu = Constants.CurrentMenu.CREDITS;
+        currentTitleMenu = Constants.CurrentTitleMenu.CREDITS;
         table.clearChildren();
         table.top().left().pad(Constants.BUTTON_PAD);
 
@@ -304,7 +304,7 @@ public class TitleScreen implements InputProcessor, Screen {
     }
 
     private void goBack() {
-        switch (currentMenu) {
+        switch (currentTitleMenu) {
             case MAIN:
                 quit();
                 break;

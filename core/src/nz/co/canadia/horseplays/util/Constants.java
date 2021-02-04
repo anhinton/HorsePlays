@@ -30,8 +30,13 @@ public class Constants {
     public static final float SPOTLIGHT_OFFSET_Y = Constants.APP_HEIGHT * 8f / 9;
 
     // which title menu is showing
-    public enum CurrentMenu {
+    public enum CurrentTitleMenu {
         MAIN, NEW, SETTINGS, CREDITS, QUIT
+    }
+
+    // which game ui is showing
+    public enum CurrentGameMenu {
+        GAME, MENU
     }
 
     // a scene is used to work out what part of the game we are up to

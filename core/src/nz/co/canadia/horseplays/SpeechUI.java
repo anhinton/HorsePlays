@@ -29,9 +29,6 @@ public class SpeechUI extends Table {
     private final BitmapFont smallFont;
     private final BitmapFont bigFont;
     private final Theatre theatre;
-    private final Texture menuTexture;
-    private final Texture speechTexture01;
-    private final Texture choiceTexture01;
     boolean hasChoices;
     boolean buttonAdvanceOnly;
 
@@ -43,15 +40,14 @@ public class SpeechUI extends Table {
         buttonAdvanceOnly = true;
         hasChoices = false;
 
-        speechTexture01 = theatre.manager.get("ui/redBubble.png");
+        Texture speechTexture01 = theatre.manager.get("ui/redBubble.png");
         speechNinePatch01 = new NinePatchDrawable(
                 new NinePatch(speechTexture01,20, 20, 20, 20)
         );
-        choiceTexture01 = theatre.manager.get("ui/greyBubble.png");
+        Texture choiceTexture01 = theatre.manager.get("ui/greyBubble.png");
         choiceNinePatch01 = new NinePatchDrawable(
                 new NinePatch(choiceTexture01,20, 20, 20, 20)
         );
-        menuTexture = theatre.manager.get("ui/menu-icon.png");
         smallFont = theatre.manager.get("fonts/Podkova24.fnt");
         bigFont = theatre.manager.get("fonts/Inconsolata64.fnt");
     }
@@ -75,15 +71,6 @@ public class SpeechUI extends Table {
         this.clearChildren();
         this.add(titleButton).pad(Constants.BUTTON_PAD)
                 .width(Constants.SPEECH_BUTTON_WIDTH);
-    }
-
-    public void showMenuButton() {
-        TextureRegionDrawable menuRegionDrawable = new TextureRegionDrawable(menuTexture);
-        ImageButton.ImageButtonStyle menuButtonStyle = new ImageButton.ImageButtonStyle(speechNinePatch01, choiceNinePatch01,
-                speechNinePatch01, menuRegionDrawable, menuRegionDrawable, menuRegionDrawable);
-        ImageButton menuButton = new ImageButton(menuButtonStyle);
-        this.add(menuButton).top().left().space(Constants.BUTTON_PAD);
-        this.row();
     }
 
     public void speak(ScriptLine scriptLine) {
