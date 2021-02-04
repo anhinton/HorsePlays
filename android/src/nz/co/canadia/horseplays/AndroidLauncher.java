@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import nz.co.canadia.horseplays.HorsePlays;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override
@@ -13,7 +12,7 @@ public class AndroidLauncher extends AndroidApplication {
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		config.useAccelerometer = false;
 		config.useCompass = false;
-        config.useImmersiveMode = true;
+        config.useImmersiveMode = false;
 		initialize(new HorsePlays(), config);
 	}
 }
