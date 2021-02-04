@@ -1,10 +1,12 @@
 package nz.co.canadia.horseplays.screens;
 
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -23,9 +25,11 @@ public class TheatreScreen implements InputProcessor, Screen {
     private final Stage stage;
 
     private final Theatre theatre;
+    public AssetManager manager;
 
     public TheatreScreen(final HorsePlays game,
                          FileHandle playScriptXml, boolean load) {
+        manager = game.manager;
         this.game = game;
 
         camera = new OrthographicCamera();

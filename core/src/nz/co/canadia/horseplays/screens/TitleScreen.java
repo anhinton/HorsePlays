@@ -41,8 +41,8 @@ public class TitleScreen implements InputProcessor, Screen {
     private final Table table;
     private final BitmapFont smallFont;
     private final BitmapFont bigFont;
-    private final Texture speechBubble02Texture;
-    private final Texture choiceBubble01Texture;
+    private final Texture redBubbleTexture;
+    private final Texture greyBubbleTexture;
     private final OrthographicCamera camera;
     private final Viewport viewport;
     private final Label.LabelStyle smallLabelStyle;
@@ -60,10 +60,10 @@ public class TitleScreen implements InputProcessor, Screen {
 
         skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 
-        speechBubble02Texture = new Texture(Gdx.files.internal("ui/speechBubble02.png"));
-        choiceBubble01Texture = new Texture(Gdx.files.internal("ui/choiceBubble01.png"));
-        smallFont = new BitmapFont(Gdx.files.internal("fonts/Podkova24.fnt"));
-        bigFont = new BitmapFont(Gdx.files.internal("fonts/Inconsolata64.fnt"));
+        redBubbleTexture = game.manager.get("ui/redBubble.png");
+        greyBubbleTexture = game.manager.get("ui/greyBubble.png");
+        smallFont = game.manager.get("fonts/Podkova24.fnt");
+        bigFont = game.manager.get("fonts/Inconsolata64.fnt");
 
         bigLabelStyle = new Label.LabelStyle(bigFont, Constants.FONT_COLOR);
         smallLabelStyle = new Label.LabelStyle(smallFont, Constants.FONT_COLOR);
@@ -90,13 +90,13 @@ public class TitleScreen implements InputProcessor, Screen {
     private TextButton menuButton(String text) {
         NinePatchDrawable downNinePatch = new NinePatchDrawable(
                 new NinePatch(
-                        speechBubble02Texture,
+                        redBubbleTexture,
                         20, 20, 20, 20
                 )
         );
         NinePatchDrawable upNinePatch = new NinePatchDrawable(
                 new NinePatch(
-                        choiceBubble01Texture,
+                        greyBubbleTexture,
                         20, 20, 20, 20
                 )
         );
@@ -387,11 +387,6 @@ public class TitleScreen implements InputProcessor, Screen {
 
     @Override
     public void dispose() {
-        speechBubble02Texture.dispose();
-        choiceBubble01Texture.dispose();
-        smallFont.dispose();
-        bigFont.dispose();
-        stage.dispose();
     }
 
     @Override

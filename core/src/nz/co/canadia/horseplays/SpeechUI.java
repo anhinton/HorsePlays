@@ -6,11 +6,13 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import nz.co.canadia.horseplays.script.ScriptChoice;
@@ -27,6 +29,9 @@ public class SpeechUI extends Table {
     private final BitmapFont smallFont;
     private final BitmapFont bigFont;
     private final Theatre theatre;
+    private final Texture menuTexture;
+    private final Texture speechTexture01;
+    private final Texture choiceTexture01;
     boolean hasChoices;
     boolean buttonAdvanceOnly;
 
@@ -38,20 +43,17 @@ public class SpeechUI extends Table {
         buttonAdvanceOnly = true;
         hasChoices = false;
 
+        speechTexture01 = theatre.manager.get("ui/redBubble.png");
         speechNinePatch01 = new NinePatchDrawable(
-                new NinePatch(
-                        new Texture(Gdx.files.internal("ui/speechBubble02.png")),
-                        20, 20, 20, 20
-                )
+                new NinePatch(speechTexture01,20, 20, 20, 20)
         );
+        choiceTexture01 = theatre.manager.get("ui/greyBubble.png");
         choiceNinePatch01 = new NinePatchDrawable(
-                new NinePatch(
-                        new Texture(Gdx.files.internal("ui/choiceBubble01.png")),
-                        20, 20, 20, 20
-                )
+                new NinePatch(choiceTexture01,20, 20, 20, 20)
         );
-        smallFont = new BitmapFont(Gdx.files.internal("fonts/Podkova24.fnt"));
-        bigFont = new BitmapFont(Gdx.files.internal("fonts/Inconsolata64.fnt"));
+        menuTexture = theatre.manager.get("ui/menu-icon.png");
+        smallFont = theatre.manager.get("fonts/Podkova24.fnt");
+        bigFont = theatre.manager.get("fonts/Inconsolata64.fnt");
     }
 
     public void showTitle(String title) {
@@ -73,6 +75,15 @@ public class SpeechUI extends Table {
         this.clearChildren();
         this.add(titleButton).pad(Constants.BUTTON_PAD)
                 .width(Constants.SPEECH_BUTTON_WIDTH);
+    }
+
+    public void showMenuButton() {
+        TextureRegionDrawable menuRegionDrawable = new TextureRegionDrawable(menuTexture);
+        ImageButton.ImageButtonStyle menuButtonStyle = new ImageButton.ImageButtonStyle(speechNinePatch01, choiceNinePatch01,
+                speechNinePatch01, menuRegionDrawable, menuRegionDrawable, menuRegionDrawable);
+        ImageButton menuButton = new ImageButton(menuButtonStyle);
+        this.add(menuButton).top().left().space(Constants.BUTTON_PAD);
+        this.row();
     }
 
     public void speak(ScriptLine scriptLine) {
@@ -203,5 +214,8 @@ public class SpeechUI extends Table {
             align = Align.bottomLeft;
         }
         return align;
+    }
+
+    public void dispose() {
     }
 }

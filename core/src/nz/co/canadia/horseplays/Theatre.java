@@ -2,6 +2,7 @@ package nz.co.canadia.horseplays;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -33,6 +34,7 @@ public class Theatre {
     private final Array<Horse> horses;
     private final Curtains curtains;
     private final Preferences autosave;
+    public AssetManager manager;
     private Horse currentHorse;
 
     private Constants.CurrentScene currentScene;
@@ -43,6 +45,7 @@ public class Theatre {
     public Theatre(TheatreScreen theatreScreen, FileHandle playScriptXml, boolean load) {
 
         this.theatreScreen = theatreScreen;
+        manager = theatreScreen.manager;
         playScript = new PlayScript(playScriptXml);
         speechUI = new SpeechUI(this);
         speechUI.showTitle(playScript.getTitle());
@@ -125,6 +128,7 @@ public class Theatre {
         spotlight01.dispose();
         spotlight02.dispose();
         theatreStage.dispose();
+        speechUI.dispose();
     }
 
     public Array<String> getCharacters() {
