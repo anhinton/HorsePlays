@@ -3,12 +3,22 @@
 + In-game menu to quit on mobile
     - ~~Quit~~
     - Volume control can just happen in the Menu - we have autosave after all!
-    - Sort out menu image
-    
-+ write music
+    - Sort out menu image  
 
 + Do something smart to make fonts look good on different device size
   (abandon if I don't care about iOS)
+    
++ Add music and sound effects
+    - Write music
+    - Record music
+    - Mix music
+    - Add music to game (play on load except Web, then play on click)
+    - Cough sound effect for low bomb choice
+    - "Ooooooooh" sound effect for high bomb choice
+    
++ Add bomb visual prompts
+    - Screen shake on bomb (how do I do a screen shake?)
+    - "You win/lose" depending on outcome
   
 + Clean up excess Skin stuff or maybe don't
     - Probably default-font at least can be done without
