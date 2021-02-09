@@ -5,8 +5,7 @@
     - ~~Implement for Desktop, Html, Ios~~
     - ~~Implement for Android using `Gdx freetype` extension~~
     - ~~Set Ui to use full screen size~~
-    - Adjust menu icon size depending on screen size
-      I need to do some logic here around screen aspect ratio and I don't like it.
+    - ~~Adjust menu icon size depending on screen size~~
     - Actually properly implement for Ios when I'm on a Mac and I've already done the Android
       screen size work
     

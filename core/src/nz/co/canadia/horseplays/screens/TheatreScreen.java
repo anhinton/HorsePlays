@@ -93,8 +93,11 @@ public class TheatreScreen implements InputProcessor, Screen {
         menuUi.clearChildren();
         menuUi.top().left().pad(Constants.BUTTON_PAD);
 
+        float menuButtonSize = (float) Constants.MENU_ICON_SIZE / Constants.APP_HEIGHT * game.getUiHeight();
         Texture menuTexture = manager.get("ui/menu-icon.png");
         TextureRegionDrawable menuRegionDrawable = new TextureRegionDrawable(menuTexture);
+        menuRegionDrawable.setMinWidth(menuButtonSize);
+        menuRegionDrawable.setMinHeight(menuButtonSize);
         ImageButton.ImageButtonStyle menuButtonStyle = new ImageButton.ImageButtonStyle(greyNinePatch, redNinePatch,
                 greyNinePatch, menuRegionDrawable, menuRegionDrawable, menuRegionDrawable);
         ImageButton menuButton = new ImageButton(menuButtonStyle);
