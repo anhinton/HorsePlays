@@ -2,7 +2,7 @@
 
 + Do something smart to make fonts look good on different device sizes
     - ~~Create a FontLoader interface~~
-    - ~~Implement for Desktop~~, Html, Ios
+    - ~~Implement for Desktop, Html~~, Ios
     - Implement for Android using `Gdx freetype` extension
     - Set Ui to use full screen size
     
