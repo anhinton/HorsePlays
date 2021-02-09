@@ -48,8 +48,8 @@ public class SpeechUI extends Table {
         choiceNinePatch01 = new NinePatchDrawable(
                 new NinePatch(choiceTexture01,20, 20, 20, 20)
         );
-        smallFont = theatre.manager.get("fonts/Podkova24.fnt");
-        bigFont = theatre.manager.get("fonts/Inconsolata64.fnt");
+        smallFont = theatre.fontLoader.getSmallFont(theatre.manager);
+        bigFont = theatre.fontLoader.getBigFont(theatre.manager);
     }
 
     public void showTitle(String title) {

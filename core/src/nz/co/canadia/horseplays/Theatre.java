@@ -13,6 +13,7 @@ import nz.co.canadia.horseplays.screens.TheatreScreen;
 import nz.co.canadia.horseplays.script.PlayScript;
 import nz.co.canadia.horseplays.script.ScriptChoice;
 import nz.co.canadia.horseplays.util.Constants;
+import nz.co.canadia.horseplays.util.FontLoader;
 
 /**
  * The theatre in which we theatreStage our play
@@ -34,6 +35,7 @@ public class Theatre {
     private final Array<Horse> horses;
     private final Curtains curtains;
     private final Preferences autosave;
+    public FontLoader fontLoader;
     public AssetManager manager;
     private Horse currentHorse;
 
@@ -46,6 +48,7 @@ public class Theatre {
 
         this.theatreScreen = theatreScreen;
         manager = theatreScreen.manager;
+        fontLoader = theatreScreen.fontLoader;
         playScript = new PlayScript(playScriptXml);
         speechUI = new SpeechUI(this);
         speechUI.showTitle(playScript.getTitle());

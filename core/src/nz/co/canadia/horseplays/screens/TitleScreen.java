@@ -64,8 +64,8 @@ public class TitleScreen implements InputProcessor, Screen {
 
         redBubbleTexture = game.manager.get("ui/redBubble.png");
         greyBubbleTexture = game.manager.get("ui/greyBubble.png");
-        smallFont = game.manager.get("fonts/Podkova24.fnt");
-        bigFont = game.manager.get("fonts/Inconsolata64.fnt");
+        smallFont = game.fontLoader.getSmallFont(game.manager);
+        bigFont = game.fontLoader.getBigFont(game.manager);
 
         bigLabelStyle = new Label.LabelStyle(bigFont, Constants.FONT_COLOR);
         smallLabelStyle = new Label.LabelStyle(smallFont, Constants.FONT_COLOR);

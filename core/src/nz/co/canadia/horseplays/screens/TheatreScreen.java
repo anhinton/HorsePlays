@@ -27,6 +27,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import nz.co.canadia.horseplays.HorsePlays;
 import nz.co.canadia.horseplays.Theatre;
 import nz.co.canadia.horseplays.util.Constants;
+import nz.co.canadia.horseplays.util.FontLoader;
 
 /**
  * The stage screen where the game is played.
@@ -44,11 +45,13 @@ public class TheatreScreen implements InputProcessor, Screen {
     private final NinePatchDrawable greyNinePatch;
     private final BitmapFont smallFont;
     public AssetManager manager;
+    public FontLoader fontLoader;
     private Constants.CurrentGameMenu currentGameMenu;
 
     public TheatreScreen(final HorsePlays game,
                          FileHandle playScriptXml, boolean load) {
         manager = game.manager;
+        fontLoader = game.fontLoader;
         this.game = game;
 
         Texture redBubbleTexture = manager.get("ui/redBubble.png");
@@ -59,7 +62,7 @@ public class TheatreScreen implements InputProcessor, Screen {
         greyNinePatch = new NinePatchDrawable(
                 new NinePatch(greyBubbleTexture, 20, 20, 20, 20)
         );
-        smallFont = manager.get("fonts/Podkova24.fnt");
+        smallFont = fontLoader.getSmallFont(manager);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Constants.APP_WIDTH, Constants.APP_HEIGHT);

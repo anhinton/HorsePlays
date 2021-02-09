@@ -12,10 +12,10 @@ import com.badlogic.gdx.math.MathUtils;
 import nz.co.canadia.horseplays.util.FontLoader;
 
 public class HorsePlays extends Game {
-	private final FontLoader fontLoader;
 	public SpriteBatch batch;
 	private float musicVolume;
 	private float soundVolume;
+	public FontLoader fontLoader;
 	public AssetManager manager;
 
 	public HorsePlays(FontLoader fontLoader) {
