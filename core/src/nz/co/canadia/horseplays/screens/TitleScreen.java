@@ -214,7 +214,7 @@ public class TitleScreen implements InputProcessor, Screen {
     public void showSettingsMenu() {
         currentTitleMenu = Constants.CurrentTitleMenu.SETTINGS;
         table.clearChildren();
-        table.top().left().pad(Constants.BUTTON_PAD);
+        table.center().pad(Constants.BUTTON_PAD);
 
         Label.LabelStyle settingsLabelStyle = new Label.LabelStyle(bigFont, Constants.FONT_COLOR);
         Label settingsLabel = new Label("Settings", settingsLabelStyle);
