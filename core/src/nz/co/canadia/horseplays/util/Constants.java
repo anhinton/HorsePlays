@@ -52,8 +52,8 @@ public class Constants {
 
     public static final String END_KNOT = "DONE";
 
-    public static final int BIG_FONT_SIZE = MathUtils.round(64f / APP_HEIGHT * Gdx.graphics.getBackBufferHeight());
-    public static final int SMALL_FONT_SIZE = MathUtils.round(24f / APP_HEIGHT * Gdx.graphics.getBackBufferHeight());
+    public static final int BIG_FONT_SIZE = 74;
+    public static final int SMALL_FONT_SIZE = MathUtils.round(34f / APP_HEIGHT * Gdx.graphics.getBackBufferHeight());
 
     public static final int BUTTON_PAD = MathUtils.round(20f / APP_HEIGHT * Gdx.graphics.getBackBufferHeight());
     public static final int BUTTON_ALIGN = Align.center;

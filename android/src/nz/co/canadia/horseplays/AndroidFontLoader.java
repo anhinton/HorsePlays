@@ -1,5 +1,6 @@
 package nz.co.canadia.horseplays;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
@@ -7,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
 import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
+import com.badlogic.gdx.math.MathUtils;
 
 import nz.co.canadia.horseplays.util.Constants;
 import nz.co.canadia.horseplays.util.FontLoader;
@@ -20,7 +22,7 @@ public class AndroidFontLoader implements FontLoader {
 
         FreetypeFontLoader.FreeTypeFontLoaderParameter bigFont = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
         bigFont.fontFileName = "fonts/Inconsolata-VariableFont_wdth,wght.ttf";
-        bigFont.fontParameters.size = Constants.BIG_FONT_SIZE;
+        bigFont.fontParameters.size = MathUtils.round((float) Constants.BIG_FONT_SIZE / Constants.APP_HEIGHT * Gdx.graphics.getBackBufferHeight());
         manager.load("fonts/Inconsolata-VariableFont_wdth,wght.ttf", BitmapFont.class, bigFont);
     }
 

@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
@@ -67,7 +68,12 @@ public class TheatreScreen implements InputProcessor, Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Constants.APP_WIDTH, Constants.APP_HEIGHT);
         viewport = new FitViewport(Constants.APP_WIDTH, Constants.APP_HEIGHT, camera);
-        stage = new Stage(viewport);
+
+        //TODO: make this work for different screen aspect ratios
+        int uiWidth = MathUtils.round(Gdx.graphics.getBackBufferHeight() * 16f / 9);
+        int uiHeight = Gdx.graphics.getBackBufferHeight();
+        FitViewport uiViewport = new FitViewport(uiWidth, uiHeight);
+        stage = new Stage(uiViewport);
 
         menuUi = new Table();
         menuUi.setFillParent(true);
