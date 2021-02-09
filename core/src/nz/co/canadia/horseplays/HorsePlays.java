@@ -13,6 +13,7 @@ import com.badlogic.gdx.math.MathUtils;
 public class HorsePlays extends Game {
 	public SpriteBatch batch;
 	private float musicVolume;
+	private float soundVolume;
 	public AssetManager manager;
 
 	@Override
@@ -32,6 +33,7 @@ public class HorsePlays extends Game {
 
 		batch = new SpriteBatch();
 		musicVolume = 0;
+		soundVolume = 0;
 
 		// show the intro screen
 		this.setScreen(new nz.co.canadia.horseplays.screens.TitleScreen(this));
@@ -54,5 +56,13 @@ public class HorsePlays extends Game {
 
 	public void setMusicVolume(float musicVolume) {
 		this.musicVolume = MathUtils.clamp(musicVolume, 0, 1);
+	}
+
+	public float getSoundVolume() {
+		return soundVolume;
+	}
+
+	public void setSoundVolume(float soundVolume) {
+		this.soundVolume = MathUtils.clamp(soundVolume, 0, 1);
 	}
 }

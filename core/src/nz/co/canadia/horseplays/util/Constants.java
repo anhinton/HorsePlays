@@ -60,4 +60,5 @@ public class Constants {
     public static final String AUTOSAVE_PATH = "nz.co.canadia.horseplays.autosave";
     public static final String SETTINGS_PATH = "nz.co.canadia.horseplays.settings";
     public static final float MUSIC_VOLUME_DEFAULT = 0.5f;
+    public static final float SOUND_VOLUME_DEFAULT = 0.8f;
 }

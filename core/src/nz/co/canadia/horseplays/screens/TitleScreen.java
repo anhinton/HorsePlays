@@ -46,8 +46,9 @@ public class TitleScreen implements InputProcessor, Screen {
     private final OrthographicCamera camera;
     private final Viewport viewport;
     private final Label.LabelStyle smallLabelStyle;
-    private final Label musicVolumeValueLabel;
     private final Label.LabelStyle bigLabelStyle;
+    private final Label musicVolumeValueLabel;
+    private final Label soundVolumeValueLabel;
     private final Skin skin;
     private Constants.CurrentTitleMenu currentTitleMenu;
 
@@ -57,6 +58,7 @@ public class TitleScreen implements InputProcessor, Screen {
         autosave = Gdx.app.getPreferences(Constants.AUTOSAVE_PATH);
         settings = Gdx.app.getPreferences(Constants.SETTINGS_PATH);
         game.setMusicVolume(settings.getFloat("musicVolume", Constants.MUSIC_VOLUME_DEFAULT));
+        game.setSoundVolume(settings.getFloat("soundVolume", Constants.SOUND_VOLUME_DEFAULT));
 
         skin = new Skin(Gdx.files.internal("data/uiskin.json"));
 
@@ -68,6 +70,7 @@ public class TitleScreen implements InputProcessor, Screen {
         bigLabelStyle = new Label.LabelStyle(bigFont, Constants.FONT_COLOR);
         smallLabelStyle = new Label.LabelStyle(smallFont, Constants.FONT_COLOR);
         musicVolumeValueLabel = new Label(printVolume(game.getMusicVolume()), smallLabelStyle);
+        soundVolumeValueLabel = new Label(printVolume(game.getSoundVolume()), smallLabelStyle);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Constants.APP_WIDTH, Constants.APP_HEIGHT);
@@ -247,6 +250,32 @@ public class TitleScreen implements InputProcessor, Screen {
         table.add(musicVolumeValueLabel).space(Constants.BUTTON_PAD).left();
         table.row();
 
+        // Sound Volume
+        // Label
+        Label soundVolumeLabel = new Label("Sound Volume: ", smallLabelStyle);
+        table.add(soundVolumeLabel).space(Constants.BUTTON_PAD).left();
+        // Down button
+        TextButton soundVolumeDownButton = menuButton("DOWN");
+        soundVolumeDownButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                soundVolumeDown();
+            }
+        });
+        table.add(soundVolumeDownButton).left().space(Constants.BUTTON_PAD).width(Constants.VOLUME_BUTTON_WIDTH);
+        // Up button
+        TextButton soundVolumeUpButton = menuButton("UP");
+        soundVolumeUpButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                soundVolumeUp();
+            }
+        });
+        table.add(soundVolumeUpButton).left().space(Constants.BUTTON_PAD).width(Constants.VOLUME_BUTTON_WIDTH);
+        //Value
+        table.add(soundVolumeValueLabel).space(Constants.BUTTON_PAD).left();
+        table.row();
+
         // Credits button
         TextButton creditsButton = menuButton("CREDITS");
         creditsButton.addListener(new ChangeListener() {
@@ -334,6 +363,20 @@ public class TitleScreen implements InputProcessor, Screen {
         game.setMusicVolume(musicVolume);
         musicVolumeValueLabel.setText(printVolume(game.getMusicVolume()));
         settings.putFloat("musicVolume", game.getMusicVolume());
+    }
+
+    private void soundVolumeUp() {
+        setSoundVolume(game.getSoundVolume() + 0.1f);
+    }
+
+    private void soundVolumeDown() {
+        setSoundVolume(game.getSoundVolume() - 0.1f);
+    }
+
+    private void setSoundVolume(float soundVolume) {
+        game.setSoundVolume(soundVolume);
+        soundVolumeValueLabel.setText(printVolume(game.getSoundVolume()));
+        settings.putFloat("soundVolume", game.getSoundVolume());
     }
 
     private void startPlay(FileHandle playScriptXml, boolean load) {

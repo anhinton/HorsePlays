@@ -1,7 +1,5 @@
 # todo.md
 
-+ Add Sound Volume setting
-
 + Do something smart to make fonts look good on different device size
   (abandon if I don't care about iOS)
     
@@ -23,6 +21,8 @@
     - Guess we'll see how much time I leave myself
   
 ## Done
+
++ ~~Add Sound Volume setting~~
         
 + ~~In-game menu to quit on mobile~~
     - ~~Quit~~
