@@ -1,5 +1,6 @@
 package nz.co.canadia.horseplays.util;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Align;
@@ -51,11 +52,14 @@ public class Constants {
 
     public static final String END_KNOT = "DONE";
 
-    public static final int BUTTON_PAD = 20;
+    public static final int BIG_FONT_SIZE = MathUtils.round(64f / APP_HEIGHT * Gdx.graphics.getBackBufferHeight());
+    public static final int SMALL_FONT_SIZE = MathUtils.round(24f / APP_HEIGHT * Gdx.graphics.getBackBufferHeight());
+
+    public static final int BUTTON_PAD = MathUtils.round(20f / APP_HEIGHT * Gdx.graphics.getBackBufferHeight());
     public static final int BUTTON_ALIGN = Align.center;
     public static final int MENU_BUTTON_WIDTH = MathUtils.round(APP_WIDTH / 3f);
     public static final int SPEECH_BUTTON_WIDTH = MathUtils.round(Constants.APP_WIDTH * 2f / 3);
-    public static final int VOLUME_BUTTON_WIDTH = 100;
+    public static final int VOLUME_BUTTON_WIDTH = MathUtils.round(100f / APP_WIDTH * Gdx.graphics.getBackBufferWidth());
 
     public static final String AUTOSAVE_PATH = "nz.co.canadia.horseplays.autosave";
     public static final String SETTINGS_PATH = "nz.co.canadia.horseplays.settings";
