@@ -13,6 +13,6 @@ public class AndroidLauncher extends AndroidApplication {
 		config.useAccelerometer = false;
 		config.useCompass = false;
         config.useImmersiveMode = false;
-		initialize(new HorsePlays(), config);
+		initialize(new HorsePlays(new AndroidFontLoader()), config);
 	}
 }

@@ -2,9 +2,15 @@
 
 + Do something smart to make fonts look good on different device sizes
     - ~~Create a FontLoader interface~~
-    - ~~Implement for Desktop, Html~~, Ios
+    - ~~Implement for Desktop, Html, Ios~~
     - Implement for Android using `Gdx freetype` extension
     - Set Ui to use full screen size
+    - Actually properly implement for Ios when I'm on a Mac and I've already done the Android
+      screen size work
+    
++ Add bomb visual prompts
+    - Screen shake on bomb (how do I do a screen shake?)
+    - "You win/lose" depending on outcome
     
 + Add music and sound effects
     - Write music
@@ -14,14 +20,18 @@
     - Cough sound effect for low bomb choice
     - "Ooooooooh" sound effect for high bomb choice
     
-+ Add bomb visual prompts
-    - Screen shake on bomb (how do I do a screen shake?)
-    - "You win/lose" depending on outcome
++ Pack textures with TexturePacker
   
 + Clean up excess Skin stuff or maybe don't
     - Probably default-font at least can be done without
     - And surely I can include my NinePatches in here to make things clean
     - Guess we'll see how much time I leave myself
+    
++ Create App icons
+    - Desktop
+    - Android
+    - Html
+    - Ios
   
 ## Done
 
