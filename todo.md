@@ -1,7 +1,10 @@
 # todo.md
 
-+ Do something smart to make fonts look good on different device size
-  (abandon if I don't care about iOS)
++ Do something smart to make fonts look good on different device sizes
+    - ~~Create a FontLoader interface~~
+    - ~~Implement for Desktop~~, Html, Ios
+    - Implement for Android using `Gdx freetype` extension
+    - Set Ui to use full screen size
     
 + Add music and sound effects
     - Write music

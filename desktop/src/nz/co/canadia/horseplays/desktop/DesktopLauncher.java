@@ -11,6 +11,6 @@ public class DesktopLauncher {
 		config.setResizable(false);
 		config.setTitle(Constants.GAME_NAME);
 		config.setWindowedMode(Constants.APP_WIDTH, Constants.APP_HEIGHT);
-		new Lwjgl3Application(new HorsePlays(), config);
+		new Lwjgl3Application(new HorsePlays(new DesktopFontLoader()), config);
 	}
 }

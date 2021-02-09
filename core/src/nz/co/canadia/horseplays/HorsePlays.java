@@ -6,15 +6,21 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 
+import nz.co.canadia.horseplays.util.FontLoader;
+
 public class HorsePlays extends Game {
+	private final FontLoader fontLoader;
 	public SpriteBatch batch;
 	private float musicVolume;
 	private float soundVolume;
 	public AssetManager manager;
+
+	public HorsePlays(FontLoader fontLoader) {
+		this.fontLoader = fontLoader;
+	}
 
 	@Override
 	public void create () {
@@ -24,11 +30,11 @@ public class HorsePlays extends Game {
 		}
 
 		manager = new AssetManager();
+		fontLoader.loadBigFont(manager);
+		fontLoader.loadSmallFont(manager);
 		manager.load("ui/greyBubble.png", Texture.class);
 		manager.load("ui/redBubble.png", Texture.class);
 		manager.load("ui/menu-icon.png", Texture.class);
-		manager.load("fonts/Podkova24.fnt", BitmapFont.class);
-		manager.load("fonts/Inconsolata64.fnt", BitmapFont.class);
 		manager.finishLoading();
 
 		batch = new SpriteBatch();
