@@ -1,9 +1,4 @@
 # todo.md
-        
-+ In-game menu to quit on mobile
-    - ~~Quit~~
-    - Volume control can just happen in the Menu - we have autosave after all!
-    - Sort out menu image  
 
 + Do something smart to make fonts look good on different device size
   (abandon if I don't care about iOS)
@@ -26,6 +21,11 @@
     - Guess we'll see how much time I leave myself
   
 ## Done
+        
++ ~~In-game menu to quit on mobile~~
+    - ~~Quit~~
+    - ~~Volume control can just happen in the Menu - we have autosave after all!~~
+    - ~~Sort out menu image~~  
 
 + ~~Make a Title screen menu~~
     - ~~'Continue' button when a play has autosaved~~
