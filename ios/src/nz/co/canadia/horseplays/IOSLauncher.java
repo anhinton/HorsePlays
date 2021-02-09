@@ -11,7 +11,7 @@ public class IOSLauncher extends IOSApplication.Delegate {
     @Override
     protected IOSApplication createApplication() {
         IOSApplicationConfiguration config = new IOSApplicationConfiguration();
-        return new IOSApplication(new HorsePlays(), config);
+        return new IOSApplication(new HorsePlays(new IOSFontLoader()), config);
     }
 
     public static void main(String[] argv) {
