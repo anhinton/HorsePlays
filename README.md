@@ -58,3 +58,7 @@ is licensed under [CC BY-NC](https://creativecommons.org/licenses/by-nc/2.0/).
 by [Aaron Tubbs](https://www.flickr.com/photos/atubbs/)
 is licensed under 
 [CC BY-NC-SA](https://creativecommons.org/licenses/by-nc-sa/2.0/).
+
+`ui/menu-icon.png` "menu" by [Google](https://material.io/resources/icons) is 
+licensed under 
+[Apache license version 2.0](https://www.apache.org/licenses/LICENSE-2.0.html).

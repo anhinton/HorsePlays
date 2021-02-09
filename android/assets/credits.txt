@@ -30,6 +30,8 @@ Unless declared otherwise below the assets in this game are licensed under a Cre
 
   + "Mangalarga Marchador.jpg" by Fábio Vidigal is licensed under CC BY-SA
 
+  + "menu" by Google is licensed under Apache license version 2.0
+
   + "Podkova" Copyright 2011 The Podkova Project Authors is licensed under the SIL Open Font License, Version 1.1
 
   + "A Whole Big Sucking Thing" is inspired by 'Welcome to the Hellmouth', Episode 1 of Season 1 of Buffy the Vampire Slayer, written by Hatsune Miku
