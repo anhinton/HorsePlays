@@ -7,7 +7,7 @@ import nz.co.canadia.horseplays.util.FontLoader;
 
 public class HtmlFontLoader implements FontLoader {
     @Override
-    public void loadBigFont(AssetManager manager) {
+    public void loadBigFont(AssetManager manager, int uiHeight) {
         manager.load("fonts/Inconsolata64.fnt", BitmapFont.class);
     }
 
@@ -17,7 +17,7 @@ public class HtmlFontLoader implements FontLoader {
     }
 
     @Override
-    public void loadSmallFont(AssetManager manager) {
+    public void loadSmallFont(AssetManager manager, int uiHeight) {
         manager.load("fonts/Podkova24.fnt", BitmapFont.class);
     }
 

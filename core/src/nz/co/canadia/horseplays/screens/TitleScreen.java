@@ -77,9 +77,7 @@ public class TitleScreen implements InputProcessor, Screen {
         viewport = new FitViewport(Constants.APP_WIDTH, Constants.APP_HEIGHT,
                 camera);
 
-        int uiWidth = MathUtils.round(Gdx.graphics.getBackBufferHeight() * 16f / 9);
-        int uiHeight = Gdx.graphics.getBackBufferHeight();
-        FitViewport uiViewport = new FitViewport(uiWidth, uiHeight);
+        FitViewport uiViewport = new FitViewport(game.getUiWidth(), game.getUiHeight());
         stage = new Stage(uiViewport);
         table = new Table();
         table.setFillParent(true);

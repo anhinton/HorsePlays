@@ -15,14 +15,14 @@ import nz.co.canadia.horseplays.util.FontLoader;
 
 public class AndroidFontLoader implements FontLoader {
     @Override
-    public void loadBigFont(AssetManager manager) {
+    public void loadBigFont(AssetManager manager, int uiHeight) {
         FileHandleResolver resolver = new InternalFileHandleResolver();
         manager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
         manager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
 
         FreetypeFontLoader.FreeTypeFontLoaderParameter bigFont = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
         bigFont.fontFileName = "fonts/Inconsolata-VariableFont_wdth,wght.ttf";
-        bigFont.fontParameters.size = MathUtils.round((float) Constants.BIG_FONT_SIZE / Constants.APP_HEIGHT * Gdx.graphics.getBackBufferHeight());
+        bigFont.fontParameters.size = MathUtils.round((float) Constants.BIG_FONT_SIZE / Constants.APP_HEIGHT * uiHeight);
         manager.load("fonts/Inconsolata-VariableFont_wdth,wght.ttf", BitmapFont.class, bigFont);
     }
 
@@ -32,14 +32,14 @@ public class AndroidFontLoader implements FontLoader {
     }
 
     @Override
-    public void loadSmallFont(AssetManager manager) {
+    public void loadSmallFont(AssetManager manager, int uiHeight) {
         FileHandleResolver resolver = new InternalFileHandleResolver();
         manager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
         manager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
 
         FreetypeFontLoader.FreeTypeFontLoaderParameter smallFont = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
         smallFont.fontFileName = "fonts/Podkova-VariableFont_wght.ttf";
-        smallFont.fontParameters.size = Constants.SMALL_FONT_SIZE;
+        smallFont.fontParameters.size = MathUtils.round((float) Constants.SMALL_FONT_SIZE / Constants.APP_HEIGHT * uiHeight);
         manager.load("fonts/Podkova-VariableFont_wght.ttf", BitmapFont.class, smallFont);
     }
 

@@ -69,10 +69,7 @@ public class TheatreScreen implements InputProcessor, Screen {
         camera.setToOrtho(false, Constants.APP_WIDTH, Constants.APP_HEIGHT);
         viewport = new FitViewport(Constants.APP_WIDTH, Constants.APP_HEIGHT, camera);
 
-        //TODO: make this work for different screen aspect ratios
-        int uiWidth = MathUtils.round(Gdx.graphics.getBackBufferHeight() * 16f / 9);
-        int uiHeight = Gdx.graphics.getBackBufferHeight();
-        FitViewport uiViewport = new FitViewport(uiWidth, uiHeight);
+        FitViewport uiViewport = new FitViewport(game.getUiWidth(), game.getUiHeight());
         stage = new Stage(uiViewport);
 
         menuUi = new Table();
