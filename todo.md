@@ -1,4 +1,8 @@
 # todo.md
+    
++ Add bomb visual prompts
+    - Screen shake on bomb (how do I do a screen shake?)
+    - "You win/lose" depending on outcome
 
 + Do something smart to make fonts look good on different device sizes
     - ~~Create a FontLoader interface~~
@@ -8,10 +12,7 @@
     - ~~Adjust menu icon size depending on screen size~~
     - Actually properly implement for Ios when I'm on a Mac and I've already done the Android
       screen size work
-    
-+ Add bomb visual prompts
-    - Screen shake on bomb (how do I do a screen shake?)
-    - "You win/lose" depending on outcome
+        - This needs testing
     
 + Add music and sound effects
     - Write music
