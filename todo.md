@@ -1,6 +1,4 @@
 # todo.md
-    
-+ Fix credits UI width - not filling screen on iOS
 
 + Fix UI button widths on mobile devices - not calculated using uiWidth/Height values
     
@@ -40,6 +38,8 @@
     - Ios
   
 ## Done
+    
++ ~~Fix credits UI width - not filling screen on iOS~~
 
 + ~~Add Sound Volume setting~~
         

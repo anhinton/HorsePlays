@@ -24,7 +24,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 import nz.co.canadia.horseplays.HorsePlays;
 import nz.co.canadia.horseplays.util.Constants;
@@ -43,13 +42,12 @@ public class TitleScreen implements InputProcessor, Screen {
     private final BitmapFont bigFont;
     private final Texture redBubbleTexture;
     private final Texture greyBubbleTexture;
-    private final OrthographicCamera camera;
-    private final Viewport viewport;
     private final Label.LabelStyle smallLabelStyle;
     private final Label.LabelStyle bigLabelStyle;
     private final Label musicVolumeValueLabel;
     private final Label soundVolumeValueLabel;
     private final Skin skin;
+    private final OrthographicCamera camera;
     private Constants.CurrentTitleMenu currentTitleMenu;
 
     public TitleScreen (final HorsePlays game) {
@@ -73,11 +71,7 @@ public class TitleScreen implements InputProcessor, Screen {
         soundVolumeValueLabel = new Label(printVolume(game.getSoundVolume()), smallLabelStyle);
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, Constants.APP_WIDTH, Constants.APP_HEIGHT);
-        viewport = new FitViewport(Constants.APP_WIDTH, Constants.APP_HEIGHT,
-                camera);
-
-        FitViewport uiViewport = new FitViewport(game.getUiWidth(), game.getUiHeight());
+        FitViewport uiViewport = new FitViewport(game.getUiWidth(), game.getUiHeight(), camera);
         stage = new Stage(uiViewport);
         table = new Table();
         table.setFillParent(true);
@@ -329,7 +323,7 @@ public class TitleScreen implements InputProcessor, Screen {
         creditsLabel.setWrap(true);
         ScrollPane creditsPane = new ScrollPane(creditsLabel, skin, "default");
         creditsPane.setFadeScrollBars(false);
-        table.add(creditsPane).space(Constants.BUTTON_PAD).prefWidth(Constants.APP_WIDTH).colspan(2);
+        table.add(creditsPane).space(Constants.BUTTON_PAD).prefWidth(game.getUiWidth()).colspan(2);
         table.row();
     }
 
@@ -403,6 +397,8 @@ public class TitleScreen implements InputProcessor, Screen {
                 Constants.BACKGROUND_COLOR.a);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
+//        camera.translate(0, 0, 0);
         camera.update();
 
         stage.act(Gdx.graphics.getDeltaTime());
@@ -411,7 +407,7 @@ public class TitleScreen implements InputProcessor, Screen {
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height);
+        stage.getViewport().update(width, height);
     }
 
     @Override
