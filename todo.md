@@ -1,5 +1,9 @@
 # todo.md
     
++ Fix credits UI width - not filling screen on iOS
+
++ Fix UI button widths on mobile devices - not calculated using uiWidth/Height values
+    
 + Add bomb visual prompts
     - Screen shake on bomb (how do I do a screen shake?)
     - "You win/lose" depending on outcome
