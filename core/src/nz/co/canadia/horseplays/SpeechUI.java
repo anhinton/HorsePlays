@@ -1,20 +1,19 @@
 package nz.co.canadia.horseplays;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.NinePatchDrawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
+
 import nz.co.canadia.horseplays.script.ScriptChoice;
 import nz.co.canadia.horseplays.script.ScriptLine;
 import nz.co.canadia.horseplays.util.Constants;
@@ -29,13 +28,18 @@ public class SpeechUI extends Table {
     private final BitmapFont smallFont;
     private final BitmapFont bigFont;
     private final Theatre theatre;
+    private final int buttonPad;
+    private final int speechButtonWidth;
     boolean hasChoices;
     boolean buttonAdvanceOnly;
 
-    public SpeechUI(Theatre theatre) {
+    public SpeechUI(Theatre theatre, int uiWidth, int uiHeight) {
         this.setFillParent(true);
 
         this.theatre = theatre;
+
+        buttonPad = MathUtils.round((float) Constants.BUTTON_PAD / Constants.APP_HEIGHT * uiHeight);
+        speechButtonWidth = MathUtils.round((float) Constants.SPEECH_BUTTON_WIDTH / Constants.APP_WIDTH * uiWidth);
 
         buttonAdvanceOnly = true;
         hasChoices = false;
@@ -69,8 +73,8 @@ public class SpeechUI extends Table {
         titleButton.setText(title);
         titleButton.getLabel().setWrap(true);
         this.clearChildren();
-        this.add(titleButton).pad(Constants.BUTTON_PAD)
-                .width(Constants.SPEECH_BUTTON_WIDTH);
+        this.add(titleButton).pad(buttonPad)
+                .width(speechButtonWidth);
     }
 
     public void speak(ScriptLine scriptLine) {
@@ -83,10 +87,10 @@ public class SpeechUI extends Table {
         this.clearChildren();
         if (speechButton.getText().length() > Constants.LINE_LENGTH) {
             speechButton.getLabel().setWrap(true);
-            this.add(speechButton).pad(Constants.BUTTON_PAD)
-                    .width(Constants.SPEECH_BUTTON_WIDTH);
+            this.add(speechButton).pad(buttonPad)
+                    .width(speechButtonWidth);
         } else {
-            this.add(speechButton).pad(Constants.BUTTON_PAD);
+            this.add(speechButton).pad(buttonPad);
         }
         this.align(getAlign(character, characters));
         theatre.setCurrentHorse(character, characters);
@@ -110,7 +114,7 @@ public class SpeechUI extends Table {
         }
         // add character name to top of choices
         this.add(authorLabel(character)).align(Constants.BUTTON_ALIGN)
-                .pad(0, 0, Constants.BUTTON_PAD, Constants.BUTTON_PAD);
+                .pad(0, 0, buttonPad, buttonPad);
         this.row();
 
         // add choice buttons to table
@@ -118,14 +122,14 @@ public class SpeechUI extends Table {
             if (maxChars > Constants.LINE_LENGTH) {
                 button.getLabel().setWrap(true);
                 this.add(button)
-                        .pad(0, 0, Constants.BUTTON_PAD,
-                                Constants.BUTTON_PAD)
+                        .pad(0, 0, buttonPad,
+                                buttonPad)
                         .align(Constants.BUTTON_ALIGN)
-                        .width(Constants.SPEECH_BUTTON_WIDTH);
+                        .width(speechButtonWidth);
             } else {
                 this.add(button)
-                        .pad(0, 0, Constants.BUTTON_PAD,
-                                Constants.BUTTON_PAD)
+                        .pad(0, 0, buttonPad,
+                                buttonPad)
                         .align(Constants.BUTTON_ALIGN);
             }
             this.row();

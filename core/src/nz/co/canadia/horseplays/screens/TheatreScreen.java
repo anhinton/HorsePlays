@@ -45,6 +45,8 @@ public class TheatreScreen implements InputProcessor, Screen {
     private final NinePatchDrawable redNinePatch;
     private final NinePatchDrawable greyNinePatch;
     private final BitmapFont smallFont;
+    private final int buttonPad;
+    private final int menuButtonWidth;
     public AssetManager manager;
     public FontLoader fontLoader;
     private Constants.CurrentGameMenu currentGameMenu;
@@ -54,6 +56,9 @@ public class TheatreScreen implements InputProcessor, Screen {
         manager = game.manager;
         fontLoader = game.fontLoader;
         this.game = game;
+
+        buttonPad = MathUtils.round((float) Constants.BUTTON_PAD / Constants.APP_HEIGHT * game.getUiHeight());
+        menuButtonWidth = MathUtils.round((float) Constants.MENU_BUTTON_WIDTH / Constants.APP_WIDTH * game.getUiWidth());
 
         Texture redBubbleTexture = manager.get("ui/redBubble.png");
         redNinePatch = new NinePatchDrawable(
@@ -75,7 +80,8 @@ public class TheatreScreen implements InputProcessor, Screen {
         menuUi = new Table();
         menuUi.setFillParent(true);
 
-        theatre = new Theatre(this, playScriptXml, load);
+        theatre = new Theatre(this, game.getUiWidth(), game.getUiHeight(),
+                playScriptXml, load);
         stage.addActor(theatre.getSpeechUI());
         stage.addActor(menuUi);
 
@@ -91,7 +97,7 @@ public class TheatreScreen implements InputProcessor, Screen {
         theatre.getSpeechUI().setVisible(true);
         currentGameMenu = Constants.CurrentGameMenu.GAME;
         menuUi.clearChildren();
-        menuUi.top().left().pad(Constants.BUTTON_PAD);
+        menuUi.top().left().pad(buttonPad);
 
         float menuButtonSize = (float) Constants.MENU_ICON_SIZE / Constants.APP_HEIGHT * game.getUiHeight();
         Texture menuTexture = manager.get("ui/menu-icon.png");
@@ -118,7 +124,7 @@ public class TheatreScreen implements InputProcessor, Screen {
 
         Label.LabelStyle topLabelStyle = new Label.LabelStyle(smallFont, Constants.FONT_COLOR);
         Label topLabel = new Label("Menu:", topLabelStyle);
-        menuUi.add(topLabel).space(Constants.BUTTON_PAD);
+        menuUi.add(topLabel).space(buttonPad);
         menuUi.row();
 
         // Resume button
@@ -133,7 +139,7 @@ public class TheatreScreen implements InputProcessor, Screen {
                 showGame();
             }
         });
-        menuUi.add(resumeButton).space(Constants.BUTTON_PAD).width(Constants.MENU_BUTTON_WIDTH);
+        menuUi.add(resumeButton).space(buttonPad).width(menuButtonWidth);
         menuUi.row();
 
         // Quit button
@@ -149,7 +155,7 @@ public class TheatreScreen implements InputProcessor, Screen {
                 exit();
             }
         });
-        menuUi.add(quitButton).space(Constants.BUTTON_PAD).width(Constants.MENU_BUTTON_WIDTH);
+        menuUi.add(quitButton).space(buttonPad).width(menuButtonWidth);
         menuUi.row();
     }
 

@@ -44,13 +44,14 @@ public class Theatre {
     private boolean animating;
     private int bombCount;
 
-    public Theatre(TheatreScreen theatreScreen, FileHandle playScriptXml, boolean load) {
+    public Theatre(TheatreScreen theatreScreen, int uiWidth, int uiHeight,
+                   FileHandle playScriptXml, boolean load) {
 
         this.theatreScreen = theatreScreen;
         manager = theatreScreen.manager;
         fontLoader = theatreScreen.fontLoader;
         playScript = new PlayScript(playScriptXml);
-        speechUI = new SpeechUI(this);
+        speechUI = new SpeechUI(this, uiWidth, uiHeight);
         speechUI.showTitle(playScript.getTitle());
 
         autosave = Gdx.app.getPreferences(Constants.AUTOSAVE_PATH);

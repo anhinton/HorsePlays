@@ -1,6 +1,4 @@
 # todo.md
-
-+ Fix UI button widths on mobile devices - not calculated using uiWidth/Height values
     
 + Add bomb visual prompts
     - Screen shake on bomb (how do I do a screen shake?)
@@ -38,6 +36,8 @@
     - Ios
   
 ## Done
+
++ ~~Fix UI button widths on mobile devices - not calculated using uiWidth/Height values~~
     
 + ~~Fix credits UI width - not filling screen on iOS~~
 

@@ -32,7 +32,7 @@ public class Constants {
 
     // which title menu is showing
     public enum CurrentTitleMenu {
-        MAIN, NEW, SETTINGS, CREDITS, QUIT
+        MAIN, NEW, SETTINGS, CREDITS
     }
 
     // which game ui is showing
@@ -56,11 +56,11 @@ public class Constants {
     public static final int SMALL_FONT_SIZE = 24;
     public static final int MENU_ICON_SIZE = 30;
 
-    public static final int BUTTON_PAD = MathUtils.round(20f / APP_HEIGHT * Gdx.graphics.getBackBufferHeight());
+    public static final int BUTTON_PAD = 20;
     public static final int BUTTON_ALIGN = Align.center;
     public static final int MENU_BUTTON_WIDTH = MathUtils.round(APP_WIDTH / 3f);
     public static final int SPEECH_BUTTON_WIDTH = MathUtils.round(Constants.APP_WIDTH * 2f / 3);
-    public static final int VOLUME_BUTTON_WIDTH = MathUtils.round(100f / APP_WIDTH * Gdx.graphics.getBackBufferWidth());
+    public static final int VOLUME_BUTTON_WIDTH = 100;
 
     public static final String AUTOSAVE_PATH = "nz.co.canadia.horseplays.autosave";
     public static final String SETTINGS_PATH = "nz.co.canadia.horseplays.settings";

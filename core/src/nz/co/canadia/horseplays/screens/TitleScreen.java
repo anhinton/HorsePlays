@@ -48,10 +48,19 @@ public class TitleScreen implements InputProcessor, Screen {
     private final Label soundVolumeValueLabel;
     private final Skin skin;
     private final OrthographicCamera camera;
+    private final int buttonPad;
+    private final int menuButtonWidth;
+    private final int speechButtonWidth;
+    private final int volumeButtonWidth;
     private Constants.CurrentTitleMenu currentTitleMenu;
 
     public TitleScreen (final HorsePlays game) {
         this.game = game;
+
+        buttonPad = MathUtils.round((float) Constants.BUTTON_PAD / Constants.APP_HEIGHT * game.getUiHeight());
+        menuButtonWidth = MathUtils.round((float) Constants.MENU_BUTTON_WIDTH / Constants.APP_WIDTH * game.getUiWidth());
+        speechButtonWidth = MathUtils.round((float) Constants.SPEECH_BUTTON_WIDTH / Constants.APP_WIDTH * game.getUiWidth());
+        volumeButtonWidth = MathUtils.round((float) Constants.VOLUME_BUTTON_WIDTH / Constants.APP_WIDTH * game.getUiWidth());
 
         autosave = Gdx.app.getPreferences(Constants.AUTOSAVE_PATH);
         settings = Gdx.app.getPreferences(Constants.SETTINGS_PATH);
@@ -128,7 +137,7 @@ public class TitleScreen implements InputProcessor, Screen {
                     startPlay(Gdx.files.internal(autosave.getString("currentPlayXml")), true);
                 }
             });
-            table.add(continueButton).space(Constants.BUTTON_PAD).width(Constants.MENU_BUTTON_WIDTH);
+            table.add(continueButton).space(buttonPad).width(menuButtonWidth);
             table.row();
         }
 
@@ -139,7 +148,7 @@ public class TitleScreen implements InputProcessor, Screen {
                 showNewMenu();
             }
         });
-        table.add(startButton).space(Constants.BUTTON_PAD).width(Constants.MENU_BUTTON_WIDTH);
+        table.add(startButton).space(buttonPad).width(menuButtonWidth);
         table.row();
 
         TextButton settingsButton = menuButton("SETTINGS");
@@ -149,7 +158,7 @@ public class TitleScreen implements InputProcessor, Screen {
                 showSettingsMenu();
             }
         });
-        table.add(settingsButton).space(Constants.BUTTON_PAD).width(Constants.MENU_BUTTON_WIDTH);
+        table.add(settingsButton).space(buttonPad).width(menuButtonWidth);
         table.row();
         
         if (Gdx.app.getType() == Application.ApplicationType.Desktop) {
@@ -160,7 +169,7 @@ public class TitleScreen implements InputProcessor, Screen {
                     goBack();
                 }
             });
-            table.add(quitButton).space(Constants.BUTTON_PAD).width(Constants.MENU_BUTTON_WIDTH);
+            table.add(quitButton).space(buttonPad).width(menuButtonWidth);
             table.row();            
         }
     }
@@ -172,7 +181,7 @@ public class TitleScreen implements InputProcessor, Screen {
 
         Label.LabelStyle topLabelStyle = new Label.LabelStyle(smallFont, Constants.FONT_COLOR);
         Label topLabel = new Label("Select a play:", topLabelStyle);
-        table.add(topLabel).space(Constants.BUTTON_PAD);
+        table.add(topLabel).space(buttonPad);
         table.row();
 
         // The FBI's Most Unwanted
@@ -183,7 +192,7 @@ public class TitleScreen implements InputProcessor, Screen {
                 startPlay(Gdx.files.internal("playscripts/fbimostunwanted.xml"), false);
             }
         });
-        table.add(fbiButton).space(Constants.BUTTON_PAD).width(Constants.SPEECH_BUTTON_WIDTH);
+        table.add(fbiButton).space(buttonPad).width(speechButtonWidth);
         table.row();
 
         // A Whole Big Sucking Thing
@@ -194,7 +203,7 @@ public class TitleScreen implements InputProcessor, Screen {
                 startPlay(Gdx.files.internal("playscripts/awholebigsuckingthing.xml"), false);
             }
         });
-        table.add(suckingButton).space(Constants.BUTTON_PAD).width(Constants.SPEECH_BUTTON_WIDTH);
+        table.add(suckingButton).space(buttonPad).width(speechButtonWidth);
         table.row();
 
         // Back button
@@ -205,24 +214,24 @@ public class TitleScreen implements InputProcessor, Screen {
                 goBack();
             }
         });
-        table.add(backButton).space(Constants.BUTTON_PAD).width(Constants.SPEECH_BUTTON_WIDTH);
+        table.add(backButton).space(buttonPad).width(speechButtonWidth);
         table.row();
     }
 
     public void showSettingsMenu() {
         currentTitleMenu = Constants.CurrentTitleMenu.SETTINGS;
         table.clearChildren();
-        table.center().pad(Constants.BUTTON_PAD);
+        table.center().pad(buttonPad);
 
         Label.LabelStyle settingsLabelStyle = new Label.LabelStyle(bigFont, Constants.FONT_COLOR);
         Label settingsLabel = new Label("Settings", settingsLabelStyle);
-        table.add(settingsLabel).space(Constants.BUTTON_PAD).left().colspan(4);
+        table.add(settingsLabel).space(buttonPad).left().colspan(4);
         table.row();
         
         // Music Volume
         // Label
         Label musicVolumeLabel = new Label("Music Volume: ", smallLabelStyle);
-        table.add(musicVolumeLabel).space(Constants.BUTTON_PAD).left();
+        table.add(musicVolumeLabel).space(buttonPad).left();
         // Down button
         TextButton musicVolumeDownButton = menuButton("DOWN");
         musicVolumeDownButton.addListener(new ChangeListener() {
@@ -231,7 +240,7 @@ public class TitleScreen implements InputProcessor, Screen {
                 musicVolumeDown();
             }
         });
-        table.add(musicVolumeDownButton).left().space(Constants.BUTTON_PAD).width(Constants.VOLUME_BUTTON_WIDTH);
+        table.add(musicVolumeDownButton).left().space(buttonPad).width(volumeButtonWidth);
         // Up button
         TextButton musicVolumeUpButton = menuButton("UP");
         musicVolumeUpButton.addListener(new ChangeListener() {
@@ -240,15 +249,15 @@ public class TitleScreen implements InputProcessor, Screen {
                 musicVolumeUp();
             }
         });
-        table.add(musicVolumeUpButton).left().space(Constants.BUTTON_PAD).width(Constants.VOLUME_BUTTON_WIDTH);
+        table.add(musicVolumeUpButton).left().space(buttonPad).width(volumeButtonWidth);
         //Value
-        table.add(musicVolumeValueLabel).space(Constants.BUTTON_PAD).left();
+        table.add(musicVolumeValueLabel).space(buttonPad).left();
         table.row();
 
         // Sound Volume
         // Label
         Label soundVolumeLabel = new Label("Sound Volume: ", smallLabelStyle);
-        table.add(soundVolumeLabel).space(Constants.BUTTON_PAD).left();
+        table.add(soundVolumeLabel).space(buttonPad).left();
         // Down button
         TextButton soundVolumeDownButton = menuButton("DOWN");
         soundVolumeDownButton.addListener(new ChangeListener() {
@@ -257,7 +266,7 @@ public class TitleScreen implements InputProcessor, Screen {
                 soundVolumeDown();
             }
         });
-        table.add(soundVolumeDownButton).left().space(Constants.BUTTON_PAD).width(Constants.VOLUME_BUTTON_WIDTH);
+        table.add(soundVolumeDownButton).left().space(buttonPad).width(volumeButtonWidth);
         // Up button
         TextButton soundVolumeUpButton = menuButton("UP");
         soundVolumeUpButton.addListener(new ChangeListener() {
@@ -266,9 +275,9 @@ public class TitleScreen implements InputProcessor, Screen {
                 soundVolumeUp();
             }
         });
-        table.add(soundVolumeUpButton).left().space(Constants.BUTTON_PAD).width(Constants.VOLUME_BUTTON_WIDTH);
+        table.add(soundVolumeUpButton).left().space(buttonPad).width(volumeButtonWidth);
         //Value
-        table.add(soundVolumeValueLabel).space(Constants.BUTTON_PAD).left();
+        table.add(soundVolumeValueLabel).space(buttonPad).left();
         table.row();
 
         // Credits button
@@ -279,7 +288,7 @@ public class TitleScreen implements InputProcessor, Screen {
                 showCreditsMenu();
             }
         });
-        table.add(creditsButton).space(Constants.BUTTON_PAD).width(Constants.MENU_BUTTON_WIDTH).left().colspan(4);
+        table.add(creditsButton).space(buttonPad).width(menuButtonWidth).left().colspan(4);
         table.row();
 
         // Back button
@@ -291,7 +300,7 @@ public class TitleScreen implements InputProcessor, Screen {
                 goBack();
             }
         });
-        table.add(backButton).space(Constants.BUTTON_PAD).width(Constants.MENU_BUTTON_WIDTH).left().colspan(4);
+        table.add(backButton).space(buttonPad).width(menuButtonWidth).left().colspan(4);
         table.row();
 
     }
@@ -299,11 +308,11 @@ public class TitleScreen implements InputProcessor, Screen {
     private void showCreditsMenu() {
         currentTitleMenu = Constants.CurrentTitleMenu.CREDITS;
         table.clearChildren();
-        table.top().left().pad(Constants.BUTTON_PAD);
+        table.top().left().pad(buttonPad);
 
         Label.LabelStyle settingsLabelStyle = new Label.LabelStyle(bigFont, Constants.FONT_COLOR);
         Label settingsLabel = new Label("Credits", settingsLabelStyle);
-        table.add(settingsLabel).space(Constants.BUTTON_PAD).left();
+        table.add(settingsLabel).space(buttonPad).left();
 
         // Back button
         TextButton backButton = menuButton("BACK");
@@ -313,7 +322,7 @@ public class TitleScreen implements InputProcessor, Screen {
                 goBack();
             }
         });
-        table.add(backButton).space(Constants.BUTTON_PAD).width(Constants.VOLUME_BUTTON_WIDTH).right();
+        table.add(backButton).space(buttonPad).width(volumeButtonWidth).right();
         table.row();
 
         // credits ScrollPane
@@ -323,7 +332,7 @@ public class TitleScreen implements InputProcessor, Screen {
         creditsLabel.setWrap(true);
         ScrollPane creditsPane = new ScrollPane(creditsLabel, skin, "default");
         creditsPane.setFadeScrollBars(false);
-        table.add(creditsPane).space(Constants.BUTTON_PAD).prefWidth(game.getUiWidth()).colspan(2);
+        table.add(creditsPane).space(buttonPad).prefWidth(game.getUiWidth()).colspan(2);
         table.row();
     }
 
