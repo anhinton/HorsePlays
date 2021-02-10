@@ -11,6 +11,12 @@ public class IOSLauncher extends IOSApplication.Delegate {
     @Override
     protected IOSApplication createApplication() {
         IOSApplicationConfiguration config = new IOSApplicationConfiguration();
+        config.allowIpod = true;
+        config.orientationLandscape = true;
+        config.orientationPortrait = false;
+        config.statusBarVisible = false;
+        config.useAccelerometer = false;
+        config.useCompass = false;
         return new IOSApplication(new HorsePlays(new IOSFontLoader()), config);
     }
 
