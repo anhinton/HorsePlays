@@ -9,9 +9,10 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -39,8 +40,8 @@ public class TitleScreen implements InputProcessor, Screen {
     private final Table table;
     private final BitmapFont smallFont;
     private final BitmapFont bigFont;
-    private final Texture redBubbleTexture;
-    private final Texture greyBubbleTexture;
+    private final TextureRegion redBubbleTexture;
+    private final TextureRegion greyBubbleTexture;
     private final Label.LabelStyle smallLabelStyle;
     private final Label.LabelStyle bigLabelStyle;
     private final Label musicVolumeValueLabel;
@@ -66,9 +67,10 @@ public class TitleScreen implements InputProcessor, Screen {
         game.setSoundVolume(settings.getFloat("soundVolume", Constants.SOUND_VOLUME_DEFAULT));
 
         skin = new Skin(Gdx.files.internal("data/uiskin.json"));
+        TextureAtlas atlas = game.manager.get("graphics/graphics.atlas", TextureAtlas.class);
 
-        redBubbleTexture = game.manager.get("ui/redBubble.png");
-        greyBubbleTexture = game.manager.get("ui/greyBubble.png");
+        redBubbleTexture = atlas.findRegion("ui/redBubble");
+        greyBubbleTexture = atlas.findRegion("ui/greyBubble");
         smallFont = game.fontLoader.getSmallFont(game.manager);
         bigFont = game.fontLoader.getBigFont(game.manager);
 

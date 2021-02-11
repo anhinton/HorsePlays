@@ -12,6 +12,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -47,12 +49,13 @@ public class TheatreScreen implements InputProcessor, Screen {
     private final BitmapFont smallFont;
     private final int buttonPad;
     private final int menuButtonWidth;
-    public AssetManager manager;
-    public FontLoader fontLoader;
     private Constants.CurrentGameMenu currentGameMenu;
     private float shakeRemaining;
     private int shakeMagnitude;
     private boolean isShaking;
+    public AssetManager manager;
+    public FontLoader fontLoader;
+    public TextureAtlas atlas;
 
     public TheatreScreen(final HorsePlays game,
                          FileHandle playScriptXml, boolean load) {
@@ -67,11 +70,15 @@ public class TheatreScreen implements InputProcessor, Screen {
         buttonPad = MathUtils.round((float) Constants.BUTTON_PAD / Constants.APP_HEIGHT * game.getUiHeight());
         menuButtonWidth = MathUtils.round((float) Constants.MENU_BUTTON_WIDTH / Constants.APP_WIDTH * game.getUiWidth());
 
-        Texture redBubbleTexture = manager.get("ui/redBubble.png");
+        atlas = game.manager.get("graphics/graphics.atlas", TextureAtlas.class);
+        for (Texture t : atlas.getTextures()) {
+            t.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+        }
+        TextureRegion redBubbleTexture = atlas.findRegion("ui/redBubble");
         redNinePatch = new NinePatchDrawable(
                 new NinePatch(redBubbleTexture, 20, 20, 20, 20)
         );
-        Texture greyBubbleTexture = manager.get("ui/greyBubble.png");
+        TextureRegion greyBubbleTexture = atlas.findRegion("ui/greyBubble");
         greyNinePatch = new NinePatchDrawable(
                 new NinePatch(greyBubbleTexture, 20, 20, 20, 20)
         );
@@ -107,7 +114,7 @@ public class TheatreScreen implements InputProcessor, Screen {
         menuUi.top().left().pad(buttonPad);
 
         float menuButtonSize = (float) Constants.MENU_ICON_SIZE / Constants.APP_HEIGHT * game.getUiHeight();
-        Texture menuTexture = manager.get("ui/menu-icon.png");
+        TextureRegion menuTexture = atlas.findRegion("ui/menu-icon");
         TextureRegionDrawable menuRegionDrawable = new TextureRegionDrawable(menuTexture);
         menuRegionDrawable.setMinWidth(menuButtonSize);
         menuRegionDrawable.setMinHeight(menuButtonSize);
@@ -248,7 +255,6 @@ public class TheatreScreen implements InputProcessor, Screen {
     @Override
     public void dispose() {
         stage.dispose();
-        theatre.dispose();
     }
 
     @Override

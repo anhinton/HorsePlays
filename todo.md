@@ -18,13 +18,6 @@
     - Cough sound effect for low bomb choice
     - "Ooooooooh" sound effect for high bomb choice
     
-+ Pack textures with TexturePacker
-  
-+ Clean up excess Skin stuff or maybe don't
-    - Probably default-font at least can be done without
-    - And surely I can include my NinePatches in here to make things clean
-    - Guess we'll see how much time I leave myself
-    
 + Create App icons
     - Desktop
     - Android
@@ -32,6 +25,8 @@
     - Ios
   
 ## Done
+    
++ ~~Pack textures with TexturePacker~~
     
 + ~~Add bomb visual prompts~~
     - ~~Screen shake on bomb~~

@@ -1,10 +1,8 @@
 package nz.co.canadia.horseplays;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import nz.co.canadia.horseplays.util.Constants;
 
@@ -14,7 +12,7 @@ import nz.co.canadia.horseplays.util.Constants;
 
 class Horse {
     private final Sprite sprite;
-    private final Sprite spriteClose;
+    private final Sprite closeSprite;
 
     private final Constants.HorseSide horseSide;
     private boolean moving;
@@ -27,40 +25,33 @@ class Horse {
     private float totalChange;
     private float changeX;
 
-    Horse (Texture texture, Texture textureClose, float y, boolean flip, Constants.HorseSide horseSide) {
+    Horse (Sprite sprite, Sprite closeSprite, float y, boolean flip, Constants.HorseSide horseSide) {
         // wide shot sprite
-//        sprite = new Sprite(texture, 0, 0, texture.getWidth(), texture.getHeight());
-        texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        TextureRegion region = new TextureRegion(texture, 0, 0, texture.getWidth(),
-                texture.getHeight());
-        sprite = new Sprite(region);
-        sprite.flip(flip, false);
+        this.sprite = sprite;
+        this.sprite.flip(flip, false);
 
         // close-up sprite
-//        spriteClose = new Sprite(texture, 0, 0, texture.getWidth(), texture.getHeight());
-        texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
-        TextureRegion regionClose = new TextureRegion(textureClose, 0, 0, textureClose.getWidth(),
-                textureClose.getHeight());
-        spriteClose = new Sprite(regionClose);
-        spriteClose.flip(flip, false);
+        this.closeSprite = closeSprite;
+        this.closeSprite.flip(flip, false);
+
         switch (horseSide) {
             case LEFT:
-                sprite.setPosition(-sprite.getWidth(), y);
-                spriteClose.setPosition(0, 0);
+                this.sprite.setPosition(-this.sprite.getWidth(), y);
+                this.closeSprite.setPosition(0, 0);
                 break;
             case RIGHT:
-                sprite.setPosition(Constants.APP_WIDTH, y);
-                spriteClose.setPosition(Constants.APP_WIDTH - spriteClose.getWidth(), 0);
+                this.sprite.setPosition(Constants.APP_WIDTH, y);
+                this.closeSprite.setPosition(Constants.APP_WIDTH - this.closeSprite.getWidth(), 0);
                 break;
         }
 
         this.horseSide = horseSide;
         switch (horseSide) {
             case LEFT:
-                performingX = Constants.HORSE_MARK - sprite.getWidth() / 2;
+                performingX = Constants.HORSE_MARK - this.sprite.getWidth() / 2;
                 break;
             case RIGHT:
-                performingX = Constants.APP_WIDTH - Constants.HORSE_MARK - sprite.getWidth() / 2;
+                performingX = Constants.APP_WIDTH - Constants.HORSE_MARK - this.sprite.getWidth() / 2;
                 break;
         }
         targetX = 0;
@@ -86,7 +77,7 @@ class Horse {
                 sprite.draw(batch);
                 break;
             case CLOSE:
-                spriteClose.draw(batch);
+                closeSprite.draw(batch);
                 break;
         }
     }

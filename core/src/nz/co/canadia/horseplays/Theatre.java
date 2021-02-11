@@ -4,10 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
+
 import nz.co.canadia.horseplays.screens.TheatreScreen;
 import nz.co.canadia.horseplays.script.PlayScript;
 import nz.co.canadia.horseplays.script.ScriptChoice;
@@ -27,13 +29,10 @@ public class Theatre {
     private final Spotlight spotlight01;
     private final Spotlight spotlight02;
     private final TheatreStage theatreStage;
-    private final Texture horseTexture01;
-    private final Texture horseCloseTexture01;
-    private final Texture horseTexture02;
-    private final Texture horseCloseTexture02;
     private final Array<Horse> horses;
     private final Curtains curtains;
     private final Preferences autosave;
+    public TextureAtlas atlas;
     public FontLoader fontLoader;
     public AssetManager manager;
     private Horse currentHorse;
@@ -47,6 +46,7 @@ public class Theatre {
                    FileHandle playScriptXml, boolean load) {
 
         this.theatreScreen = theatreScreen;
+        atlas = theatreScreen.atlas;
         manager = theatreScreen.manager;
         fontLoader = theatreScreen.fontLoader;
         playScript = new PlayScript(playScriptXml);
@@ -55,26 +55,29 @@ public class Theatre {
 
         autosave = Gdx.app.getPreferences(Constants.AUTOSAVE_PATH);
 
-        theatreStage = new TheatreStage(0, 0);
-        backdrop = new Backdrop(Constants.APP_WIDTH / 2f, theatreStage.getHeight());
+        theatreStage = new TheatreStage(0, 0, atlas.createSprite("graphics/stage"));
+        backdrop = new Backdrop(Constants.APP_WIDTH / 2f, theatreStage.getHeight(),
+                atlas.createSprite("graphics/backdrop"));
         spotlight01 = new Spotlight(
                 Constants.SPOTLIGHT_OFFSET_X,
                 Constants.SPOTLIGHT_OFFSET_Y,
-                false);
+                false,
+                atlas.createSprite("graphics/spotlight"));
         spotlight02 = new Spotlight(
                 Constants.APP_WIDTH - Constants.SPOTLIGHT_OFFSET_X,
                 Constants.SPOTLIGHT_OFFSET_Y,
-                true);
-        horseTexture01 = new Texture(Gdx.files.internal("graphics/horse01.png"));
-        horseCloseTexture01 = new Texture(Gdx.files.internal("graphics/horseFace01.png"));
+                true,
+                atlas.createSprite("graphics/spotlight"));
+        Sprite horseSprite01 = atlas.createSprite("graphics/horse01");
+        Sprite closeHorseSprite01 = atlas.createSprite("graphics/horseFace01");
         horses = new Array<Horse>();
-        horses.add(new Horse(horseTexture01, horseCloseTexture01, theatreStage.getHeight(), true,
+        horses.add(new Horse(horseSprite01, closeHorseSprite01, theatreStage.getHeight(), true,
                 Constants.HorseSide.LEFT));
-        horseTexture02 = new Texture(Gdx.files.internal("graphics/horse02.png"));
-        horseCloseTexture02 = new Texture(Gdx.files.internal("graphics/horseFace02.png"));
-        horses.add(new Horse(horseTexture02, horseCloseTexture02, theatreStage.getHeight(), true,
+        Sprite horseSprite02 = atlas.createSprite("graphics/horse02");
+        Sprite closeHorseSprite02 = atlas.createSprite("graphics/horseFace02");
+        horses.add(new Horse(horseSprite02, closeHorseSprite02, theatreStage.getHeight(), true,
                 Constants.HorseSide.RIGHT));
-        curtains = new Curtains();
+        curtains = new Curtains(atlas.findRegion("graphics/curtain"));
 
         animating = false;
 
@@ -122,19 +125,6 @@ public class Theatre {
                     break;
             }
         }
-    }
-
-    public void dispose() {
-        backdrop.dispose();
-        curtains.dispose();
-        horseTexture01.dispose();
-        horseTexture02.dispose();
-        horseCloseTexture01.dispose();
-        horseCloseTexture02.dispose();
-        spotlight01.dispose();
-        spotlight02.dispose();
-        theatreStage.dispose();
-        speechUI.dispose();
     }
 
     public Array<String> getCharacters() {

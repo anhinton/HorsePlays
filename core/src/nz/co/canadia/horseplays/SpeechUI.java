@@ -1,9 +1,9 @@
 package nz.co.canadia.horseplays;
 
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -44,11 +44,11 @@ public class SpeechUI extends Table {
         buttonAdvanceOnly = true;
         hasChoices = false;
 
-        Texture speechTexture01 = theatre.manager.get("ui/redBubble.png");
+        TextureRegion speechTexture01 = theatre.atlas.findRegion("ui/redBubble");
         speechNinePatch01 = new NinePatchDrawable(
                 new NinePatch(speechTexture01,20, 20, 20, 20)
         );
-        Texture choiceTexture01 = theatre.manager.get("ui/greyBubble.png");
+        TextureRegion choiceTexture01 = theatre.atlas.findRegion("ui/greyBubble");
         choiceNinePatch01 = new NinePatchDrawable(
                 new NinePatch(choiceTexture01,20, 20, 20, 20)
         );
@@ -231,8 +231,5 @@ public class SpeechUI extends Table {
             align = Align.bottomLeft;
         }
         return align;
-    }
-
-    public void dispose() {
     }
 }

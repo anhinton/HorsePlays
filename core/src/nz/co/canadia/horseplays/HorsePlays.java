@@ -7,6 +7,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 
 import nz.co.canadia.horseplays.util.Constants;
@@ -45,9 +46,7 @@ public class HorsePlays extends Game {
 		manager = new AssetManager();
 		fontLoader.loadBigFont(manager, uiHeight);
 		fontLoader.loadSmallFont(manager, uiHeight);
-		manager.load("ui/greyBubble.png", Texture.class);
-		manager.load("ui/redBubble.png", Texture.class);
-		manager.load("ui/menu-icon.png", Texture.class);
+		manager.load("graphics/graphics.atlas", TextureAtlas.class);
 		manager.finishLoading();
 
 		batch = new SpriteBatch();
