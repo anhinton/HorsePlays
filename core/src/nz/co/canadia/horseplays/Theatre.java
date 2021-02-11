@@ -215,10 +215,12 @@ public class Theatre {
             Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
+                    speechUI.showOutcome(hasBombed());
                     curtains.close();
                 }
             }, 4);
         } else {
+            speechUI.showOutcome(hasBombed());
             for (Horse horse : horses) {
                 horse.startAnimating();
                 horse.exit();

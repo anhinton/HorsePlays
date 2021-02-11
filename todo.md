@@ -1,8 +1,4 @@
 # todo.md
-    
-+ Add bomb visual prompts
-    - ~~Screen shake on bomb~~
-    - "You win/lose" depending on outcome
 
 + Do something smart to make fonts look good on different device sizes
     - ~~Create a FontLoader interface~~
@@ -36,6 +32,10 @@
     - Ios
   
 ## Done
+    
++ ~~Add bomb visual prompts~~
+    - ~~Screen shake on bomb~~
+    - ~~"You win/lose" depending on outcome~~
 
 + ~~Fix UI button widths on mobile devices - not calculated using uiWidth/Height values~~
     

@@ -77,6 +77,32 @@ public class SpeechUI extends Table {
                 .width(speechButtonWidth);
     }
 
+    public void showOutcome(boolean hasBombed) {
+        TextButton outcomeButton = new TextButton(
+                "",
+                new TextButton.TextButtonStyle(
+                        choiceNinePatch01, choiceNinePatch01,
+                        choiceNinePatch01, bigFont
+                )
+        );
+        outcomeButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                theatre.advance();
+            }
+        });
+        if (hasBombed) {
+            outcomeButton.setText("YOU LOSE...");
+        } else {
+            outcomeButton.setText("YOU WIN!");
+        }
+        outcomeButton.getLabel().setWrap(true);
+        this.clearChildren();
+        this.center();
+        this.add(outcomeButton).pad(buttonPad).width(speechButtonWidth);
+
+    }
+
     public void speak(ScriptLine scriptLine) {
         buttonAdvanceOnly = false;
         hasChoices = false;
