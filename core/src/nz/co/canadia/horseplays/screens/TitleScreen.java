@@ -9,7 +9,6 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.NinePatch;
@@ -47,7 +46,6 @@ public class TitleScreen implements InputProcessor, Screen {
     private final Label musicVolumeValueLabel;
     private final Label soundVolumeValueLabel;
     private final Skin skin;
-    private final OrthographicCamera camera;
     private final int buttonPad;
     private final int menuButtonWidth;
     private final int speechButtonWidth;
@@ -79,8 +77,7 @@ public class TitleScreen implements InputProcessor, Screen {
         musicVolumeValueLabel = new Label(printVolume(game.getMusicVolume()), smallLabelStyle);
         soundVolumeValueLabel = new Label(printVolume(game.getSoundVolume()), smallLabelStyle);
 
-        camera = new OrthographicCamera();
-        FitViewport uiViewport = new FitViewport(game.getUiWidth(), game.getUiHeight(), camera);
+        FitViewport uiViewport = new FitViewport(game.getUiWidth(), game.getUiHeight());
         stage = new Stage(uiViewport);
         table = new Table();
         table.setFillParent(true);
@@ -406,10 +403,6 @@ public class TitleScreen implements InputProcessor, Screen {
                 Constants.BACKGROUND_COLOR.a);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
-//        camera.translate(0, 0, 0);
-        camera.update();
-
         stage.act(Gdx.graphics.getDeltaTime());
         stage.draw();
     }
@@ -436,6 +429,8 @@ public class TitleScreen implements InputProcessor, Screen {
 
     @Override
     public void dispose() {
+        stage.dispose();
+        skin.dispose();
     }
 
     @Override
