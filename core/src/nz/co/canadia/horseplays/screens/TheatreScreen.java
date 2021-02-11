@@ -50,12 +50,19 @@ public class TheatreScreen implements InputProcessor, Screen {
     public AssetManager manager;
     public FontLoader fontLoader;
     private Constants.CurrentGameMenu currentGameMenu;
+    private float shakeRemaining;
+    private int shakeMagnitude;
+    private boolean isShaking;
 
     public TheatreScreen(final HorsePlays game,
                          FileHandle playScriptXml, boolean load) {
         manager = game.manager;
         fontLoader = game.fontLoader;
         this.game = game;
+
+        isShaking = false;
+        shakeRemaining = 0;
+        shakeMagnitude = 0;
 
         buttonPad = MathUtils.round((float) Constants.BUTTON_PAD / Constants.APP_HEIGHT * game.getUiHeight());
         menuButtonWidth = MathUtils.round((float) Constants.MENU_BUTTON_WIDTH / Constants.APP_WIDTH * game.getUiWidth());
@@ -159,6 +166,12 @@ public class TheatreScreen implements InputProcessor, Screen {
         menuUi.row();
     }
 
+    public void setShaking(int bomb) {
+        isShaking = true;
+        shakeRemaining = .25f * bomb;
+        shakeMagnitude = bomb;
+    }
+
     private void goBack() {
         switch(currentGameMenu) {
             case GAME:
@@ -189,6 +202,20 @@ public class TheatreScreen implements InputProcessor, Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         theatre.update();
+
+        if (isShaking) {
+            if (shakeRemaining > 0) {
+                int magnitude = shakeMagnitude * 10;
+                float xShake = MathUtils.randomTriangular(-magnitude, magnitude);
+                float yShake = MathUtils.randomTriangular(-magnitude, magnitude);
+                camera.position.set(camera.viewportWidth / 2f + xShake,
+                        camera.viewportHeight / 2f + yShake,
+                        0);
+                shakeRemaining -= delta;
+            } else {
+                camera.position.set(camera.viewportWidth / 2f, camera.viewportHeight / 2f, 0);
+            }
+        }
 
         game.batch.begin();
         theatre.draw(game.batch);

@@ -5,7 +5,6 @@ import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Timer;
@@ -96,7 +95,10 @@ public class Theatre {
     }
 
     public void addBomb(int bomb) {
-        bombCount += bomb;
+        if (bomb > 0) {
+            bombCount += bomb;
+            theatreScreen.setShaking(bomb);
+        }
     }
 
     public void advance() {

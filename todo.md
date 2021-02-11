@@ -1,7 +1,7 @@
 # todo.md
     
 + Add bomb visual prompts
-    - Screen shake on bomb (how do I do a screen shake?)
+    - ~~Screen shake on bomb~~
     - "You win/lose" depending on outcome
 
 + Do something smart to make fonts look good on different device sizes
