@@ -1,4 +1,12 @@
 # todo.md
+    
++ Add music and sound effects
+    - ~~Write music~~
+    - ~~Record music~~
+    - Mix music
+    - Add music to game (play on load except Web, then play on click)
+    - Cough sound effect for low bomb choice
+    - "Ooooooooh" sound effect for high bomb choice
 
 + Do something smart to make fonts look good on different device sizes
     - ~~Create a FontLoader interface~~
@@ -10,18 +18,10 @@
       screen size work
         - This needs testing
     
-+ Add music and sound effects
-    - Write music
-    - Record music
-    - Mix music
-    - Add music to game (play on load except Web, then play on click)
-    - Cough sound effect for low bomb choice
-    - "Ooooooooh" sound effect for high bomb choice
-    
 + Create App icons
-    - Desktop
-    - Android
-    - Html
+    - ~~Desktop~~
+    - ~~Android~~
+    - ~~Html~~
     - Ios
   
 ## Done

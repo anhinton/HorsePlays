@@ -1,5 +1,6 @@
 package nz.co.canadia.horseplays.desktop;
 
+import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import nz.co.canadia.horseplays.HorsePlays;
@@ -11,6 +12,9 @@ public class DesktopLauncher {
 		config.setResizable(false);
 		config.setTitle(Constants.GAME_NAME);
 		config.setWindowedMode(Constants.APP_WIDTH, Constants.APP_HEIGHT);
+		config.setWindowIcon("desktopIcons/icon_128.png",
+				"desktopIcons/icon_32.png",
+				"desktopIcons/icon_16.png");
 		new Lwjgl3Application(new HorsePlays(new DesktopFontLoader()), config);
 	}
 }
