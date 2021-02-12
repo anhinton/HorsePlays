@@ -1,9 +1,19 @@
 # todo.md
 
 + Prepare for release
+    - Set launch version
+        - Project build.gradle
+        - Android build.gradle
+        - iOS robovm.properties
+    - http://horseplays.canadia.co.nz/
     - itch.io
     - Google Play Store
     - Apple App Store
+    - Blog post
+        - Website
+        - Twitter
+        - Ko-fi.com
+        - Patreon.com
   
 ## Done
 
