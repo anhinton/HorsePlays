@@ -7,6 +7,7 @@ import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -51,6 +52,7 @@ public class TitleScreen implements InputProcessor, Screen {
     private final int menuButtonWidth;
     private final int speechButtonWidth;
     private final int volumeButtonWidth;
+    private final Music music;
     private Constants.CurrentTitleMenu currentTitleMenu;
 
     public TitleScreen (final HorsePlays game) {
@@ -65,6 +67,13 @@ public class TitleScreen implements InputProcessor, Screen {
         settings = Gdx.app.getPreferences(Constants.SETTINGS_PATH);
         game.setMusicVolume(settings.getFloat("musicVolume", Constants.MUSIC_VOLUME_DEFAULT));
         game.setSoundVolume(settings.getFloat("soundVolume", Constants.SOUND_VOLUME_DEFAULT));
+
+        music = game.manager.get("audio/music.mp3", Music.class);
+        music.setVolume(game.getMusicVolume());
+        music.setLooping(true);
+        if(Gdx.app.getType() != Application.ApplicationType.WebGL) {
+            music.play();
+        }
 
         skin = new Skin(Gdx.files.internal("data/uiskin.json"));
         TextureAtlas atlas = game.manager.get("graphics/graphics.atlas", TextureAtlas.class);
@@ -134,6 +143,7 @@ public class TitleScreen implements InputProcessor, Screen {
                 @Override
                 public void changed(ChangeEvent event, Actor actor) {
                     startPlay(Gdx.files.internal(autosave.getString("currentPlayXml")), true);
+                    music.play();
                 }
             });
             table.add(continueButton).space(buttonPad).width(menuButtonWidth);
@@ -145,6 +155,7 @@ public class TitleScreen implements InputProcessor, Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 showNewMenu();
+                music.play();
             }
         });
         table.add(startButton).space(buttonPad).width(menuButtonWidth);
@@ -155,6 +166,7 @@ public class TitleScreen implements InputProcessor, Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 showSettingsMenu();
+                music.play();
             }
         });
         table.add(settingsButton).space(buttonPad).width(menuButtonWidth);
@@ -366,6 +378,7 @@ public class TitleScreen implements InputProcessor, Screen {
         game.setMusicVolume(musicVolume);
         musicVolumeValueLabel.setText(printVolume(game.getMusicVolume()));
         settings.putFloat("musicVolume", game.getMusicVolume());
+        music.setVolume(game.getMusicVolume());
     }
 
     private void soundVolumeUp() {
