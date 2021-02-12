@@ -179,6 +179,10 @@ public class TheatreScreen implements InputProcessor, Screen {
         shakeMagnitude = bomb;
     }
 
+    public float getSoundVolume() {
+        return game.getSoundVolume();
+    }
+
     private void goBack() {
         switch(currentGameMenu) {
             case GAME:

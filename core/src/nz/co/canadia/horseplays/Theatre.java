@@ -3,6 +3,7 @@ package nz.co.canadia.horseplays;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -32,6 +33,8 @@ public class Theatre {
     private final Array<Horse> horses;
     private final Curtains curtains;
     private final Preferences autosave;
+    private final Sound coughSound;
+    private final Sound oohSound;
     public TextureAtlas atlas;
     public FontLoader fontLoader;
     public AssetManager manager;
@@ -54,6 +57,9 @@ public class Theatre {
         speechUI.showTitle(playScript.getTitle());
 
         autosave = Gdx.app.getPreferences(Constants.AUTOSAVE_PATH);
+
+        coughSound = theatreScreen.manager.get("audio/cough.mp3", Sound.class);
+        oohSound = theatreScreen.manager.get("audio/ooh.mp3", Sound.class);
 
         theatreStage = new TheatreStage(0, 0, atlas.createSprite("graphics/stage"));
         backdrop = new Backdrop(Constants.APP_WIDTH / 2f, theatreStage.getHeight(),
@@ -99,6 +105,14 @@ public class Theatre {
 
     public void addBomb(int bomb) {
         if (bomb > 0) {
+            switch(bomb) {
+                case 1:
+                    coughSound.play(theatreScreen.getSoundVolume());
+                    break;
+                case 2:
+                    oohSound.play(theatreScreen.getSoundVolume());
+                    break;
+            }
             bombCount += bomb;
             theatreScreen.setShaking(bomb);
         }

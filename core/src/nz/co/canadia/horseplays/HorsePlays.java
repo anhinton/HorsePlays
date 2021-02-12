@@ -5,6 +5,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -47,6 +48,8 @@ public class HorsePlays extends Game {
 		fontLoader.loadBigFont(manager, uiHeight);
 		fontLoader.loadSmallFont(manager, uiHeight);
 		manager.load("graphics/graphics.atlas", TextureAtlas.class);
+		manager.load("audio/cough.mp3", Sound.class);
+		manager.load("audio/ooh.mp3", Sound.class);
 		manager.finishLoading();
 
 		batch = new SpriteBatch();
