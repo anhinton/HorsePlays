@@ -1,22 +1,27 @@
 # todo.md
 
-+ Do something smart to make fonts look good on different device sizes
++ Prepare for release
+    - itch.io
+    - Google Play Store
+    - Apple App Store
+  
+## Done
+
++ ~~Do something smart to make fonts look good on different device sizes~~
     - ~~Create a FontLoader interface~~
     - ~~Implement for Desktop, Html, Ios~~
     - ~~Implement for Android using `Gdx freetype` extension~~
     - ~~Set Ui to use full screen size~~
     - ~~Adjust menu icon size depending on screen size~~
-    - Actually properly implement for Ios when I'm on a Mac and I've already done the Android
-      screen size work
-        - This needs testing
+    - ~~Actually properly implement for Ios when I'm on a Mac and I've already done the Android
+      screen size work~~
+        - ~~This needs testing~~
     
-+ Create App icons
++ ~~Create App icons~~
     - ~~Desktop~~
     - ~~Android~~
     - ~~Html~~
-    - Ios
-  
-## Done
+    - ~~Ios~~
     
 + ~~Add music and sound effects~~
     - ~~Write music~~
