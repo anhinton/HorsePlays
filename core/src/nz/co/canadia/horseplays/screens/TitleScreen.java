@@ -53,6 +53,7 @@ public class TitleScreen implements InputProcessor, Screen {
     private final int speechButtonWidth;
     private final int volumeButtonWidth;
     private final Music music;
+    private String dawsonString;
     private Constants.CurrentTitleMenu currentTitleMenu;
 
     public TitleScreen (final HorsePlays game) {
@@ -62,6 +63,8 @@ public class TitleScreen implements InputProcessor, Screen {
         menuButtonWidth = MathUtils.round((float) Constants.MENU_BUTTON_WIDTH / Constants.APP_WIDTH * game.getUiWidth());
         speechButtonWidth = MathUtils.round((float) Constants.SPEECH_BUTTON_WIDTH / Constants.APP_WIDTH * game.getUiWidth());
         volumeButtonWidth = MathUtils.round((float) Constants.VOLUME_BUTTON_WIDTH / Constants.APP_WIDTH * game.getUiWidth());
+
+        dawsonString = "";
 
         autosave = Gdx.app.getPreferences(Constants.AUTOSAVE_PATH);
         settings = Gdx.app.getPreferences(Constants.SETTINGS_PATH);
@@ -466,6 +469,36 @@ public class TitleScreen implements InputProcessor, Screen {
             case Input.Keys.ESCAPE:
                 goBack();
                 break;
+            case Input.Keys.D:
+                if (dawsonString.isEmpty()) {
+                    dawsonString += "d";
+                }
+                break;
+            case Input.Keys.A:
+                if(dawsonString.equals("d")) {
+                    dawsonString += "a";
+                }
+                break;
+            case Input.Keys.W:
+                if(dawsonString.equals("da")) {
+                    dawsonString += "w";
+                }
+                break;
+            case Input.Keys.S:
+                if(dawsonString.equals("daw")) {
+                    dawsonString += "s";
+                }
+                break;
+            case Input.Keys.O:
+                if(dawsonString.equals("daws")) {
+                    dawsonString += "o";
+                }
+                break;
+            case Input.Keys.N:
+                if(dawsonString.equals("dawso")) {
+                    startPlay(Gdx.files.internal("playscripts/longfingers.xml"), false);
+                }
+                break;
         }
         return true;
     }
@@ -476,7 +509,9 @@ public class TitleScreen implements InputProcessor, Screen {
     }
 
     @Override
-    public boolean keyTyped(char character) { return false; }
+    public boolean keyTyped(char character) {
+        return false;
+    }
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {

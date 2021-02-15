@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<playscript title="Long Fingers">
+    <characters>
+        <character name="JOEY"/>
+        <character name="DAWSON"/>
+    </characters>
+
+    <knot id = "start">
+        <line character="JOEY">&lt;imitating ET&gt; I'll be right here...</line>
+        <line character="JOEY">I love this movie. This won the Oscar didn't it?</line>
+        <line character="DAWSON">&lt;turns off the movie and switches it to the local news, which his mom co-anchors for&gt;</line>
+        <line character="DAWSON">Ghandi. Spielberg was robbed. This was before he outgrew his Peter Pan syndrome.</line>
+        <line character="JOEY">But Ghandi? I mean why give an Oscar to a movie you can't even sit through?</line>
+        <line character="DAWSON">Thank you.</line>
+        <line character="JOEY">New do?</line>
+        <line character="DAWSON">Yeah. She likes big hair.</line>
+        <line character="JOEY">Must weigh a lot. How does she walk upright?</line>
+        <line character="DAWSON">Where are you going?</line>
+        <line character="JOEY">Home.</line>
+        <line character="DAWSON">Spend the night.</line>
+        <line character="JOEY">I can't.</line>
+        <line character="DAWSON">Come on you always spend the night.</line>
+        <line character="JOEY">Not tonight.</line>
+        <line character="DAWSON">Why not?</line>
+        <line character="JOEY">I just don't think it's a good idea for me to sleep over anymore, you know?</line>
+        <line character="DAWSON">No, I don't know. C'mon, You've been sleeping over since you were seven. It's Saturday night.</line>
+        <line character="JOEY">Things change Dawson. Evolve.</line>
+        <line character="DAWSON">What are you talking about?</line>
+        <line character="JOEY">Sleeping in the same bed was fine when we were kids, but we're fifteen now.</line>
+        <line character="DAWSON">Yeah.</line>
+        <line character="JOEY">We start high school Monday?</line>
+        <line character="DAWSON">Yeah.</line>
+        <line character="JOEY">And I have breasts!</line>
+        <line character="DAWSON">What?!</line>
+        <line character="JOEY">And you have genitalia!</line>
+        <line character="DAWSON">I've always had genitalia.</line>
+        <line character="JOEY">But there's more of it.</line>
+        <line character="DAWSON">How do you know?</line>
+        <line character="JOEY">Long fingers... I gotta go.</line>
+        <line character="DAWSON">Whoa Jo, don't hit and run. C'mon, explain yourself.</line>
+        <line character="JOEY">I just think our emerging hormones are destined to alter our relationship and I'm trying to limit the fallout.</line>
+        <line character="DAWSON">Your emerging hormones aren't developing a thang for me, are they?</line>
+        <line character="JOEY">A thing?</line>
+        <line character="JOEY">No, I'm not getting a thing for you Dawson. I've known you too long. I've seen you burp, barf, pick your nose, scratch your butt. I don't think I'm getting a thing for you.</line>
+        <line character="DAWSON">So what's the problem?</line>
+        <line character="JOEY">We're changing and we have to adjust or else the male/female thing will get in the way.</line>
+        <line character="DAWSON">What's with this When Harry met 80's crap. It doesn't apply to us, we transcend it.</line>
+        <line character="JOEY">And how do we do that?</line>
+        <line character="DAWSON">By going to sleep. I'm tired.</line>
+        <line character="JOEY">That's avoidance.</line>
+        <line character="DAWSON">No, it's proof. Proof that we can still remain friends, despite any mounting sexual theoretics.</line>
+        <line character="JOEY">I don't think it works that way Dawson.</line>
+        <line character="DAWSON">Come on, don't get female on me Joey. I don't want to have to start calling you Josephine.</line>
+        <line character="JOEY">Josephine this!</line>
+        <line character="JOEY">Okay, I give...I give.</line>
+        <line character="DAWSON">We're friends okay? No matter how much body hair we acquire? Deal?</line>
+        <line character="JOEY">Deal.</line>
+        <line character="DAWSON">All right...and we don't ever talk about this again, deal?</line>
+        <line character="JOEY">You got it.</line>
+        <line character="DAWSON">Okay, cool.</line>
+        <line character="JOEY">Cool.</line>
+        <line character="DAWSON">Goodnight Joey.</line>
+        <line character="JOEY">Goodnight Dawson.</line>
+        <line character="DAWSON">Why'd you have to bring this up anyway? </line>
+    </knot>
+
+    <knot id="bomb" threshold="100">
+        <line character="JOEY">Bugger this.</line>
+    </knot>
+</playscript>
