@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<playscript title="This is no big time contest">
+    <characters>
+        <character name="ROSEANNE"/>
+        <character name="DAN"/>
+    </characters>
+    <knot id="start">
+        <line character="ROSEANNE">Hey, look what I brought ya!</line>
+        <line character="DAN">Oh thanks baby, just... put it down here...</line>
+        <line character="DAN">This drill hasn't worked since... Since I bought it.</line>
+        <line character="ROSEANNE">I thought you was out here composing.</line>
+        <line character="DAN">Oh I tried a few things but, uh... I dunno I guess I just wasn't inspired.</line>
+        <line character="ROSEANNE">Well I'm here now.</line>
+        <line character="DAN">And yet somehow I'm still not inspired?</line>
+        <line character="ROSEANNE">Well if you're not gonna write no songs why don't you dig out some of these to send in?</line>
+        <line character="DAN">I already looked, believe me there's nothing in there worth sending.</line>
+        <line character="ROSEANNE">Oh don't give me that there's bound to be an undiscovered masterpiece in here.</line>
+        <line character="DAN">Trust me, they all suck mud. Face it I'm a small time contractor, I ain't no big time composer.</line>
+        <line character="ROSEANNE">Well this is no big time contest! What is this?</line>
+        <line character="DAN">What?</line>
+        <line character="ROSEANNE">&lt;sings&gt;
+"Ooh baby baby
+give it to me / give it to me
+Hey baby baby
+give it to me / give it to me"</line>
+        <line character="DAN">Give it to me.</line>
+        <line character="DAN">It was a... It was a dance hit.</line>
+        <line character="ROSEANNE">Oh in the 70s I guess...</line>
+        <line character="DAN">Yeah it's just, lyrics weren't important.</line>
+        <line character="ROSEANNE">I was really moved by it, I was getting ready to give it to ya.</line>
+        <line character="DAN">Oh! Ha! You wanna hear something really bad?</line>
+        <line character="ROSEANNE"> Is it worse than that one?</line>
+        <line character="DAN">Much worse. Almost criminal.</line>
+        <line character="ROSEANNE">Ooh baby baby give it to me.</line>
+        <line character="DAN">I wrote this when I was 19. Let's see...</line>
+        <line character="DAN">"Blueberry fantasy / tangerine dream"
+&lt;sings&gt; "Love is a rainbow / of incense and cream"</line>
+        <line character="ROSEANNE">Oh now I know why you can't remember your teen years.</line>
+        <line character="DAN">It marked the end of my psychedelic period.</line>
+        <line character="ROSEANNE">No that's the one, you wanna send that in!</line>
+        <line character="DAN">Ah, let's just forget about the contest and clean up this mess.</line>
+        <line character="ROSEANNE">All right you're the boss.</line>
+        <line character="DAN">...</line>
+        <line character="DAN">I'm sorry for a minute there I thought I heard you say I was the boss.</line>
+        <line character="ROSEANNE">&lt;laughs&gt;</line>
+        <line character="ROSEANNE">What's that?</line>
+        <line character="DAN">Oh that's nothing it's just... something I was workin' on.</line>
+        <line character="ROSEANNE">Hey let me hear it!</line>
+        <line character="DAN">Well it doesn't really have a tune yet.</line>
+        <line character="ROSEANNE">So I wanna hear it anyway.</line>
+        <line character="DAN">Well I'm kinda rusty. Let's see.</line>
+        <line character="DAN">&lt;hesitantly sings&gt; "There's a river..."</line>
+        <line character="DAN">&lt;sings&gt;
+"There's a river high in the mountains
+that's been flowing since who knows when"</line>
+        <line character="ROSEANNE">I like it!</line>
+        <line character="DAN">You don't recognise it, do you?</line>
+        <line character="ROSEANNE">Uh-uh.</line>
+        <line character="DAN">No?
+&lt;sings&gt;
+"No one's sure just how it started
+but it's never gonnna end"</line>
+        <line character="DAN">It's one of you poems.</line>
+        <line character="ROSEANNE">...</line>
+        <line character="ROSEANNE">Gosh that is. I can't believe you saved it.</line>
+        <line character="DAN">Yeah I've saved everything you've ever written.</line>
+        <line character="DAN">Except for a few notes on the refrigerator door.</line>
+        <line character="ROSEANNE">That's so *sweet*.</line>
+        <line character="DAN">You like it?</line>
+        <line character="ROSEANNE">Yeah!</line>
+        <line character="DAN">Well it's half yours. Maybe if I goose it up a little bit.</line>
+        <line character="DAN">&lt;sings better&gt;
+"There's a river high in the mountains
+that's been flowing since who knows when
+no one's sure just how it started
+but it's never gonnna end"</line>
+        <line character="DAN">&lt;sings louder&gt;
+"Our love is like that river
+flowing through all time
+heaven knows I need you
+and I'll never change my mind"</line>
+        <line character="DAN">&lt;still singing&gt;
+"Heaven knows how I love you
+and I'll never change my mind"</line>
+        <line character="DAN">Yeah? You like it?</line>
+        <line character="ROSEANNE">It's beautiful!</line>
+        <line character="DAN">Yeah? You think it's good enough to enter?</line>
+        <line character="ROSEANNE">I think it's good enough to win?</line>
+        <line character="DAN">Yeah?  </line>
+        <line character="ROSEANNE">Yeah I really do.</line>
+        <line character="DAN">Really?</line>
+        <line character="ROSEANNE">I really really do! </line>
+        <line character="ROSEANNE">Hey and you know then when we go out on tour the kids ain't coming with us, right?</line>
+        <line character="DAN">Right!</line>
+    </knot>
+    <knot id="bomb" threshold="100">
+        <line character="ROSEANNE">Bugger this.</line>
+    </knot>
+</playscript>

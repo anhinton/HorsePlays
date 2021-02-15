@@ -34,4 +34,6 @@ Unless declared otherwise below the assets in this game are licensed under a Cre
 
   + "Podkova" Copyright 2011 The Podkova Project Authors is licensed under the SIL Open Font License, Version 1.1
 
+  + "This is no big time contest" is inspired by 'Radio Days', Episode 5 of Season 1 of Roseanne, written by Laurie Gelman
+
   + "A Whole Big Sucking Thing" is inspired by 'Welcome to the Hellmouth', Episode 1 of Season 1 of Buffy the Vampire Slayer, written by Hatsune Miku
