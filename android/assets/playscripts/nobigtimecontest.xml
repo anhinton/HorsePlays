@@ -4,7 +4,8 @@
         <character name="ROSEANNE"/>
         <character name="DAN"/>
     </characters>
-    <knot id="start">
+
+    <knot id="start" divert="suckmud">
         <line character="ROSEANNE">Hey, look what I brought ya!</line>
         <line character="DAN">Oh thanks baby, just... put it down here...</line>
         <line character="DAN">This drill hasn't worked since... Since I bought it.</line>
@@ -14,7 +15,14 @@
         <line character="DAN">And yet somehow I'm still not inspired?</line>
         <line character="ROSEANNE">Well if you're not gonna write no songs why don't you dig out some of these to send in?</line>
         <line character="DAN">I already looked, believe me there's nothing in there worth sending.</line>
-        <line character="ROSEANNE">Oh don't give me that there's bound to be an undiscovered masterpiece in here.</line>
+        <choices character="ROSEANNE">
+            <choice>Oh don't give me that there's bound to be an undiscovered masterpiece in here.</choice>
+            <choice bomb="1">They all suck?</choice>
+            <choice bomb="2">Just do what I do and copy something good that someone else has done with a few changes.</choice>
+        </choices>
+    </knot>
+
+    <knot id="suckmud" divert="almostcriminal">
         <line character="DAN">Trust me, they all suck mud. Face it I'm a small time contractor, I ain't no big time composer.</line>
         <line character="ROSEANNE">Well this is no big time contest! What is this?</line>
         <line character="DAN">What?</line>
@@ -29,9 +37,28 @@ give it to me / give it to me"</line>
         <line character="DAN">Yeah it's just, lyrics weren't important.</line>
         <line character="ROSEANNE">I was really moved by it, I was getting ready to give it to ya.</line>
         <line character="DAN">Oh! Ha! You wanna hear something really bad?</line>
-        <line character="ROSEANNE"> Is it worse than that one?</line>
+        <choices character="ROSEANNE">
+            <choice>Is it worse than that one?</choice>
+            <choice bomb="1" divert="swampgas">Is it swamp gas?</choice>
+            <choice bomb="2" divert="blueberry">Is it from Horse Plays?</choice>
+        </choices>
+    </knot>
+
+    <knot id="swampgas" divert="giveittome">
+        <line character="DAN">Swamp gas?</line>
+        <line character="ROSEANNE">It's a natural phenonemon.</line>
+        <line character="DAN">Happens to me when I eat Dodger Dogs.</line>
+    </knot>
+
+    <knot id="almostcriminal" divert="giveittome">
         <line character="DAN">Much worse. Almost criminal.</line>
+    </knot>
+
+    <knot id="giveittome" divert="blueberry">
         <line character="ROSEANNE">Ooh baby baby give it to me.</line>
+    </knot>
+
+    <knot id="blueberry" divert="justsomething">
         <line character="DAN">I wrote this when I was 19. Let's see...</line>
         <line character="DAN">"Blueberry fantasy / tangerine dream"
 &lt;sings&gt; "Love is a rainbow / of incense and cream"</line>
@@ -39,10 +66,26 @@ give it to me / give it to me"</line>
         <line character="DAN">It marked the end of my psychedelic period.</line>
         <line character="ROSEANNE">No that's the one, you wanna send that in!</line>
         <line character="DAN">Ah, let's just forget about the contest and clean up this mess.</line>
-        <line character="ROSEANNE">All right you're the boss.</line>
+        <choices character="ROSEANNE">
+            <choice divert="dantheboss">All right you're the boss.</choice>
+            <choice bomb="1">All right but this better not come up again on another episode.</choice>
+            <choice bomb="2" divert="pudding">If you don't eat your meat you can't have any pudding.</choice>
+        </choices>
+    </knot>
+
+    <knot id="dantheboss" divert="justsomething">
         <line character="DAN">...</line>
         <line character="DAN">I'm sorry for a minute there I thought I heard you say I was the boss.</line>
         <line character="ROSEANNE">&lt;laughs&gt;</line>
+    </knot>
+
+    <knot id="pudding" divert="justsomething">
+        <line character="DAN">...</line>
+        <line character="ROSEANNE">How can you have any pudding if you don't eat your meat?</line>
+        <line character="DAN">...</line>
+    </knot>
+
+    <knot id="justsomething" divert="halfyours">
         <line character="ROSEANNE">What's that?</line>
         <line character="DAN">Oh that's nothing it's just... something I was workin' on.</line>
         <line character="ROSEANNE">Hey let me hear it!</line>
@@ -65,9 +108,19 @@ but it's never gonnna end"</line>
         <line character="ROSEANNE">Gosh that is. I can't believe you saved it.</line>
         <line character="DAN">Yeah I've saved everything you've ever written.</line>
         <line character="DAN">Except for a few notes on the refrigerator door.</line>
-        <line character="ROSEANNE">That's so *sweet*.</line>
+        <choices character="ROSEANNE">
+            <choice divert="youlikeit">That's so *sweet*.</choice>
+            <choice bomb="1">That's so creepy.</choice>
+            <choice bomb="2">Roseanne will remember that.</choice>
+        </choices>
+    </knot>
+
+    <knot id="youlikeit" divert="halfyours">
         <line character="DAN">You like it?</line>
         <line character="ROSEANNE">Yeah!</line>
+    </knot>
+
+    <knot id="halfyours" divert="goodenough">
         <line character="DAN">Well it's half yours. Maybe if I goose it up a little bit.</line>
         <line character="DAN">&lt;sings better&gt;
 "There's a river high in the mountains
@@ -83,17 +136,27 @@ and I'll never change my mind"</line>
 "Heaven knows how I love you
 and I'll never change my mind"</line>
         <line character="DAN">Yeah? You like it?</line>
-        <line character="ROSEANNE">It's beautiful!</line>
+        <choices character="ROSEANNE">
+            <choice>It's beautiful!</choice>
+            <choice bomb="1">It's tolerable.</choice>
+            <choice bomb="2" divert="ontour">I'm sorry, I wasn't listening.</choice>
+        </choices>
+    </knot>
+
+    <knot id="goodenough" divert="ontour">
         <line character="DAN">Yeah? You think it's good enough to enter?</line>
         <line character="ROSEANNE">I think it's good enough to win?</line>
-        <line character="DAN">Yeah?  </line>
+        <line character="DAN">Yeah?</line>
         <line character="ROSEANNE">Yeah I really do.</line>
         <line character="DAN">Really?</line>
         <line character="ROSEANNE">I really really do! </line>
+    </knot>
+
+    <knot id="ontour">
         <line character="ROSEANNE">Hey and you know then when we go out on tour the kids ain't coming with us, right?</line>
         <line character="DAN">Right!</line>
     </knot>
-    <knot id="bomb" threshold="100">
-        <line character="ROSEANNE">Bugger this.</line>
+    <knot id="bomb" threshold="5">
+        <line character="DAN">That's it. Tell the audience I was dead the whole time or something.</line>
     </knot>
 </playscript>
