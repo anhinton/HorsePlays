@@ -91,7 +91,7 @@ public class PlayScript {
 
             }
         } catch (SerializationException e) {
-            e.getMessage();
+            Gdx.app.error("PlayScript", e.getMessage(),e );
             Gdx.app.exit();
         }
 
