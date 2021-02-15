@@ -28,12 +28,14 @@ Unless declared otherwise below the assets in this game are licensed under a Cre
 
   + "Inconsolata" Copyright 2006 The Inconsolata Project Authors is licensed under the SIL Open Font License, Version 1.1
 
+  + "Long Fingers" is inspired by 'Pilot', Episode 1 of Season 1 of Dawson's Creek, written by Kevin Williamson
+
   + "Mangalarga Marchador.jpg" by Fábio Vidigal is licensed under CC BY-SA
 
   + "menu" by Google is licensed under Apache license version 2.0
 
   + "Podkova" Copyright 2011 The Podkova Project Authors is licensed under the SIL Open Font License, Version 1.1
 
-  + "This is no big time contest" is inspired by 'Radio Days', Episode 5 of Season 1 of Roseanne, written by Laurie Gelman
+  + "This Is No Big Time Contest" is inspired by 'Radio Days', Episode 5 of Season 1 of Roseanne, written by Laurie Gelman
 
   + "A Whole Big Sucking Thing" is inspired by 'Welcome to the Hellmouth', Episode 1 of Season 1 of Buffy the Vampire Slayer, written by Hatsune Miku

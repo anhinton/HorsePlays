@@ -61,7 +61,7 @@ public class HorsePlays extends Game {
 		// show the intro screen
 		this.setScreen(new nz.co.canadia.horseplays.screens.TitleScreen(this));
 		// TODO: Go back to title screen after play debugging is finished
-//		this.setScreen(new TheatreScreen(this, Gdx.files.internal("playscripts/nobigtimecontest.xml"), false));
+//		this.setScreen(new TheatreScreen(this, Gdx.files.internal("playscripts/longfingers.xml"), false));
 	}
 
 	@Override
