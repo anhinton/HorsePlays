@@ -206,6 +206,17 @@ public class TitleScreen implements InputProcessor, Screen {
         table.add(fbiButton).space(buttonPad).width(speechButtonWidth);
         table.row();
 
+        // This Is No Big Time Contest
+        TextButton contestButton = menuButton("This Is No Big Time Contest");
+        contestButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                startPlay(Gdx.files.internal("playscripts/nobigtimecontest.xml"), false);
+            }
+        });
+        table.add(contestButton).space(buttonPad).width(speechButtonWidth);
+        table.row();
+
         // A Whole Big Sucking Thing
         TextButton suckingButton = menuButton("A Whole Big Sucking Thing");
         suckingButton.addListener(new ChangeListener() {

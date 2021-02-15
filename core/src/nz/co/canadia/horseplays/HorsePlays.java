@@ -7,11 +7,11 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.MathUtils;
 
+import nz.co.canadia.horseplays.screens.TheatreScreen;
 import nz.co.canadia.horseplays.util.Constants;
 import nz.co.canadia.horseplays.util.FontLoader;
 
@@ -60,6 +60,8 @@ public class HorsePlays extends Game {
 
 		// show the intro screen
 		this.setScreen(new nz.co.canadia.horseplays.screens.TitleScreen(this));
+		// TODO: Go back to title screen after play debugging is finished
+//		this.setScreen(new TheatreScreen(this, Gdx.files.internal("playscripts/nobigtimecontest.xml"), false));
 	}
 
 	@Override
