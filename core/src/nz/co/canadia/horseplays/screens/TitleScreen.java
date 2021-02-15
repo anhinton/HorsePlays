@@ -337,7 +337,17 @@ public class TitleScreen implements InputProcessor, Screen {
 
         Label.LabelStyle settingsLabelStyle = new Label.LabelStyle(bigFont, Constants.FONT_COLOR);
         Label settingsLabel = new Label("Credits", settingsLabelStyle);
-        table.add(settingsLabel).space(buttonPad).left();
+        table.add(settingsLabel).space(buttonPad).left().prefWidth(game.getUiWidth());
+
+        // D button
+        TextButton dButton = menuButton("D");
+        dButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                startPlay(Gdx.files.internal("playscripts/longfingers.xml"), false);
+            }
+        });
+        table.add(dButton).space(buttonPad).right();
 
         // Back button
         TextButton backButton = menuButton("BACK");
@@ -357,7 +367,7 @@ public class TitleScreen implements InputProcessor, Screen {
         creditsLabel.setWrap(true);
         ScrollPane creditsPane = new ScrollPane(creditsLabel, skin, "default");
         creditsPane.setFadeScrollBars(false);
-        table.add(creditsPane).space(buttonPad).prefWidth(game.getUiWidth()).colspan(2);
+        table.add(creditsPane).space(buttonPad).prefWidth(game.getUiWidth()).colspan(3);
         table.row();
     }
 
