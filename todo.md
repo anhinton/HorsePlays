@@ -2,9 +2,18 @@
 
 + Prepare for release
     - Set launch version
-        - Project build.gradle
-        - Android build.gradle
-        - iOS robovm.properties
+        - ~~Project build.gradle~~
+        - ~~Android build.gradle~~
+        - ~~iOS robovm.properties~~
+        - Add release tag to repo
+    - Package for release
+        - Desktop
+            - jar file
+            - Windows packed
+            - Linux packed
+        - Android APK
+        - Html directory
+        - iOS IPA
     - http://horseplays.canadia.co.nz/
     - itch.io
     - Google Play Store
