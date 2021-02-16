@@ -1,20 +1,24 @@
 # todo.md
 
 + Prepare for release
-    - Set launch version
+    - ~~Set launch version~~
         - ~~Project build.gradle~~
         - ~~Android build.gradle~~
         - ~~iOS robovm.properties~~
-        - Add release tag to repo
+        - ~~Add release tag to repo~~
     - Package for release
-        - Desktop
-            - jar file
-            - Windows packed
-            - Linux packed
+        - ~~Desktop~~
+            - ~~jar file~~
+            - ~~Windows packed~~
+            - ~~Linux packed~~
         - Android APK
-        - Html directory
+            - Problems with signed release, so check this works via Google Play
+            - Use debug APK for itch.io because this seems to install fine
+        - ~~Html directory~~
         - iOS IPA
-    - http://horseplays.canadia.co.nz/
+    - https://horseplays.canadia.co.nz/
+        - Set up webserver
+        - Create site content
     - itch.io
     - Google Play Store
     - Apple App Store
