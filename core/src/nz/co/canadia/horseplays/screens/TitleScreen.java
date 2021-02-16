@@ -374,7 +374,9 @@ public class TitleScreen implements InputProcessor, Screen {
     private void goBack() {
         switch (currentTitleMenu) {
             case MAIN:
-                quit();
+                if (Gdx.app.getType() != Application.ApplicationType.WebGL) {
+                    quit();
+                }
                 break;
             case NEW:
             case SETTINGS:
