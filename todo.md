@@ -1,11 +1,11 @@
 # todo.md
 
 + Prepare for release
-    - ~~Set launch version~~
-        - ~~Project build.gradle~~
-        - ~~Android build.gradle~~
-        - ~~iOS robovm.properties~~
-        - ~~Add release tag to repo~~
+    - Set launch version with CORRECT YEAR 2021
+        - Project build.gradle
+        - Android build.gradle
+        - iOS robovm.properties
+        - Add release tag to repo
     - Package for release
         - ~~Desktop~~
             - ~~jar file~~
@@ -17,10 +17,19 @@
         - ~~Html directory~~
         - iOS IPA
     - https://horseplays.canadia.co.nz/
-        - Set up webserver
+        - ~~Set up webserver~~
         - Create site content
+            - Description
+            - Header image
     - itch.io
+        - Description
+        - Screenshots
+        - Store images
     - Google Play Store
+        - ~~Short description~~
+        - Description
+        - Screenshots
+        - Store images
     - Apple App Store
     - Blog post
         - Website
