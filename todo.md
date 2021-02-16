@@ -2,29 +2,36 @@
 
 + Prepare for release
     - Set launch version with CORRECT YEAR 2021
-        - Project build.gradle
-        - Android build.gradle
-        - iOS robovm.properties
+        - ~~Project build.gradle~~
+        - ~~Android build.gradle~~
+        - ~~iOS robovm.properties~~
         - Add release tag to repo
     - Package for release
-        - ~~Desktop~~
-            - ~~jar file~~
-            - ~~Windows packed~~
-            - ~~Linux packed~~
+        - Desktop
+            - jar file
+            - Windows packed
+            - Linux packed
         - Android APK
             - Problems with signed release, so check this works via Google Play
             - Use debug APK for itch.io because this seems to install fine
-        - ~~Html directory~~
+        - Html directory
         - iOS IPA
-    - https://horseplays.canadia.co.nz/
+    - ~~https://horseplays.canadia.co.nz/~~
         - ~~Set up webserver~~
-        - Create site content
-            - Description
-            - Header image
+        - ~~Create site content~~
+            - ~~Description~~
+            - ~~Header image~~
     - itch.io
-        - Description
-        - Screenshots
-        - Store images
+        - ~~Description~~
+        - ~~Screenshots~~
+        - ~~Cover image~~
+        - ~~Banner~~
+        - Upload
+            - Html
+            - Jar file
+            - Windows pack
+            - Linux pack
+            - Android APK
     - Google Play Store
         - ~~Short description~~
         - Description
