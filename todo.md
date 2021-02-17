@@ -32,10 +32,14 @@
             - ~~Android APK~~
     - Google Play Store
         - ~~Short description~~
-        - Description
-        - Screenshots
-        - Store images
+        - ~~Description~~
+        - ~~Screenshots~~
+        - ~~Store images~~
+        - Internal testing
+        - Production release
     - Apple App Store
+        - Store images
+        - Screenshots
     - Blog post
         - Website
         - Twitter
