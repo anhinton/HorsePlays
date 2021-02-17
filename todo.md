@@ -1,11 +1,11 @@
 # todo.md
 
 + Prepare for release
-    - Set launch version with CORRECT YEAR 2021
+    - ~~Set launch version with CORRECT YEAR 2021~~
         - ~~Project build.gradle~~
         - ~~Android build.gradle~~
         - ~~iOS robovm.properties~~
-        - Add release tag to repo
+        - ~~Add release tag to repo~~
     - ~~Package for release~~
         - ~~Desktop~~
             - ~~jar file~~
