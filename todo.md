@@ -7,31 +7,29 @@
         - ~~iOS robovm.properties~~
         - Add release tag to repo
     - Package for release
-        - Desktop
-            - jar file
-            - Windows packed
-            - Linux packed
-        - Android APK
-            - Problems with signed release, so check this works via Google Play
-            - Use debug APK for itch.io because this seems to install fine
-        - Html directory
+        - ~~Desktop~~
+            - ~~jar file~~
+            - ~~Windows packed~~
+            - ~~Linux packed~~
+        - ~~Android APK~~
+        - ~~Html directory~~
         - iOS IPA
     - ~~https://horseplays.canadia.co.nz/~~
         - ~~Set up webserver~~
         - ~~Create site content~~
             - ~~Description~~
             - ~~Header image~~
-    - itch.io
+    - ~~itch.io~~
         - ~~Description~~
         - ~~Screenshots~~
         - ~~Cover image~~
         - ~~Banner~~
-        - Upload
-            - Html
-            - Jar file
-            - Windows pack
-            - Linux pack
-            - Android APK
+        - ~~Upload~~
+            - ~~Html~~
+            - ~~Jar file~~
+            - ~~Windows pack~~
+            - ~~Linux pack~~
+            - ~~Android APK~~
     - Google Play Store
         - ~~Short description~~
         - Description
