@@ -6,14 +6,14 @@
         - ~~Android build.gradle~~
         - ~~iOS robovm.properties~~
         - Add release tag to repo
-    - Package for release
+    - ~~Package for release~~
         - ~~Desktop~~
             - ~~jar file~~
             - ~~Windows packed~~
             - ~~Linux packed~~
         - ~~Android APK~~
         - ~~Html directory~~
-        - iOS IPA
+        - ~~iOS IPA~~
     - ~~https://horseplays.canadia.co.nz/~~
         - ~~Set up webserver~~
         - ~~Create site content~~
@@ -35,11 +35,13 @@
         - ~~Description~~
         - ~~Screenshots~~
         - ~~Store images~~
+        - ~~Upload APK~~
         - Internal testing
         - Production release
     - Apple App Store
-        - Store images
-        - Screenshots
+        - ~~Store details~~
+        - ~~Screenshots~~
+        - Upload IPA
     - Blog post
         - Website
         - Twitter
