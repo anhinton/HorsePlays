@@ -546,7 +546,7 @@ public class TitleScreen implements InputProcessor, Screen {
     }
 
     @Override
-    public boolean scrolled(float amountX, float amountY) {
+    public boolean scrolled(int amount) {
         return false;
     }
 }

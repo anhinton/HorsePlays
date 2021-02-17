@@ -25,7 +25,7 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled true
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -43,7 +43,7 @@ task copyAndroidNatives {
         file("libs/x86_64/").mkdirs()
         file("libs/x86/").mkdirs()
 
-        configurations.natives.copy().files.each { jar ->
+        configurations.natives.files.each { jar ->
             def outputDir = null
             if (jar.name.endsWith("natives-arm64-v8a.jar")) outputDir = file("libs/arm64-v8a")
             if (jar.name.endsWith("natives-armeabi-v7a.jar")) outputDir = file("libs/armeabi-v7a")
@@ -86,7 +86,5 @@ task run(type: Exec) {
     }
 
     def adb = path + "/platform-tools/adb"
-    commandLine "$adb", 'shell', 'am', 'start', '-n', 'nz.co.canadia.horseplays/nz.co.canadia.horseplays.AndroidLauncher'
+    commandLine "$adb", 'shell', 'am', 'start', '-n', 'nz.co.canadia.poorpeoplepizzaparty/nz.co.canadia.poorpeoplepizzaparty.AndroidLauncher'
 }
-
-eclipse.project.name = appName + "-android"
