@@ -34,7 +34,7 @@
         - ~~Upload APK~~
         - ~~Internal testing~~
         - Production release
-    - Apple App Store
+    - ~~Apple App Store~~
         - ~~Store details~~
         - ~~Screenshots~~
         - ~~Upload IPA~~
