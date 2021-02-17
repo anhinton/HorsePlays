@@ -38,10 +38,13 @@
         - ~~Upload APK~~
         - Internal testing
         - Production release
-    - Apple App Store
+    - ~~Apple App Store~~
         - ~~Store details~~
         - ~~Screenshots~~
-        - Upload IPA
+        - ~~Upload IPA~~
+		- ~~Support link and privacy page on website~~
+		- ~~Download and test via TestFlight~~
+		- ~~Submit for Review~~
     - Blog post
         - Website
         - Twitter
