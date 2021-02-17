@@ -1,6 +1,46 @@
 # todo.md
 
 + Prepare for release
+    - Blog post
+        - Website
+        - Twitter
+        - Ko-fi.com
+        - Patreon.com
+    - https://horseplays.canadia.co.nz/
+        - ~~Set up webserver~~
+        - ~~Create site content~~
+            - ~~Description~~
+            - ~~Header image~~
+        - Add Google Play Store link/button
+        - Add Apple App Store link/button
+    - itch.io
+        - ~~Description~~
+        - ~~Screenshots~~
+        - ~~Cover image~~
+        - ~~Banner~~
+        - ~~Upload~~
+            - ~~Html~~
+            - ~~Jar file~~
+            - ~~Windows pack~~
+            - ~~Linux pack~~
+            - ~~Android APK~~
+        - Add Google Play Store link/button
+        - Add Apple App Store link/button
+    - Google Play Store
+        - ~~Short description~~
+        - ~~Description~~
+        - ~~Screenshots~~
+        - ~~Store images~~
+        - ~~Upload APK~~
+        - ~~Internal testing~~
+        - Production release
+    - Apple App Store
+        - ~~Store details~~
+        - ~~Screenshots~~
+        - ~~Upload IPA~~
+		- ~~Support link and privacy page on website~~
+		- ~~Download and test via TestFlight~~
+		- ~~Submit for Review~~
     - ~~Set launch version with CORRECT YEAR 2021~~
         - ~~Project build.gradle~~
         - ~~Android build.gradle~~
@@ -14,42 +54,6 @@
         - ~~Android APK~~
         - ~~Html directory~~
         - ~~iOS IPA~~
-    - ~~https://horseplays.canadia.co.nz/~~
-        - ~~Set up webserver~~
-        - ~~Create site content~~
-            - ~~Description~~
-            - ~~Header image~~
-    - ~~itch.io~~
-        - ~~Description~~
-        - ~~Screenshots~~
-        - ~~Cover image~~
-        - ~~Banner~~
-        - ~~Upload~~
-            - ~~Html~~
-            - ~~Jar file~~
-            - ~~Windows pack~~
-            - ~~Linux pack~~
-            - ~~Android APK~~
-    - Google Play Store
-        - ~~Short description~~
-        - ~~Description~~
-        - ~~Screenshots~~
-        - ~~Store images~~
-        - ~~Upload APK~~
-        - Internal testing
-        - Production release
-    - ~~Apple App Store~~
-        - ~~Store details~~
-        - ~~Screenshots~~
-        - ~~Upload IPA~~
-		- ~~Support link and privacy page on website~~
-		- ~~Download and test via TestFlight~~
-		- ~~Submit for Review~~
-    - Blog post
-        - Website
-        - Twitter
-        - Ko-fi.com
-        - Patreon.com
   
 ## Done
 
