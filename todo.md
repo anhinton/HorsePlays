@@ -1,18 +1,13 @@
 # todo.md
 
 + Prepare for release
-    - Blog post
-        - Website
-        - Twitter
-        - Ko-fi.com
-        - Patreon.com
     - https://horseplays.canadia.co.nz/
         - ~~Set up webserver~~
         - ~~Create site content~~
             - ~~Description~~
             - ~~Header image~~
         - Add Google Play Store link/button
-        - Add Apple App Store link/button
+        - ~~Add Apple App Store link/button~~
     - itch.io
         - ~~Description~~
         - ~~Screenshots~~
@@ -25,7 +20,7 @@
             - ~~Linux pack~~
             - ~~Android APK~~
         - Add Google Play Store link/button
-        - Add Apple App Store link/button
+        - ~~Add Apple App Store link/button~~
     - Google Play Store
         - ~~Short description~~
         - ~~Description~~
@@ -54,6 +49,12 @@
         - ~~Android APK~~
         - ~~Html directory~~
         - ~~iOS IPA~~
+    - ~~Blog post~~
+        - ~~Website~~
+        - ~~Twitter~~
+        - ~~Ko-fi.com~~
+        - ~~Patreon.com~~
+        - ~~itch.io devlog~~
   
 ## Done
 
