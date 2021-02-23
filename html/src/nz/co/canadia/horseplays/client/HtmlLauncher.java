@@ -4,7 +4,6 @@ import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.backends.gwt.GwtApplication;
 import com.badlogic.gdx.backends.gwt.GwtApplicationConfiguration;
 import nz.co.canadia.horseplays.HorsePlays;
-import nz.co.canadia.horseplays.HtmlFontLoader;
 import nz.co.canadia.horseplays.util.Constants;
 
 public class HtmlLauncher extends GwtApplication {

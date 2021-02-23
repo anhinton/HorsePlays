@@ -1,4 +1,4 @@
-package nz.co.canadia.horseplays;
+package nz.co.canadia.horseplays.client;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
