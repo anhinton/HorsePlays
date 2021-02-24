@@ -23,14 +23,14 @@
             - ~~Android APK~~
         - ~~Add Google Play Store link/button~~
         - ~~Add Apple App Store link/button~~
-    - Google Play Store
+    - ~~Google Play Store~~
         - ~~Short description~~
         - ~~Description~~
         - ~~Screenshots~~
         - ~~Store images~~
         - ~~Upload APK~~
         - ~~Internal testing~~
-        - Production release
+        - ~~Production release~~
     - ~~Apple App Store~~
         - ~~Store details~~
         - ~~Screenshots~~
