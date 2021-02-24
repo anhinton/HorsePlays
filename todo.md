@@ -1,14 +1,16 @@
 # todo.md
+  
+## Done
 
-+ Prepare for release
-    - https://horseplays.canadia.co.nz/
++ ~~Prepare for release~~
+    - ~~https://horseplays.canadia.co.nz/~~
         - ~~Set up webserver~~
         - ~~Create site content~~
             - ~~Description~~
             - ~~Header image~~
-        - Add Google Play Store link/button
+        - ~~Add Google Play Store link/button~~
         - ~~Add Apple App Store link/button~~
-    - itch.io
+    - ~~itch.io~~
         - ~~Description~~
         - ~~Screenshots~~
         - ~~Cover image~~
@@ -19,7 +21,7 @@
             - ~~Windows pack~~
             - ~~Linux pack~~
             - ~~Android APK~~
-        - Add Google Play Store link/button
+        - ~~Add Google Play Store link/button~~
         - ~~Add Apple App Store link/button~~
     - Google Play Store
         - ~~Short description~~
@@ -55,8 +57,6 @@
         - ~~Ko-fi.com~~
         - ~~Patreon.com~~
         - ~~itch.io devlog~~
-  
-## Done
 
 + ~~Do something smart to make fonts look good on different device sizes~~
     - ~~Create a FontLoader interface~~
