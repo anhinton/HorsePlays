@@ -1,4 +1,7 @@
 # todo.md
+
++ Add "last line" to top of choice screen
+    - Maybe add a "conversation" button to view whole conversation so far?
   
 ## Done
 
