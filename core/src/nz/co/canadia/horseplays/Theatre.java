@@ -92,8 +92,8 @@ public class Theatre {
 
         if (load) {
             currentScene = Constants.CurrentScene.PERFORMING;
-            playScript.setCurrentKnot(autosave.getString("currentKnot"));
-            bombCount = autosave.getInteger("bombCount");
+            playScript.setCurrentKnot(autosave.getString("currentKnot", "start"));
+            bombCount = autosave.getInteger("bombCount", 0);
             loadLog();
             curtains.setOpen();
             for(Horse horse : horses) {
