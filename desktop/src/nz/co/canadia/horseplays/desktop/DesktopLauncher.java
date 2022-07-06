@@ -1,8 +1,8 @@
 package nz.co.canadia.horseplays.desktop;
 
-import com.badlogic.gdx.Files;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+
 import nz.co.canadia.horseplays.HorsePlays;
 import nz.co.canadia.horseplays.util.Constants;
 
