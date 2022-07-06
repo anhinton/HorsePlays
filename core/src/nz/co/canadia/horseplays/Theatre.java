@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.Timer;
 import nz.co.canadia.horseplays.screens.TheatreScreen;
 import nz.co.canadia.horseplays.script.PlayScript;
 import nz.co.canadia.horseplays.script.ScriptChoice;
+import nz.co.canadia.horseplays.script.ScriptLine;
 import nz.co.canadia.horseplays.util.Constants;
 import nz.co.canadia.horseplays.util.FontLoader;
 
@@ -44,6 +45,7 @@ public class Theatre {
     private Constants.ZoomLevel currentZoomLevel;
     private boolean animating;
     private int bombCount;
+    private String log;
 
     public Theatre(TheatreScreen theatreScreen, int uiWidth, int uiHeight,
                    FileHandle playScriptXml, boolean load) {
@@ -76,7 +78,7 @@ public class Theatre {
                 atlas.createSprite("graphics/spotlight"));
         Sprite horseSprite01 = atlas.createSprite("graphics/horse01");
         Sprite closeHorseSprite01 = atlas.createSprite("graphics/horseFace01");
-        horses = new Array<Horse>();
+        horses = new Array<>();
         horses.add(new Horse(horseSprite01, closeHorseSprite01, theatreStage.getHeight(), true,
                 Constants.HorseSide.LEFT));
         Sprite horseSprite02 = atlas.createSprite("graphics/horse02");
@@ -91,6 +93,7 @@ public class Theatre {
             currentScene = Constants.CurrentScene.PERFORMING;
             playScript.setCurrentKnot(autosave.getString("currentKnot"));
             bombCount = autosave.getInteger("bombCount");
+            log = autosave.getString("log");
             curtains.setOpen();
             for(Horse horse : horses) {
                 horse.setPerforming();
@@ -100,6 +103,10 @@ public class Theatre {
             currentScene = Constants.CurrentScene.START;
             currentZoomLevel = Constants.ZoomLevel.WIDE;
             bombCount = 0;
+            if (playScript.hasLine()) {
+                log = playScript.getCurrentLine().getCharacter() + ": "
+                        + playScript.getCurrentLine().getText();
+            }
         }
     }
 
@@ -130,6 +137,11 @@ public class Theatre {
                     if (!speechUI.buttonAdvanceOnly) {
                         playScript.nextLine();
                     }
+//                    if (playScript.hasLine()) {
+//                        ScriptLine line = playScript.getCurrentLine();
+//                        String logLine = line.getCharacter() + ": " + line.getText();
+//                        log += "\n" + logLine;
+//                    }
                     speak();
                     break;
                 case CLOSING:
@@ -219,12 +231,12 @@ public class Theatre {
             Timer.schedule(new Timer.Task() {
                 @Override
                 public void run() {
-                    speechUI.showOutcome(hasBombed());
+                    speechUI.showOutcome(true);
                     curtains.close();
                 }
             }, 4);
         } else {
-            speechUI.showOutcome(hasBombed());
+            speechUI.showOutcome(false);
             for (Horse horse : horses) {
                 horse.startAnimating();
                 horse.exit();
@@ -279,6 +291,7 @@ public class Theatre {
         autosave.putString("currentPlayXml", playScript.getPlayScriptXml().toString());
         autosave.putString("currentKnot", playScript.getCurrentKnotId());
         autosave.putInteger("bombCount", bombCount);
+        autosave.putString("log", log);
         autosave.flush();
     }
 

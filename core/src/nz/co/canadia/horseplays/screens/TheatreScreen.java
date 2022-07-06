@@ -136,6 +136,25 @@ public class TheatreScreen implements InputProcessor, Screen {
         menuUi.center();
         theatre.getSpeechUI().setVisible(false);
 
+        // Log pane
+        Label.LabelStyle logLabelStyle = new Label.LabelStyle(smallFont, Constants.FONT_COLOR);
+        Label logLabel = new Label("Log text\nLog text\n\nLog text", logLabelStyle);
+        menuUi.add(logLabel).space(buttonPad);
+        menuUi.row();
+
+        // Back button
+        TextButton backButton = new TextButton(
+                "BACK",
+                new TextButton.TextButtonStyle(
+                        greyNinePatch, redNinePatch,
+                        greyNinePatch, smallFont));
+        backButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                goBack();
+            }
+        });
+        menuUi.add(backButton).space(buttonPad).width(menuButtonWidth);
     }
 
     private void showMenu() {
