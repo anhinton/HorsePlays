@@ -130,6 +130,14 @@ public class TheatreScreen implements InputProcessor, Screen {
         menuUi.add(menuButton);
     }
 
+    private void showLog() {
+        currentGameMenu = Constants.CurrentGameMenu.LOG;
+        menuUi.clearChildren();
+        menuUi.center();
+        theatre.getSpeechUI().setVisible(false);
+
+    }
+
     private void showMenu() {
         currentGameMenu = Constants.CurrentGameMenu.MENU;
         menuUi.clearChildren();
@@ -154,6 +162,21 @@ public class TheatreScreen implements InputProcessor, Screen {
             }
         });
         menuUi.add(resumeButton).space(buttonPad).width(menuButtonWidth);
+        menuUi.row();
+
+        // Log button
+        TextButton logButton = new TextButton(
+                "LOG",
+                new TextButton.TextButtonStyle(
+                        greyNinePatch, redNinePatch,
+                        greyNinePatch, smallFont));
+        logButton.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                showLog();
+            }
+        });
+        menuUi.add(logButton).space(buttonPad).width(menuButtonWidth);
         menuUi.row();
 
         // Quit button
@@ -186,6 +209,7 @@ public class TheatreScreen implements InputProcessor, Screen {
     private void goBack() {
         switch(currentGameMenu) {
             case GAME:
+            case LOG:
                 showMenu();
                 break;
             case MENU:
@@ -275,6 +299,17 @@ public class TheatreScreen implements InputProcessor, Screen {
                 case Input.Keys.Q:
                     theatre.saveProgress();
                     exit();
+                    break;
+            }
+        } else if (currentGameMenu == Constants.CurrentGameMenu.LOG) {
+            switch (keycode) {
+                case Input.Keys.BACK:
+                case Input.Keys.ESCAPE:
+                case Input.Keys.ENTER:
+                case Input.Keys.SPACE:
+                case Input.Keys.R:
+                case Input.Keys.Q:
+                    goBack();
                     break;
             }
         } else if (currentGameMenu == Constants.CurrentGameMenu.GAME) {

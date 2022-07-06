@@ -59,9 +59,9 @@ public class HorsePlays extends Game {
 		soundVolume = 0;
 
 		// show the intro screen
-		this.setScreen(new nz.co.canadia.horseplays.screens.TitleScreen(this));
+//		this.setScreen(new nz.co.canadia.horseplays.screens.TitleScreen(this));
 		// TODO: Go back to title screen after play debugging is finished
-//		this.setScreen(new TheatreScreen(this, Gdx.files.internal("playscripts/longfingers.xml"), false));
+		this.setScreen(new TheatreScreen(this, Gdx.files.internal("playscripts/fbimostunwanted.xml"), true));
 	}
 
 	@Override

@@ -37,7 +37,7 @@ public class Constants {
 
     // which game ui is showing
     public enum CurrentGameMenu {
-        GAME, MENU
+        GAME, MENU, LOG
     }
 
     // a scene is used to work out what part of the game we are up to
