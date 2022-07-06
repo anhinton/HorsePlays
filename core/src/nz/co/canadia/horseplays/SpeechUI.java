@@ -132,7 +132,7 @@ public class SpeechUI extends Table {
         int align = getAlign(character, characters);
 
         // create array of choice buttons
-        Array<TextButton> buttonArray = new Array<TextButton>();
+        Array<TextButton> buttonArray = new Array<>();
         for(int i = 0; i < choices.size; i++) {
             TextButton choiceButton = choiceButton(choices.get(i), i + 1);
             buttonArray.add(choiceButton);
@@ -207,6 +207,8 @@ public class SpeechUI extends Table {
                 if (choice.getDivert().equals(Constants.END_KNOT)) {
                         end();
                     } else {
+                        theatre.appendLog(choice);
+                        theatre.saveLog();
                         theatre.addBomb(choice.getBomb());
                         theatre.setCurrentKnot(choice.getDivert());
                         theatre.advance();

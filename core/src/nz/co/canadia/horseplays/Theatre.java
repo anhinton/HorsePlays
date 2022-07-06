@@ -45,7 +45,7 @@ public class Theatre {
     private Constants.ZoomLevel currentZoomLevel;
     private boolean animating;
     private int bombCount;
-    private String log;
+    private final Array<String> log;
 
     public Theatre(TheatreScreen theatreScreen, int uiWidth, int uiHeight,
                    FileHandle playScriptXml, boolean load) {
@@ -88,12 +88,13 @@ public class Theatre {
         curtains = new Curtains(atlas.findRegion("graphics/curtain"));
 
         animating = false;
+        log = new Array<>();
 
         if (load) {
             currentScene = Constants.CurrentScene.PERFORMING;
             playScript.setCurrentKnot(autosave.getString("currentKnot"));
             bombCount = autosave.getInteger("bombCount");
-            log = autosave.getString("log");
+            loadLog();
             curtains.setOpen();
             for(Horse horse : horses) {
                 horse.setPerforming();
@@ -104,8 +105,7 @@ public class Theatre {
             currentZoomLevel = Constants.ZoomLevel.WIDE;
             bombCount = 0;
             if (playScript.hasLine()) {
-                log = playScript.getCurrentLine().getCharacter() + ": "
-                        + playScript.getCurrentLine().getText();
+                appendLog(playScript.getCurrentLine());
             }
         }
     }
@@ -132,19 +132,16 @@ public class Theatre {
                     startShow();
                     break;
                 case OPENING:
+                case CLOSING:
                     break;
                 case PERFORMING:
                     if (!speechUI.buttonAdvanceOnly) {
                         playScript.nextLine();
                     }
-//                    if (playScript.hasLine()) {
-//                        ScriptLine line = playScript.getCurrentLine();
-//                        String logLine = line.getCharacter() + ": " + line.getText();
-//                        log += "\n" + logLine;
-//                    }
+                    if (playScript.hasLine()) {
+                        appendLog(playScript.getCurrentLine());
+                    }
                     speak();
-                    break;
-                case CLOSING:
                     break;
                 case FINISHED:
                     theatreScreen.exit();
@@ -191,6 +188,7 @@ public class Theatre {
         } else if (playScript.hasChoice()) {
             speechUI.speak(playScript.getCurrentChoices());
         } else if (playScript.hasKnot()) {
+            Gdx.app.log("Theatre.speak", "PlayScript has Knot!");
             playScript.nextKnot();
             speak();
         } else {
@@ -287,11 +285,41 @@ public class Theatre {
         autosave.flush();
     }
 
+    public void appendLog(String character, String text) {
+        log.add(character + ": " + text);
+    }
+
+    public void appendLog(ScriptChoice choice) {
+        appendLog(choice.getCharacter(), choice.getText());
+    }
+
+    public void appendLog(ScriptLine line) {
+        appendLog(line.getCharacter(), line.getText());
+    }
+
+    public void loadLog() {
+        String logString = autosave.getString("log", "");
+        String[] split = logString.split("\n");
+        for (String s: split) {
+            log.add(s);
+        }
+    }
+
+    public void saveLog() {
+        StringBuilder logString = new StringBuilder();
+        logString.append(log.removeIndex(0));
+        for (String s: log) {
+            logString.append("\n");
+            logString.append(s);
+        }
+        autosave.putString("log", logString.toString());
+        autosave.flush();
+    }
+
     public void saveProgress() {
         autosave.putString("currentPlayXml", playScript.getPlayScriptXml().toString());
         autosave.putString("currentKnot", playScript.getCurrentKnotId());
         autosave.putInteger("bombCount", bombCount);
-        autosave.putString("log", log);
         autosave.flush();
     }
 
