@@ -22,10 +22,6 @@
 -verbose
 
 -dontwarn com.badlogic.gdx.backends.android.AndroidFragmentApplication
--dontwarn com.badlogic.gdx.utils.GdxBuild
--dontwarn com.badlogic.gdx.physics.box2d.utils.Box2DBuild
--dontwarn com.badlogic.gdx.jnigen.BuildTarget*
--dontwarn com.badlogic.gdx.graphics.g2d.freetype.FreetypeBuild
 
 # Required if using Gdx-Controllers extension
 -keep class com.badlogic.gdx.controllers.android.AndroidControllers
@@ -40,3 +36,8 @@
    boolean reportFixture(long);
    float   reportRayFixture(long, float, float, float, float, float);
 }
+
+# Required for loading Skin from JSON
+-keep class com.badlogic.gdx.graphics.g2d.BitmapFont
+-keep class com.badlogic.gdx.graphics.Color
+-keep class com.badlogic.gdx.scenes.scene2d.ui.**{ *; }
