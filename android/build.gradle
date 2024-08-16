@@ -1,6 +1,6 @@
 android {
-    buildToolsVersion "33.0.0"
-    compileSdkVersion 32
+    buildToolsVersion "33.0.2"
+    compileSdkVersion 33
     sourceSets {
         main {
             manifest.srcFile 'AndroidManifest.xml'
@@ -19,7 +19,7 @@ android {
     defaultConfig {
         applicationId "nz.co.canadia.horseplays"
         minSdkVersion 14
-        targetSdkVersion 32
+        targetSdkVersion 33
         versionCode 3
         versionName "2023.03.26"
     }
